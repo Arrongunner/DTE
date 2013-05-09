@@ -116,7 +116,7 @@ var clickTimer = null;
 var skipTimer = null;
 var autowoot;
 var autoqueue;
-var Stream;
+var stream;
 var userList;
 var hideVideo;
 var COOKIE_WOOT = 'autowoot';
@@ -211,26 +211,6 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });',
-            '$("#side-left")',
-            '    .hoverIntent(function() {',
-            '        var timeout_r = $(this)',
-            '            .data("timeout_r");',
-            '        if (timeout_r) {',
-            '            clearTimeout(timeout_r);',
-            '        }',
-            '        $(this)',
-            '            .animate({',
-            '                "left": "0px"',
-            '            }, 300, "easeOutQuart");',
-            '    }, function() {',
-            '        $(this)',
-            '            .data("timeout_r", setTimeout($.proxy(function() {',
-            '            $(this)',
-            '                .animate({',
-            '                    "left": "-190px"',
-            '                }, 300, "easeOutQuart");',
-            '       }, this), 500));',
-            '    });'
 ];
 
 function initAPIListeners() {
@@ -264,7 +244,7 @@ function displayUI() {
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
-		+ 	'<a id="plug-btn-hidevideo" title="toggles userlist" style="color:' + colorUser + '">userlist</a>'
+		+ 	'<a id="plug-btn-userlist" title="toggles userlist" style="color:' + colorUser + '">userlist</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
 		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
@@ -309,7 +289,7 @@ function initUIListeners() {
 		}
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
-	$("#plug-btn-hidevideo").on("click", function() {
+	$("#plug-btn-userlist").on("click", function() {
 		userList = !userList;
 		$(this).css("color", userList ? "#3FFF00" : "#ED1C24");
 		$("#side-left").animate({"left": (userList ? "0px" : "-190px"), 300, "easeOutQuart"};
@@ -474,10 +454,10 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	setTimeout("overPlayedSongs();", 3000);
 	if (userlist) {
 		populateUserList();
 	}
+	setTimeout("overPlayedSongs();", 3000);
 }
 
 function overPlayedSongs(data) {
@@ -543,14 +523,14 @@ function populateUserlist() {
 	mehlist = ' ' + totalMEHs.toString() + ' (' + totalMEHsPercentage.toString() + '&#37;)' + mehlist;
     	wootlist = ' ' + totalWOOTs.toString() + ' (' + totalWOOTsPercentage.toString() + '&#37;)' + wootlist;
     	undecidedlist = ' ' + totalUNDECIDEDs.toString() + undecidedlist;
-	if ($('#side-left .sidebar-content').children().length > 0) {
-            	$('#side-left .sidebar-content2').append();
+	if ($('.sidebar-content').children().length > 0) {
+            	$('.sidebar-content2').append();
 	}
-        $('#side-left .sidebar-content2').html('<h3 class="users">users: ' + API.getUsers().length + '</h3>');
+        $('.sidebar-content2').html('<h3 class="users">users: ' + API.getUsers().length + '</h3>');
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
-        $('#side-left .sidebar-content2').append(waitlistDiv);
-        $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
+        $('.sidebar-content2').append(waitlistDiv);
+        $('.sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
         	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a>meh list:</a>' + mehlist + '</div>' 
         	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a>woot list:</a>' + wootlist + '</div>'
