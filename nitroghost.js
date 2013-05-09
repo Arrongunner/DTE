@@ -1,7 +1,7 @@
 delay();
 loadDammit();
 function delay() {
-  setTimeout("load();", 6000);
+	setTimeout("load();", 6000);
 }
 
 function load() {
@@ -53,12 +53,12 @@ function onCookiesLoaded() {
 	if (autoqueue && !isInQueue()) {
 		joinQueue();
 	}
-	if (userList) {
-		populateUserlist();
-	}
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
+	}
+	if (userList) {
+		populateUserlist();
 	}
     	initAPIListeners();
     	displayUI();
@@ -118,7 +118,7 @@ var autowoot;
 var autoqueue;
 var stream;
 var userList;
-var hidevideo;
+var hideVideo;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
@@ -303,7 +303,6 @@ function initUIListeners() {
             		populateUserlist();
         	}
         	jaaulde.utils.cookies.set(COOKIE_USERLIST, userList);
-    });
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
