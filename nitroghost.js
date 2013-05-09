@@ -303,7 +303,7 @@ function initUIListeners() {
 	});
 	$("#plug-btn-userlist").on("click", function() {
 		userlist = !userlist;
-        	$(this).css('color', autoqueue ? '#3FFF00' : '#ED1C24');
+        	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
         	if (userlist) {
         		showUserlist();
         	}
@@ -433,6 +433,10 @@ function joinQueue() {
 	else if (API.getWaitList().length < MAX_USERS_WAITLIST) {
         API.waitListJoin();
     	}
+}
+
+function showUserlist() {
+	$("#side-left").show().animate({ "left": "0px" }, 300, "easeOutQuart");
 }
 
 function autoRespond(data) {
