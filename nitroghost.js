@@ -479,7 +479,7 @@ function overPlayedSongs(data) {
 }
 
 function populateUserlist() {
-	$('#side-left .sidebar-content2').html(' ');
+	$('#side-left').html(' ');
 	var mehlist = '';
     	var wootlist = '';
     	var undecidedlist = '';
