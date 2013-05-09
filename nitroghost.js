@@ -39,8 +39,8 @@ function readCookies() {
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
     	stream = value != null ? value : true;
-    	value = jaaulde.utils.cookies.set(COOKIE_USERLIST);
-    	userlist = value != null ? value : false;
+    	value = jaaulde.utils.cookies.get(COOKIE_USERLIST);
+    	userList = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
 	onCookiesLoaded();
@@ -53,7 +53,7 @@ function onCookiesLoaded() {
 	if (autoqueue && !isInQueue()) {
 		joinQueue();
 	}
-	if (userlist) {
+	if (userList) {
 		populateUserlist();
 	}
 	if (hideVideo) {
@@ -117,6 +117,7 @@ var skipTimer = null;
 var autowoot;
 var autoqueue;
 var stream;
+var userList;
 var hidevideo;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
@@ -218,18 +219,18 @@ function initAPIListeners() {
   	API.addEventListener(API.CHAT, autoRespond);
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
-  		if (userlist) {
+  		if (userList) {
             		populateUserlist();
   		}
 
     	});
 	API.addEventListener(API.USER_JOIN, function (user) {
-          	if (userlist) {
+          	if (userList) {
             		populateUserlist();
   		}
     	});
     	API.addEventListener(API.USER_LEAVE, function (user) {
-            	if (userlist) {
+            	if (userList) {
             		populateUserlist();
   		}
     	});
@@ -239,7 +240,7 @@ function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
-    	var colorUser = userlist ? '#3FFF00' : '#ED1C24';
+    	var colorUser = userList ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
@@ -291,16 +292,18 @@ function initUIListeners() {
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
 	$("#plug-btn-userlist").on("click", function() {
-		userlist = !userlist;
-        	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
-        	$("#side-left").animate({"left": userlist ? "0px" : "-190px" }, 300, "easeOutQuart");
+		userList = !userList;
+        	$(this).css('color', userList ? '#3FFF00' : '#ED1C24');
+        	$('#side-left').css('visibility', userList ? 'visible' : 'hidden');
+
         	if (!userList) {
-        		$('.sidebar-content2').empty();
+            		$('#side-content2').empty();
         	} 
-			else {
+		else {
             		populateUserlist();
         	}
-        	jaaulde.utils.cookies.set(COOKIE_USERLIST, userlist);
+        	jaaulde.utils.cookies.set(COOKIE_USERLIST, userList);
+    });
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
