@@ -451,7 +451,7 @@ function populateUserlist() {
             		str += 'chat-from-bouncer ';
         	}
         	if (a[i].id === myid) {
-            		str += 'chat-from-cohost ';
+            		str += 'chat-from-you ';
         	}
         	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();" ">' + a[i].username + '</span>';
         	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
