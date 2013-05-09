@@ -228,11 +228,15 @@ function initAPIListeners() {
 }
 
 function displayUI() {
-  $('#side-right .sidebar-content').append(
-			'<a id="plug-btn-woot" title="toggles auto woot" style="color:#ED1C24">auto woot</a>'
-		+ 	'<a id="plug-btn-queue" title="toogles auto queue" style="color:#ED1C24">auto queue</a>'
-		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:#3FFF00">stream</a>'
-		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:#ED1C24">hide video</a>'
+	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
+    	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
+    	var colorStream = stream ? '#3FFF00' : '#ED1C24';
+    	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
+  	$('#side-right .sidebar-content').append(
+			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
+		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
+		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
+		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a  onclick="rules()" title="displays rules" style="color:#0000FF">rules</a>'
 		+	'<a id="plug-btn-lovesong" title="sends love song message" style="color:#FF8C00">loves this song</a>'
 		+	'<a id="plug-btn-mehsong" title="sends not fan of song message" style="color:#FF8C00">not fan of song</a>'
