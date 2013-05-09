@@ -428,10 +428,6 @@ function joinQueue() {
     	}
 }
 
-function showUserlist() {
-	$("#side-left").show().animate({ "left": "0px" }, 300, "easeOutQuart");
-}
-
 function autoRespond(data) {
 	var a = data.type == "mention" && Models.room.data.staff[data.fromID] && Models.room.data.staff[data.fromID] >= Models.user.BOUNCER, b = data.message.indexOf('@') >0;
 	if (data.type == "mention" && mentioned == false) {
@@ -460,6 +456,9 @@ function djAdvanced(obj) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
 	setTimeout("overPlayedSongs();", 3000);
+	if (userlist) {
+		populateUserList();
+	}
 }
 
 function overPlayedSongs(data) {
@@ -478,6 +477,7 @@ function overPlayedSongs(data) {
 }
 
 function populateUserlist() {
+	$('#side-left .sidebar-content2').html(' ');
 	var mehlist = '';
     	var wootlist = '';
     	var undecidedlist = '';
