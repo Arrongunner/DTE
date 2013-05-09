@@ -54,10 +54,7 @@ function onCookiesLoaded() {
 		joinQueue();
 	}
 	if (userlist) {
-		showUserlist();
-	}
-	else {
-		hideUserlist();
+		$('#side-left').animate({"left": userlist ? "0px" : "-190px"}, 300, "easeOutQuart");
 	}
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
