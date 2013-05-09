@@ -50,13 +50,14 @@ function onCookiesLoaded() {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	if (autoqueue && !isInQueue()) {
+	else if (autoqueue && !isInQueue()) {
 		joinQueue();
 	}
-	if (userlist) {
-		$('#side-left').animate({"left": userlist ? "0px" : "-190px"}, 300, "easeOutQuart");
-	}
-	if (hideVideo) {
+	else if (userlist) {
+		showUserlist();
+	} else { 
+		hideUserlist();
+	else if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
@@ -304,7 +305,12 @@ function initUIListeners() {
 	$("#plug-btn-userlist").on("click", function() {
 		userlist = !userlist;
         	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
-        	$('#side-left').animate({"left": userlist ? "0px" : "-190px"}, 300, "easeOutQuart");
+        	if (userlist) {
+        		showUserlist();
+        	}
+        	else {
+        		hideUserlist();
+        	}
         	jaaulde.utils.cookies.set(COOKIE_USERLIST, userlist);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
@@ -435,6 +441,13 @@ function joinQueue() {
 
 function showUserlist() {
 	$("#side-left").show().animate({ "left": "0px" }, 300, "easeOutQuart");
+}
+
+function hideUserlist() {
+	var sbarWidth = -$("#side-left").width()-20;
+        $("#side-left").animate({ "left": sbarWidth + "px" }, 300, "easeOutQuart", function() {
+            $("#side-left").hide();
+        });
 }
 
 function autoRespond(data) {
