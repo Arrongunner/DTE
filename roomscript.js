@@ -100,7 +100,7 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 var loaded = false;
 var mentioned = false;
 var clicked = false;
-var timeToWait = 120000;
+var timeToWait = 600000;
 var clickWait = 5000;
 var timePassed = 0;
 var clickPassed = 0;
