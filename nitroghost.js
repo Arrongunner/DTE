@@ -39,6 +39,8 @@ function readCookies() {
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
     	stream = value != null ? value : true;
+    	value = jaaulde.utils.cookies.set(COOKIE_USERLIST);
+    	userlist = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
 	onCookiesLoaded();
@@ -50,6 +52,9 @@ function onCookiesLoaded() {
 	}
 	if (autoqueue && !isInQueue()) {
 		joinQueue();
+	}
+	if (userlist) {
+		showUserlist();
 	}
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
@@ -113,6 +118,7 @@ var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
+var COOKIE_USERLIST = 'userlist';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var MAX_USERS_WAITLIST = 50;
 
@@ -244,11 +250,13 @@ function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
+    	var colorUser = userlist ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
+		+ 	'<a id="plug-btn-userlist" title="toggles video stream" style="color:' + colorUser + '">userlist</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
 		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
@@ -286,12 +294,20 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream == true) {
+		if (stream) {
 			API.sendChat("/stream on");
 		} else { 
 			API.sendChat("/stream off");
 		}
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
+	});
+	$("#plug-btn-userlist").on("click", function() {
+		userlist = !userlist;
+        	$(this).css('color', autoqueue ? '#3FFF00' : '#ED1C24');
+        	if (userlist) {
+        		showUserlist();
+        	}
+        	jaaulde.utils.cookies.set(COOKIE_USERLIST, userlist);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
