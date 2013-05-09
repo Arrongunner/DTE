@@ -54,11 +54,7 @@ function onCookiesLoaded() {
 		joinQueue();
 	}
 	if (userlist) {
-		showUserlist();
-	}
-	else if (userlist) { 
 		populateUserlist();
-		hideUserlist();
 	}
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
@@ -224,20 +220,17 @@ function initAPIListeners() {
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
   		if (userlist) {
             		populateUserlist();
-            		showUserlist();
   		}
 
     	});
 	API.addEventListener(API.USER_JOIN, function (user) {
           	if (userlist) {
             		populateUserlist();
-            		showUserlist();
   		}
     	});
     	API.addEventListener(API.USER_LEAVE, function (user) {
             	if (userlist) {
             		populateUserlist();
-            		showUserlist();
   		}
     	});
 }
@@ -300,12 +293,12 @@ function initUIListeners() {
 	$("#plug-btn-userlist").on("click", function() {
 		userlist = !userlist;
         	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
-        	if (userlist) {
+        	$("#side-left").animate({"left": userlist ? "0px" : "-190px" }, 300, "easeOutQuart");
+        	if (!userList) {
+        		$('.sidebar-content2').empty();
+        	} 
+			else {
             		populateUserlist();
-            		showUserlist();
-  		}
-        	else {
-        		hideUserlist();
         	}
         	jaaulde.utils.cookies.set(COOKIE_USERLIST, userlist);
 	});
@@ -437,13 +430,6 @@ function joinQueue() {
 
 function showUserlist() {
 	$("#side-left").show().animate({ "left": "0px" }, 300, "easeOutQuart");
-}
-
-function hideUserlist() {
-	var sbarWidth = -$("#side-left").width()-20;
-        $("#side-left").animate({ "left": sbarWidth + "px" }, 300, "easeOutQuart", function() {
-            $("#side-left").hide();
-        });
 }
 
 function autoRespond(data) {
