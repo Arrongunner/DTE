@@ -294,10 +294,10 @@ function initUIListeners() {
 	$("#plug-btn-userlist").on("click", function() {
 		userList = !userList;
         	$(this).css('color', userList ? '#3FFF00' : '#ED1C24');
-        	$('#side-left').css('visibility', userList ? 'visible' : 'hidden');
+        	$('.sidebar#side-left').css('visibility', userList ? 'visible' : 'hidden');
 
         	if (!userList) {
-            		$('#side-left').empty();
+            		$('.sidebar#side-left').empty();
         	} 
 		else {
             		populateUserlist();
@@ -479,7 +479,7 @@ function overPlayedSongs(data) {
 }
 
 function populateUserlist() {
-	$('#side-left').html(' ');
+	$('.sidebar#side-left').html(' ');
 	var mehlist = '';
     	var wootlist = '';
     	var undecidedlist = '';
@@ -574,7 +574,7 @@ function checkSkipped() {
 	}
 }
 
-$('#side-left').remove();
+$('.sidebar#side-left').remove();
 $('#plugbot-css').remove();
 $('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
