@@ -57,6 +57,7 @@ function onCookiesLoaded() {
 		showUserlist();
 	}
 	else if (userlist) { 
+		populateUserlist();
 		hideUserlist();
 	}
 	if (hideVideo) {
@@ -66,7 +67,6 @@ function onCookiesLoaded() {
     	initAPIListeners();
     	displayUI();
     	initUIListeners();
-    	populateUserlist();
 }
 
 var words = {
@@ -118,6 +118,10 @@ var skipPassed = 0;
 var timer = null;
 var clickTimer = null;
 var skipTimer = null;
+var autowoot;
+var autoqueue;
+var stream;
+var hidevideo;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
@@ -218,14 +222,23 @@ function initAPIListeners() {
   	API.addEventListener(API.CHAT, autoRespond);
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
-            	populateUserlist();
+  		if (userlist) {
+            		populateUserlist();
+            		showUserlist();
+  		}
 
     	});
 	API.addEventListener(API.USER_JOIN, function (user) {
-          	populateUserlist();
+          	if (userlist) {
+            		populateUserlist();
+            		showUserlist();
+  		}
     	});
     	API.addEventListener(API.USER_LEAVE, function (user) {
-            	populateUserlist();
+            	if (userlist) {
+            		populateUserlist();
+            		showUserlist();
+  		}
     	});
 }
 
@@ -288,8 +301,9 @@ function initUIListeners() {
 		userlist = !userlist;
         	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
         	if (userlist) {
-        		showUserlist();
-        	}
+            		populateUserlist();
+            		showUserlist();
+  		}
         	else {
         		hideUserlist();
         	}
