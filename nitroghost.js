@@ -572,6 +572,7 @@ function checkSkipped() {
 	}
 }
 
+$('.sidebar-content2').remove();
 $('#plugbot-css').remove();
 $('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
