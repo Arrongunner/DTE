@@ -131,7 +131,7 @@ var styles = [
             '.sidebar-handle {width: 12px;height: 100%;z-index: 99999;margin: 0;padding: 0;background: rgb(96, 141, 197);box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .9);cursor: "ne-resize";}',
             '.sidebar-handle span {display: block;position: absolute;width: 10px;top: 50%;text-align: center;letter-spacing: -1px;color: #000;}',
             '.sidebar-content {position: absolute;width: 185px;height: 100%; padding-left: 15px}',
-            '.sidebar-content2 {position: absolute;width: 185px;height: 100%;}',
+            '.sidebar-content2 {position: absolute;width: 185px;height: 100%; overflow: auto}',
             '.sidebar-content2 h3 {font-weight: bold; padding-left: 5px; padding-bottom: 5px; margin: 0;}',
             '.sidebar-content2 a {font-weight: bold; font-size: 13px; padding-left: 5px;}',
             '#side-right .sidebar-handle {float: left;}',
@@ -164,6 +164,10 @@ var styles = [
             '#hr-style {position: absolute;display: block;height: 20px;width: 100%;bottom: 0%;background-image: url("http://i.imgur.com/gExgamX.png");}',
             '#hr2-style2 {position: absolute;display: block;height: 20px;width: 94%%;bottom: 0%;background-image: url("http://i.imgur.com/gExgamX.png");}',
             '#side-left h3 {padding-left: 5px}',
+            '::-webkit-scrollbar {width: 6px;}',
+            '::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 6px;border-radius: 6px;}',
+            '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 6px;background: rgba(232,37,236,0.8); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);}',
+            '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
 ];
 
 var scripts = [
