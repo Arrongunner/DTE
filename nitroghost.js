@@ -39,8 +39,6 @@ function readCookies() {
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
     	stream = value != null ? value : true;
-    	value = jaaulde.utils.cookies.set(COOKIE_USERLIST);
-    	userList = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
 	onCookiesLoaded();
@@ -57,12 +55,10 @@ function onCookiesLoaded() {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
-	if (userList) {
-		populateUserList();
-	}
     	initAPIListeners();
     	displayUI();
     	initUIListeners();
+    	populateUserlist();
 }
 
 var words = {
@@ -114,11 +110,6 @@ var skipPassed = 0;
 var timer = null;
 var clickTimer = null;
 var skipTimer = null;
-var autowoot;
-var autoqueue;
-var stream;
-var userList;
-var hideVideo;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
@@ -145,7 +136,7 @@ overPlayed = ["1:vZyenjZseXA", "1:ZT4yoZNy90s", "1:Bparw9Jo3dk", "1:KrVC5dm5fFc"
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 200px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
             '.sidebar#side-right {right: -190px;z-index: 99999;}',
-            '.sidebar#side-left {left: 0px; z-index: 99999; }',
+            '.sidebar#side-left {left: -190px; z-index: 99999; }',
             '.sidebar-handle {width: 12px;height: 100%;z-index: 99999;margin: 0;padding: 0;background: rgb(96, 141, 197);box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .9);cursor: "ne-resize";}',
             '.sidebar-handle span {display: block;position: absolute;width: 10px;top: 50%;text-align: center;letter-spacing: -1px;color: #000;}',
             '.sidebar-content {position: absolute;width: 185px;height: 100%; padding-left: 15px}',
@@ -182,10 +173,10 @@ var styles = [
             '#hr-style {position: absolute;display: block;height: 20px;width: 100%;bottom: 0%;background-image: url("http://i.imgur.com/gExgamX.png");}',
             '#hr2-style2 {position: absolute;display: block;height: 20px;width: 94%%;bottom: 0%;background-image: url("http://i.imgur.com/gExgamX.png");}',
             '#side-left h3 {padding-left: 5px}',
-            '::-webkit-scrollbar {width: 6px;}',
-            '::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 6px;border-radius: 6px;}',
-            '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 6px;background: rgba(232,37,236,0.8); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);}',
-            '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
+            '::-webkit-scrollbar {width: 5px;}',
+            '::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 2px;border-radius: 2px;}',
+            '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 10px;background: rgba(72,116,236,0.8); -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);}',
+            '::-webkit-scrollbar-thumb:window-inactive {background: rgba(72,116,236,0.4);}',
 ];
 
 var scripts = [
@@ -211,6 +202,26 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });',
+            '$("#side-left")',
+            '    .hoverIntent(function() {',
+            '        var timeout_r = $(this)',
+            '            .data("timeout_r");',
+            '        if (timeout_r) {',
+            '            clearTimeout(timeout_r);',
+            '        }',
+            '        $(this)',
+            '            .animate({',
+            '                "left": "0px"',
+            '            }, 300, "easeOutQuart");',
+            '    }, function() {',
+            '        $(this)',
+            '            .data("timeout_r", setTimeout($.proxy(function() {',
+            '            $(this)',
+            '                .animate({',
+            '                    "left": "-190px"',
+            '                }, 300, "easeOutQuart");',
+            '       }, this), 500));',
+            '    });'
 ];
 
 function initAPIListeners() {
@@ -218,19 +229,14 @@ function initAPIListeners() {
   	API.addEventListener(API.CHAT, autoRespond);
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
-  		if (userList) {
-            		populateUserlist();
-  		}
+            	populateUserlist();
+
     	});
 	API.addEventListener(API.USER_JOIN, function (user) {
-          	if (userList) {
-            		populateUserlist();
-  		}
+          	populateUserlist();
     	});
     	API.addEventListener(API.USER_LEAVE, function (user) {
-            	if (userList) {
-            		populateUserlist();
-  		}
+            	populateUserlist();
     	});
 }
 
@@ -238,13 +244,11 @@ function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
-    	var colorUser = userList ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
-		+ 	'<a id="plug-btn-userlist" title="toggles userlist" style="color:' + colorUser + '">userlist</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
 		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
@@ -288,18 +292,6 @@ function initUIListeners() {
 			API.sendChat("/stream off");
 		}
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
-	});
-	$("#plug-btn-userlist").on("click", function() {
-		userList = !userList;
-		$(this).css("color", userList ? "#3FFF00" : "#ED1C24");
-		$("#side-left").animate({"left": (userList ? "0px" : "-190px"), 300, "easeOutQuart"};
-		if (!userlist) {
-			$(".sidebar-content2").empty
-		}
-		else {
-			populateUserList();
-		}
-		jaaulde.utils.cookies.set(COOKIE_USERLIST, userList);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
@@ -454,9 +446,6 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	if (userlist) {
-		populateUserList();
-	}
 	setTimeout("overPlayedSongs();", 3000);
 }
 
@@ -523,14 +512,14 @@ function populateUserlist() {
 	mehlist = ' ' + totalMEHs.toString() + ' (' + totalMEHsPercentage.toString() + '&#37;)' + mehlist;
     	wootlist = ' ' + totalWOOTs.toString() + ' (' + totalWOOTsPercentage.toString() + '&#37;)' + wootlist;
     	undecidedlist = ' ' + totalUNDECIDEDs.toString() + undecidedlist;
-	if ($('.sidebar-content').children().length > 0) {
-            	$('.sidebar-content2').append();
+	if ($('#side-left .sidebar-content').children().length > 0) {
+            	$('#side-left .sidebar-content2').append();
 	}
-        $('.sidebar-content2').html('<h3 class="users">users: ' + API.getUsers().length + '</h3>');
+        $('#side-left .sidebar-content2').html('<h3 class="users">users: ' + API.getUsers().length + '</h3>');
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
-        $('.sidebar-content2').append(waitlistDiv);
-        $('.sidebar-content2').append('<div class="meanlist"></div>');
+        $('#side-left .sidebar-content2').append(waitlistDiv);
+        $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
         	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a>meh list:</a>' + mehlist + '</div>' 
         	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a>woot list:</a>' + wootlist + '</div>'
