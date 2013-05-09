@@ -56,6 +56,9 @@ function onCookiesLoaded() {
 	if (userlist) {
 		showUserlist();
 	}
+	else {
+		hideUserlist();
+	}
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
@@ -304,9 +307,7 @@ function initUIListeners() {
 	$("#plug-btn-userlist").on("click", function() {
 		userlist = !userlist;
         	$(this).css('color', userlist ? '#3FFF00' : '#ED1C24');
-        	if (userlist) {
-        		showUserlist();
-        	}
+        	$('#side-left').animate({"left": userlist ? "0px" : "-190px"}, 300, "easeOutQuart");
         	jaaulde.utils.cookies.set(COOKIE_USERLIST, userlist);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
