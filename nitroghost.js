@@ -50,14 +50,16 @@ function onCookiesLoaded() {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	else if (autoqueue && !isInQueue()) {
+	if (autoqueue && !isInQueue()) {
 		joinQueue();
 	}
-	else if (userlist) {
+	if (userlist) {
 		showUserlist();
-	} else { 
+	}
+	else if (userlist) { 
 		hideUserlist();
-	else if (hideVideo) {
+	}
+	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
