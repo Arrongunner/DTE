@@ -208,6 +208,7 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });',
+            'if (userlist == false) {',
             '$("#side-left")',
             '    .hoverIntent(function() {',
             '        var timeout_r = $(this)',
@@ -228,6 +229,7 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });'
+            '}',
 ];
 
 function initAPIListeners() {
