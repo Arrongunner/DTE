@@ -424,7 +424,7 @@ function populateUserlist() {
         	if (a[i].id === myid) {
             		str += 'chat-from-you ';
         	}
-        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();' + ((API.getDJs()[0].username == username) ? 'font-size:15px;font-weight:bold;' : '') + '>' + a[i].username + '</span>';
+        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();" ">' + a[i].username + '</span>';
         	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
             		totalMEHs++;
             		mehlist += str; 
