@@ -40,7 +40,7 @@ function readCookies() {
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
     	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.set(COOKIE_USERLIST);
-    	userlist = value != null ? value : false;
+    	userlist = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
 	onCookiesLoaded();
