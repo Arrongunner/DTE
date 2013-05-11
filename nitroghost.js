@@ -41,7 +41,8 @@ function readCookies() {
     	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
-    	//var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
+    	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
+    	left = value != null ? value : true;
 	onCookiesLoaded();
 }
 
@@ -55,6 +56,9 @@ function onCookiesLoaded() {
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
+	}
+	if (left) {
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
 	}
     	initAPIListeners();
     	displayUI();
@@ -115,7 +119,7 @@ var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
-left = true;
+var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
@@ -252,6 +256,7 @@ function initUIListeners() {
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
+		jaaulde.utils.cookies.set(COOKIE_LEFT, left);
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
