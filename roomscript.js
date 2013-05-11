@@ -41,6 +41,8 @@ function readCookies() {
     	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
+    	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
+    	left = value != null ? value : false;
 	onCookiesLoaded();
 }
 
@@ -54,6 +56,9 @@ function onCookiesLoaded() {
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
+	}
+	if (left) {
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
 	}
     	initAPIListeners();
     	displayUI();
@@ -100,16 +105,21 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 var loaded = false;
 var mentioned = false;
 var clicked = false;
+var skipped = false;
 var timeToWait = 600000;
 var clickWait = 5000;
+var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
+var skipPassed = 0;
 var timer = null;
 var clickTimer = null;
+var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
+var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
 var loveMsg = ["I love this song! makes me want to jizz in my pants", "this... song... is... AWESOME!!", "this song is a BEAST!", "me likes this song me does"];
@@ -193,26 +203,6 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });',
-            '$("#side-left")',
-            '    .hoverIntent(function() {',
-            '        var timeout_r = $(this)',
-            '            .data("timeout_r");',
-            '        if (timeout_r) {',
-            '            clearTimeout(timeout_r);',
-            '        }',
-            '        $(this)',
-            '            .animate({',
-            '                "left": "0px"',
-            '            }, 300, "easeOutQuart");',
-            '    }, function() {',
-            '        $(this)',
-            '            .data("timeout_r", setTimeout($.proxy(function() {',
-            '            $(this)',
-            '                .animate({',
-            '                    "left": "-190px"',
-            '                }, 300, "easeOutQuart");',
-            '       }, this), 500));',
-            '    });'
 ];
 
 function initAPIListeners() {
@@ -253,6 +243,11 @@ function displayUI() {
 }
 
 function initUIListeners() {
+	$(".sidebar-handle").on("click", function() {
+		left = !left;
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
+		jaaulde.utils.cookies.set(COOKIE_LEFT, left);
+	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
 		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
