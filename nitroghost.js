@@ -41,7 +41,7 @@ function readCookies() {
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
-    	stream = value != null ? value : false;
+    	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
@@ -65,6 +65,7 @@ function onCookiesLoaded() {
 	}
 	if (stream) {
 		$("plug-btn-stream").css("color", stream ? "#3FFF00" : "#ED1C24");
+		API.sendChat("/stream " stream ? "on" : "off"); 
 	}
     	initAPIListeners();
     	displayUI();
@@ -283,7 +284,7 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		API.sendChat(stream ? "/stream on" : "/stream off");
+		API.sendChat("/stream " stream ? "on" : "off"); 
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
