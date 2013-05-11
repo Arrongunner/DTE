@@ -40,8 +40,6 @@ function readCookies() {
     	autowoot = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
-    	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
-    	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
@@ -62,9 +60,6 @@ function onCookiesLoaded() {
 	}
 	if (left) {
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
-	}
-	if (stream) {
-		API.sendChat(stream ? "/stream on" : "/stream off");
 	}
     	initAPIListeners();
     	displayUI();
@@ -123,7 +118,6 @@ var clickTimer = null;
 var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
-var COOKIE_STREAM = 'stream';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
