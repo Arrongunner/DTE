@@ -136,7 +136,7 @@ overPlayed = ["1:vZyenjZseXA", "1:ZT4yoZNy90s", "1:Bparw9Jo3dk", "1:KrVC5dm5fFc"
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 200px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
             '.sidebar#side-right {right: -190px;z-index: 99999;}',
-            '.sidebar#side-left {left: -190px; z-index: 99999; }',
+            '.sidebar#side-left {left: 0px; z-index: 99999; }',
             '.sidebar-handle {width: 12px;height: 100%;z-index: 99999;margin: 0;padding: 0;background: rgb(96, 141, 197);box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .9);cursor: "ne-resize";}',
             '.sidebar-handle span {display: block;position: absolute;width: 10px;top: 50%;text-align: center;letter-spacing: -1px;color: #000;}',
             '.sidebar-content {position: absolute;width: 185px;height: 100%; padding-left: 15px}',
@@ -249,6 +249,9 @@ function displayUI() {
 function initUIListeners() {
 	$(".sidebar#side-left").on("click", function() {
 		$(this).animate({"left": "0px"}, {duration: "fast"});
+		else {
+			$(this).animate({"left": "-190px"}, {duration: "fast"});
+		}
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
