@@ -248,7 +248,7 @@ function displayUI() {
 }
 
 function initUIListeners() {
-	$(".sidebar").on("click", function() {
+	$(".sidebar-handle").on("click", function() {
 		left = !left;
 		$(this).animate({"left": left ? "-190px" : "0px"}, {duration: "fast"});
 	});
