@@ -247,7 +247,7 @@ function displayUI() {
 }
 
 function initUIListeners() {
-	$("#left").on("click", function() {
+	$(".sidebar#side-left").on("click", function() {
 		$(this).animate({"left": "0px"}, {duration: "medium"});
 	});
 	$("#plug-btn-woot").on("click", function() {
