@@ -288,7 +288,7 @@ function initUIListeners() {
 	$("#plug-btn-userlist").on("click", function() {
 		userList = !userList;
 		$(this).css("color", userList ? "#3FFF00" : "#ED1C24");
-		$(".sidebar#side-left").animate({"left": (userList ? "-190px" : "px"), 300, "easeOutQuart"});
+		$(".sidebar#side-left").animate({"left": (userList ? "-190px" : "px")}, 300, "easeOutQuart");
 		if (!userList) {
             		$(".sidebar#side-left").empty();
         	} 
