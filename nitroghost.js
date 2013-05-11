@@ -41,7 +41,7 @@ function readCookies() {
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
-    	stream = value != null ? value : true;
+    	stream = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
