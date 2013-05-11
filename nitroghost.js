@@ -295,6 +295,7 @@ function initUIListeners() {
 			else {
             			populateUserlist();
         	}
+        	jaaulde.utils.cookies.set(COOKIE_USERLIST, userList);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
