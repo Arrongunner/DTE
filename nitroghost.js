@@ -251,7 +251,7 @@ function displayUI() {
 function initUIListeners() {
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
-		$(".sidebar#side-left").animate({"left": left ? "-190px" : "0px"}, {duration: "fast"});
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
