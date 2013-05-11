@@ -1,5 +1,6 @@
 delay();
 loadDammit();
+
 function delay() {
   setTimeout("load();", 6000);
 }
@@ -21,11 +22,13 @@ function load() {
 function loaded() {
 	loaded = true
 }
+
 function loadDammit() {
 	if (loaded == true) {
 		readCookies();
 	}
 }
+
 function readCookies() {
 	var currentDate = new Date();
 	currentDate.setFullYear(currentDate.getFullYear() + 1);
