@@ -249,6 +249,7 @@ function displayUI() {
 function initUIListeners() {
 	$("#left").on("click", function() {
 		$(this).animate({"left": "0px"}, {duration: "medium"});
+	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
 		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
