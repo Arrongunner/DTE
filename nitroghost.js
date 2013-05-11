@@ -42,7 +42,7 @@ function readCookies() {
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
-    	left = value != null ? value : true;
+    	left = value != null ? value : false;
 	onCookiesLoaded();
 }
 
