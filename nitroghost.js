@@ -119,6 +119,7 @@ var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
+var stream = true;
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
