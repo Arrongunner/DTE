@@ -295,6 +295,7 @@ function initUIListeners() {
 			else {
             			populateUserlist();
         	}
+	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
 		$(this).css("color", hideVideo ? "#3FFF00" : "#ED1C24");
