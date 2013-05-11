@@ -283,8 +283,7 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream) {
-			API.sendChat(stream ? "/stream on" : "/stream off");
+		API.sendChat(stream ? "/stream on" : "/stream off");
 		}
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
