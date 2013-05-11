@@ -63,6 +63,9 @@ function onCookiesLoaded() {
 	if (left) {
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
 	}
+	if (stream) {
+		$("plug-btn-stream").css("color", stream ? "#3FFF00" : "#ED1C24");
+	}
     	initAPIListeners();
     	displayUI();
     	initUIListeners();
