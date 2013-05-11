@@ -39,10 +39,10 @@ function readCookies() {
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
     	stream = value != null ? value : true;
+    	vaule = jaaulde.utils.cookies.get(COOKIE_USERLIST);
+    	userList = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
-    	vaule = jaaulde.utils.cookies.get(COOKIE_USERLIST);
-    	userList = value != null ? value : false;
 	onCookiesLoaded();
 }
 
