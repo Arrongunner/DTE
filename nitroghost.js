@@ -42,8 +42,6 @@ function readCookies() {
     	autoqueue = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
-    	value = jaalde.utils.cookies.get(COOKIE_STREAM);
-    	stream = value != null ? value : true;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
     	left = value != null ? value : false;
 	onCookiesLoaded();
@@ -121,7 +119,7 @@ var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
-var COOKIE_STREAM = 'stream';
+var stream = true;
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
