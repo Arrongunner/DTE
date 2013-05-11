@@ -248,8 +248,8 @@ function displayUI() {
 
 function initUIListeners() {
 	$(".sidebar#side-left").on("click", function() {
-		$(this).animate({"left": "0px"}, {duration: "fast"});
 		$(this).animate({"left": "-190px"}, {duration: "fast"});
+		$(this).animate({"left": "0px"}, {duration: "fast"});
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
