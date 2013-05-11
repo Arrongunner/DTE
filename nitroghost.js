@@ -114,6 +114,7 @@ var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAM = 'stream';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
+left = true;
 var MAX_USERS_WAITLIST = 50;
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
