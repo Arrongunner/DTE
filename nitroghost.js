@@ -202,7 +202,6 @@ var scripts = [
             '                }, 300, "easeOutQuart");',
             '       }, this), 500));',
             '    });',
-            '$("#side-left").on("click", function() {$(this).animate({"left": "0px"}, 300, "easeOutQuart")}, function() {$(this).animate({"left": "-190px"}, 300 "easeOutQuart")});',
 ];
 
 function initAPIListeners() {
