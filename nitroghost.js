@@ -283,7 +283,7 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream == true) {
+		if (stream) {
 			API.sendChat("/stream on");
 		} else { 
 			API.sendChat("/stream off");
