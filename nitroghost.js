@@ -284,7 +284,6 @@ function initUIListeners() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
 		API.sendChat(stream ? "/stream on" : "/stream off");
-		}
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
