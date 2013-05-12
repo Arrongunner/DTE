@@ -434,32 +434,33 @@ function populateUserlist() {
 	var mehlist = '';
     	var wootlist = '';
     	var undecidedlist = '';
-	var user = API.getUsers();
+	var a = API.getUsers();
     	var totalMEHs = 0;
     	var totalWOOTs = 0;
     	var totalUNDECIDEDs = 0;
     	var str = '';
+	var users = API.getUsers();
 	var myid = API.getSelf().id;
-	for (i in user) {
+	for (i in a) {
         	str = '<span class="chat-from-clickable ';
-        	if (typeof (user[i].admin) !== 'undefined' && user[i].admin == true) {
+        	if (typeof (a[i].admin) !== 'undefined' && a[i].admin == true) {
             		str += 'chat-from-admin ';
-        	} else if (typeof (user[i].ambassador) !== 'undefined' && user[i].ambassador == true) {
+        	} else if (typeof (a[i].ambassador) !== 'undefined' && a[i].ambassador == true) {
             		str += 'chat-from-ambassador ';
         	}
-        	if (typeof (user[i].owner) !== 'undefined' && a[i].owner != false) {
+        	if (typeof (a[i].owner) !== 'undefined' && a[i].owner != false) {
             		str += 'chat-from-host ';
-        	}else if (typeof (user[i].BOUNCER) !== 'undefined' && user[i].bouncer == true ) {
+        	}else if (typeof (a[i].BOUNCER) !== 'undefined' && a[i].bouncer == true ) {
             		str += 'chat-from-bouncer ';
         	}
-        	if (user[i].id === myid) {
+        	if (a[i].id === myid) {
             		str += 'chat-from-you ';
         	}
-        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + user[i].username + ' \').focus();" ">' + user[i].username + '</span>';
-        	if (typeof (user[i].vote) !== 'undefined' && user[i].vote == -1) {
+        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();" ">' + a[i].username + '</span>';
+        	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
             		totalMEHs++;
             		mehlist += str; 
-        	} else if (typeof (user[i].vote) !== 'undefined' && user[i].vote == +1) {
+        	} else if (typeof (a[i].vote) !== 'undefined' && a[i].vote == +1) {
             		totalWOOTs++;
             		wootlist += str; 
         	} else {
