@@ -442,18 +442,15 @@ function populateUserlist() {
 	var users = API.getUsers();
 	var myid = API.getSelf().id;
 	for (i in a) {
-		var a.permission = permission
-		if a[i].admin {permission = 99;}
-		if a[i].ambassador {permission = 50;}
         	str = '<span class="chat-from-clickable ';
-        	if (typeof (permission) !== 'undefined' && permission == 99) {
+        	if (typeof (a[i].admin) !== 'undefined' && a[i].admin == true) {
             		str += 'chat-from-admin ';
-        	} else if (typeof (permission) !== 'undefined' && permisson == 50) {
+        	} else if (typeof (a[i].ambassador) !== 'undefined' && a[i].ambassador == true) {
             		str += 'chat-from-ambassador ';
         	}
-        	if (typeof (permission) !== 'undefined' && permission == 5) {
+        	if (typeof (a[i].owner) !== 'undefined' && a[i].owner != false) {
             		str += 'chat-from-host ';
-        	}else if (typeof (permission) !== 'undefined' && permission == 3) {
+        	}else if (typeof (a[i].BOUNCER) !== 'undefined' && a[i].bouncer == true ) {
             		str += 'chat-from-bouncer ';
         	}
         	if (a[i].id === myid) {
