@@ -142,7 +142,7 @@ var styles = [
             '.sidebar#side-right {right: -190px;z-index: 99999;}',
             '.sidebar#side-left {left: -190px; z-index: 99999; }',
             '.sidebar-handle {width: 12px;height: 100%;z-index: 99999;margin: 0;padding: 0;background: rgb(96, 141, 197);box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .9);cursor: "ne-resize";}',
-            '.sidebar-handle span {display: block;position: absolute;width: 10px;top: 50%;text-align: center;letter-spacing: -1px;color: #000;}',
+            '.sidebar-handle span {display: block;position: absolute;width: 12px;top: 50%; backround-image: url("http://i.imgur.com/5wL90Sf.png"}',
             '.sidebar-content {position: absolute;width: 185px;height: 100%; padding-left: 15px}',
             '.sidebar-content2 {position: absolute;width: 185px;height: 100%; overflow: auto}',
             '.sidebar-content2 h3 {font-weight: bold; padding-left: 5px; padding-bottom: 5px; margin: 0;}',
@@ -550,11 +550,11 @@ $('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' +
-'    <div class="sidebar-handle"><span>|||</span></div>' +
+'    <div class="sidebar-handle"><span></span></div>' +
 '    <div class="sidebar-content"></div>' +
 '    <div id="hr-div"><div><div id="hr-style"></div></div></div>' +
 '</div><div id="side-left" class="sidebar">' +
-'    <div class="sidebar-handle"><span>|||</span></div>' +
+'    <div class="sidebar-handle"><span></span></div>' +
 '    <div class="sidebar-content2"></div>' +
 '    <div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' +
 '</div>');
