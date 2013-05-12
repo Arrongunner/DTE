@@ -550,11 +550,11 @@ $('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' +
-'    <div class="sidebar-handle"><span>|||</span></div>' +
+'    <div class="sidebar-handle" title="show/hide buttons"><span>|||</span></div>' +
 '    <div class="sidebar-content"></div>' +
 '    <div id="hr-div"><div><div id="hr-style"></div></div></div>' +
 '</div><div id="side-left" class="sidebar">' +
-'    <div class="sidebar-handle"><span>|||</span></div>' +
+'    <div class="sidebar-handle title"show/hide userlist"><span>|||</span></div>' +
 '    <div class="sidebar-content2"></div>' +
 '    <div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' +
 '</div>');
