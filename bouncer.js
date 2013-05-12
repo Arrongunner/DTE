@@ -3,7 +3,7 @@ function delay() {
 }
 
 function load() {
-  var head = document.getElementsByTagName('head')[0];
+	var head = document.getElementsByTagName('head')[0];
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'http://cookies.googlecode.com/svn/trunk/jaaulde.cookies.js';
@@ -37,10 +37,10 @@ function readCookies() {
     	autowoot = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
-    	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
-    	stream = value != null ? value : true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
+    	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
+    	left = value != null ? value : false;
 	onCookiesLoaded();
 }
 
@@ -54,6 +54,9 @@ function onCookiesLoaded() {
 	if (hideVideo) {
 		$('#yt-frame').animate({'height': (hideVideo ? '0px' : '271px')}, {duration: 'fast'});
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
+	}
+	if (left) {
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
 	}
     	initAPIListeners();
     	displayUI();
@@ -112,8 +115,8 @@ var clickTimer = null;
 var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
-var COOKIE_STREAM = 'stream';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
+var stream = true;
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
@@ -220,7 +223,7 @@ function displayUI() {
 		+	'<a id="plug-btn-afk" title="sends afk message and sets status to afk" style="color:#FF8C00">afk</a>'
 		+	'<a id="plug-btn-back" title="sends available message and sets status to available" style="color:#FF8C00">available</a>'
 		+	'<a id="plug-btn-skip" title="skips current DJ" style="color:#E90E82">skip</a>'
-    );
+	);
 }
 
 function initUIListeners() {
@@ -248,11 +251,7 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream == true) {
-			API.sendChat("/stream on");
-		} else { 
-			API.sendChat("/stream off");
-		}
+		API.sendChat(stream ? "/stream on" : "/stream off");
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
@@ -343,9 +342,6 @@ function initUIListeners() {
 			skipTimer = setInterval("checkSkipped();", 500);
 			new ModerationForceSkipService;
 		}
-	});
-	$("#plug-btn-lock").on("click", function() {
-		new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);
 	});
 }
 
