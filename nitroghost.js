@@ -448,9 +448,9 @@ function populateUserlist() {
         	} else if (typeof (a[i].ambassador) !== 'undefined' && a[i].ambassador == true) {
             		str += 'chat-from-ambassador ';
         	}
-        	if (typeof (a[i].owner) !== 'undefined' && a[i].owner != false) {
+        	if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 5) {
             		str += 'chat-from-host ';
-        	}else if (typeof (a[i].BOUNCER) !== 'undefined' && a[i].bouncer == true ) {
+        	}else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 2) {
             		str += 'chat-from-bouncer ';
         	}
         	if (a[i].id === myid) {
