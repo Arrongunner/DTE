@@ -431,7 +431,7 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	setTimeout("overPlayedSongs();", 4000);
+	setTimeout("overPlayedSongs();", 5000);
 }
 
 function overPlayedSongs(data) {
