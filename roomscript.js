@@ -384,16 +384,32 @@ function populateUserlist() {
 	var users = API.getUsers();
 	var myid = API.getSelf().id;
 	for (i in a) {
+		if (a[i].admin) {
+			a[i].permission = 99;
+		}
+		if (a[i].ambassador) {
+			a[i].permission = 50;
+		}
         	str = '<span class="chat-from-clickable ';
-        	if (typeof (a[i].admin) !== 'undefined' && a[i].admin == true) {
+        	if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 99) {
             		str += 'chat-from-admin ';
-        	} else if (typeof (a[i].ambassador) !== 'undefined' && a[i].ambassador == true) {
+        	} else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 50) {
             		str += 'chat-from-ambassador ';
         	}
-        	if (typeof (a[i].owner) !== 'undefined' && a[i].owner != false) {
+        	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 5) {
             		str += 'chat-from-host ';
-        	}else if (typeof (a[i].BOUNCER) !== 'undefined' && a[i].bouncer == true ) {
+        	}
+        	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 4) {
+            		str += 'chat-from-cohost ';
+        	}
+        	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 3) {
+            		str += 'chat-from-manager ';
+        	}
+        	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 2) {
             		str += 'chat-from-bouncer ';
+        	}
+        	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 1) {
+            		str += 'chat-from-featureddj ';
         	}
         	if (a[i].id === myid) {
             		str += 'chat-from-you ';
