@@ -433,51 +433,51 @@ function overPlayedSongs(data) {
 function populateUserlist() {
 	var mehlist = '';
     	var wootlist = '';
-    	var nonvotelist = '';
-	var user = API.getUsers();
-    	var tMEHs = 0;
-    	var tWOOTs = 0;
-    	var tNONVOTEs = 0;
+    	var undecidedlist = '';
+	var a = API.getUsers();
+    	var totalMEHs = 0;
+    	var totalWOOTs = 0;
+    	var totalUNDECIDEDs = 0;
     	var str = '';
 	var users = API.getUsers();
 	var myid = API.getSelf().id;
 	for (i in a) {
         	str = '<span class="chat-from-clickable ';
-        	if (typeof (user[i].admin) !== 'undefined' && user[i].admin == true) {
+        	if (typeof (a[i].admin) !== 'undefined' && a[i].admin == true) {
             		str += 'chat-from-admin ';
-        	} else if (typeof (user[i].ambassador) !== 'undefined' && user[i].ambassador == true) {
+        	} else if (typeof (a[i].ambassador) !== 'undefined' && a[i].ambassador == true) {
             		str += 'chat-from-ambassador ';
         	}
-        	if (typeof (user[i].owner) !== 'undefined' && user[i].owner != false) {
+        	if (typeof (a[i].owner) !== 'undefined' && a[i].owner != false) {
             		str += 'chat-from-host ';
-        	}else if (typeof (user[i].BOUNCER) !== 'undefined' && user[i].bouncer == true ) {
+        	}else if (typeof (a[i].BOUNCER) !== 'undefined' && a[i].bouncer == true ) {
             		str += 'chat-from-bouncer ';
         	}
-        	if (user[i].id === myid) {
+        	if (a[i].id === myid) {
             		str += 'chat-from-you ';
         	}
-        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + user[i].username + ' \').focus();" ">' + user[i].username + '</span>';
-        	if (typeof (user[i].vote) !== 'undefined' && user[i].vote == -1) {
-            		tMEHs++;
+        	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();" ">' + a[i].username + '</span>';
+        	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
+            		totalMEHs++;
             		mehlist += str; 
-        	} else if (typeof (user[i].vote) !== 'undefined' && user[i].vote == +1) {
-            		tWOOTs++;
+        	} else if (typeof (a[i].vote) !== 'undefined' && a[i].vote == +1) {
+            		totalWOOTs++;
             		wootlist += str; 
         	} else {
-            		tNONVOTEs++;
-            		nonvotelist += str; 
+            		totalUNDECIDEDs++;
+            		undecidedlist += str; 
         	}
     	}
-    	var tDECIDED = tWOOTs + tMEHs;
-    	var tUSERS = tDECIDED + tNONVOTEs;
-    	var tMEHsPrcnt = Math.round((tMEHs / totalUSERS) * 100);
-    	var tWOOTsPrcnt = Math.round((tWOOTs / tUSERS) * 100);
-    	if (isNaN(tMEHsPrcnt || isNaN(tWOOTsPrcet)) {
-        	tMEHsPrcnt = tWOOTsPrcnt = 0;
+    	var totalDECIDED = totalWOOTs + totalMEHs;
+    	var totalUSERS = totalDECIDED + totalUNDECIDEDs;
+    	var totalMEHsPercentage = Math.round((totalMEHs / totalUSERS) * 100);
+    	var totalWOOTsPercentage = Math.round((totalWOOTs / totalUSERS) * 100);
+    	if (isNaN(totalMEHsPercentage) || isNaN(totalWOOTsPercentage)) {
+        	totalMEHsPercentage = totalWOOTsPercentage = 0;
     	}
-	mehlist = ' ' + tMEHs.toString() + ' (' + tMEHsPrcnt.toString() + '&#37;)' + mehlist;
-    	wootlist = ' ' + tWOOTs.toString() + ' (' + tWOOTsPrcnt.toString() + '&#37;)' + wootlist;
-    	nonvotelist = ' ' + tNONVOTEs.toString() + nonvotelist;
+	mehlist = ' ' + totalMEHs.toString() + ' (' + totalMEHsPercentage.toString() + '&#37;)' + mehlist;
+    	wootlist = ' ' + totalWOOTs.toString() + ' (' + totalWOOTsPercentage.toString() + '&#37;)' + wootlist;
+    	undecidedlist = ' ' + totalUNDECIDEDs.toString() + undecidedlist;
 	if ($('#side-left .sidebar-content').children().length > 0) {
             	$('#side-left .sidebar-content2').append();
 	}
