@@ -546,7 +546,7 @@ function checkSkipped() {
 
 delay();
 loadDammit();
-$("plugbot-js").remove();
+$('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' +
