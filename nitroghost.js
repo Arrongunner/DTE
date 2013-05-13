@@ -491,7 +491,7 @@ function populateUserlist() {
     	if (isNaN(totalMEHsPercentage) || isNaN(totalWOOTsPercentage)) {
         	totalMEHsPercentage = totalWOOTsPercentage = 0;
     	}
-	mehlist = ' ' + totalMEHs.toString() + ' (' + totalMEHsPercentage.toString() + '&#37;)' + mehlist;
+	mehlist = '<a title="total mehs">' + ' ' + totalMEHs.toString() +'</a>' + ' (' + totalMEHsPercentage.toString() + '&#37;)' + mehlist;
     	wootlist = ' ' + totalWOOTs.toString() + ' (' + totalWOOTsPercentage.toString() + '&#37;)' + wootlist;
     	undecidedlist = ' ' + totalUNDECIDEDs.toString() + undecidedlist;
 	if ($('#side-left .sidebar-content').children().length > 0) {
