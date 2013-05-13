@@ -503,7 +503,7 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
-        	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a title="meh list">meh list:</a>' + mehlist + '</div>' 
+        	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a title="meh list">meh list:</a>' + '<div title="number of mehs and percentage">' + mehlist + '</div></div>' 
         	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a title=woot list">woot list:</a>' + wootlist + '</div>'
         );
 }
