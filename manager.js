@@ -48,7 +48,7 @@ function readCookies() {
 
 function onCookiesLoaded() {
 	if (autowoot) {
-		setTimeout("$('#button-vote-positive').click();", 7000);
+		$('#button-vote-positive').click();
 	}
 	if (autoqueue && !isInQueue()) {
 		joinQueue();
@@ -241,7 +241,7 @@ function initUIListeners() {
 		autowoot = !autowoot;
 		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
 		if (autowoot) {
-			setTimeout("$('#button-vote-positive').click();", 7000);
+			$('#button-vote-positive').click();
 		}
 		jaaulde.utils.cookies.set(COOKIE_WOOT, autowoot);
 	});
@@ -414,7 +414,7 @@ function djAdvanced(obj) {
 		$("#playback .frame-background").css("opacity", "0.0");
 	}
 	if (autowoot) {
-		setTimeout("$('#button-vote-positive').click();", 7000);
+		$('#button-vote-positive').click();
 	}
 }
 
