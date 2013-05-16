@@ -56,7 +56,7 @@ function onCookiesLoaded() {
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
 	if (left) {
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, {duration: "fast"});
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
 	}
     	initAPIListeners();
     	displayUI();
