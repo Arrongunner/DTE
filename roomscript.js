@@ -7,23 +7,10 @@ function load() {
   var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'http://cookies.googlecode.com/svn/trunk/jaaulde.cookies.js';
-	script.onreadystatechange = function() {
-		if (this.readyState == 'complete') {
-    			loaded();
-    		}
-	}
 	script.onload = readCookies;
 	head.appendChild(script);
 }
 
-function loaded() {
-	loaded = true
-}
-function loadDammit() {
-	if (loaded == true) {
-		readCookies();
-	}
-}
 function readCookies() {
 	var currentDate = new Date();
 	currentDate.setFullYear(currentDate.getFullYear() + 1);
@@ -100,7 +87,6 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	}
 }
 
-var loaded = false;
 var mentioned = false;
 var clicked = false;
 var skipped = false;
@@ -477,7 +463,6 @@ function checkClicked() {
 }
 
 delay();
-loadDammit();
 $('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom scipt, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
