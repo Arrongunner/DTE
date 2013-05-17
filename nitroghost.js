@@ -20,11 +20,11 @@ function loaded() {
 	loaded = true
 }
 
-function loadDammit() {
+/*function loadDammit() {
 	if (loaded == true) {
 		readCookies();
 	}
-}
+}*/
 
 function readCookies() {
 	var currentDate = new Date();
