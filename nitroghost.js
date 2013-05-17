@@ -7,20 +7,15 @@ function load() {
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'http://cookies.googlecode.com/svn/trunk/jaaulde.cookies.js';
-	script.onreadystatechange = function() {
-		if (this.readyState == 'complete') {
-    			loaded();
-    		}
-	}
 	script.onload = readCookies;
 	head.appendChild(script);
 }
 
-function loaded() {
+/*function loaded() {
 	loaded = true
 }
 
-/*function loadDammit() {
+function loadDammit() {
 	if (loaded == true) {
 		readCookies();
 	}
