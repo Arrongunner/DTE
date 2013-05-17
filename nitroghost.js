@@ -12,7 +12,7 @@ function load() {
     			loaded();
     		}
 	}
-	script.onload = readCookies;
+	script.onload = loaded;
 	head.appendChild(script);
 }
 
