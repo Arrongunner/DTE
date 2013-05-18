@@ -379,6 +379,7 @@ function djAdvanced(obj) {
 }
 
 function populateUserlist() {
+	var currentdj = '';
 	var mehlist = '';
     	var wootlist = '';
     	var undecidedlist = '';
@@ -387,7 +388,6 @@ function populateUserlist() {
     	var totalWOOTs = 0;
     	var totalUNDECIDEDs = 0;
     	var str = '';
-	var users = API.getUsers();
 	var myid = API.getSelf().id;
 	for (i in a) {
 		if (a[i].admin) {
@@ -424,10 +424,15 @@ function populateUserlist() {
         	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
             		totalMEHs++;
             		mehlist += str; 
-        	} else if (typeof (a[i].vote) !== 'undefined' && a[i].vote == +1) {
+        	} 
+        	else if (typeof (a[i].vote) !== 'undefined' && a[i].vote == +1) {
             		totalWOOTs++;
             		wootlist += str; 
-        	} else {
+        	}
+        	else if (a[i].id == Models.room.data.currentDJ) {
+        		currentdj += str;
+        	}
+        	else {
             		totalUNDECIDEDs++;
             		undecidedlist += str; 
         	}
@@ -439,6 +444,7 @@ function populateUserlist() {
     	if (isNaN(totalMEHsPercentage) || isNaN(totalWOOTsPercentage)) {
         	totalMEHsPercentage = totalWOOTsPercentage = 0;
     	}
+    	currentdj = ' ' + currentdj;
 	mehlist = '<a title="total mehs">' + ' ' + totalMEHs.toString() + '</a><a title=" meh percentage">' + ' (' + totalMEHsPercentage.toString() + '&#37;)' + '</a>' + mehlist;
     	wootlist = '<a title="total woots">' + ' ' + totalWOOTs.toString() + '</a><a title=" woot percentage">' + ' (' + totalWOOTsPercentage.toString() + '&#37;)' + '</a>' + wootlist;
     	undecidedlist = ' ' + totalUNDECIDEDs.toString() + undecidedlist;
@@ -451,8 +457,10 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
-        	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a title="meh list">meh list:</a>' +   mehlist + '</div>' 
-        	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a title="woot list">woot list:</a>' + wootlist + '</div>'
+        		'<div id="currentdj_div" style="border: 1px solid rgb(0, 112, 255);"><a title="current dj">current dj:</a>' +   currentdj + '</div>'
+        	+ 	'<div id="mehlist_div" style="border: 1px solid rgb(233, 6, 6);"><a title="meh list">meh list:</a>' +   mehlist + '</div>' 
+        	+ 	'<div id="wootlist_div" style="border: 1px solid rgb(2, 140, 7);"><a title="woot list">woot list:</a>' + wootlist + '</div>'
+        	+	'<div id="spacer_div"></br></br></div>'
         );
 }
 
