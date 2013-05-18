@@ -158,8 +158,8 @@ var styles = [
             '#volume-bar-value{background-image: url("http://i.imgur.com/xmyonON.png") ;}',
             '.chat-message:nth-child(2n), .chat-mention:nth-child(2n), .chat-skip:nth-child(2n), .chat-moderation:nth-child(2n), .chat-emote:nth-child(2n), .chat-update:nth-child(2n) {background-color: rgba(26, 26, 26, 0.52);}',
             '.frame-background {background-color: rgba(0, 0, 0, 0.7);}',
-            '#hr-div {;height: 100%;width: 100%;margin: 0;padding-left: 12px;}',
-            '#hr2-div2 {;height: 100%;width: 100%;margin: 0;}',
+            '#hr-div {height: 100%; width: 100%;margin: 0;padding-left: 12px;}',
+            '#hr2-div2 {height: 100%; width: 100%;margin: 0;}',
             '#hr-style {position: absolute;display: block;height: 20px;width: 100%;bottom: 0%;background-image: url("http://i.imgur.com/jQhf3BW.png");}',
             '#hr2-style2 {position: absolute;display: block;height: 20px;width: 94%%;bottom: 0%;background-image: url("http://i.imgur.com/jQhf3BW.png");}',
             '#side-left h3 {padding-left: 5px}',
@@ -490,7 +490,8 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
         	 	'<div id="mehlist_div" style="border:1px solid rgb(233,6,6);"><a title="meh list">meh list:</a>' +   mehlist + '</div>' 
-        	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a title="woot list">woot list:</a>' + wootlist + '</br></div>'
+        	+ 	'<div id="wootlist_div" style="border:1px solid rgb(2,140,7);"><a title="woot list">woot list:</a>' + wootlist + '</div>'
+        	+	'<div id="spacer_div"></br></br></div>'
         );
 }
 
