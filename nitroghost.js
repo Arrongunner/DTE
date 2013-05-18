@@ -147,7 +147,7 @@ var styles = [
             '.chat-host{background: url(https://dl.dropbox.com/u/67634625/chat-bouncer-icon.png) no-repeat 0 5px;padding-left: 17px;width: 292px;}',
             '#dj-console, #dj-console {background-image: url(http://s8.postimage.org/wpugb8gc5/Comp_2.gif);min-height:33px;min-width:131px;}',
             '.chat-from-you{color: #0099FF;font-weight: bold;margin-top: 0px; padding-top: 0px;}',
-            '.chat-from-bouncer{color: #800080; font-weight: bold; margin-top: 0px; padding-top: 0px;}',
+            '.chat-from-bouncer{color: rgb(199, 0, 199); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-manager{color: rgb(255, 199, 148); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-cohost{color: #FF4500; font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-host{color: #32CD32;font-weight: bold;margin-top: 0px; padding-top: 0px;}',
