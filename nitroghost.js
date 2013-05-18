@@ -156,7 +156,7 @@ var styles = [
             '.meta-header span{color: rgba(255, 255, 255, 0.79); position: absolute; left: 15px; font-size: 10px;}',
             '#button-lobby {background-image: url("http://i.imgur.com/brpRaSY.png");}',
             '#volume-bar-value{background-image: url("http://i.imgur.com/xmyonON.png") ;}',
-            //'.chat-message:nth-child(2n), .chat-mention:nth-child(2n), .chat-skip:nth-child(2n), .chat-moderation:nth-child(2n), .chat-emote:nth-child(2n), .chat-update:nth-child(2n) {background-color: rgba(26, 26, 26, 0.52);}',
+            '.chat-message:nth-child(2n), .chat-mention:nth-child(2n), .chat-skip:nth-child(2n), .chat-moderation:nth-child(2n), .chat-emote:nth-child(2n), .chat-update:nth-child(2n) {background-color: rgba(26, 26, 26, 0.52);}',
             //'.frame-background {background-color: rgba(0, 0, 0, 0.5);',
             '#hr-div {;height: 100%;width: 100%;margin: 0;padding-left: 12px;}',
             '#hr2-div2 {;height: 100%;width: 100%;margin: 0;}',
