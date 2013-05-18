@@ -168,7 +168,6 @@ var styles = [
             '::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 6px;border-radius: 6px;}',
             '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 6px;background: rgba(232,37,236,0.8); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);}',
             '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
-            '.toggles {display: none;}',
 ];
 
 var scripts = [
@@ -199,14 +198,10 @@ function displayUI() {
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
-			'<div><div class="toggles">'
-		+	'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
+			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
-		+	'</div>'
-		+	'<a class="s/htoggles">toggles</a></div>'
-		+	'<div class="messgages">'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
 		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
 		+	'<a id="plug-btn-fans" title="sends fan message" style="color:#FF8C00">no fans</a>'
@@ -217,18 +212,13 @@ function displayUI() {
 		+	'<a id="plug-btn-afk" title="sends afk message and sets status to afk" style="color:#FF8C00">afk</a>'
 		+	'<a id="plug-btn-back" title="sends available message and sets status to available" style="color:#FF8C00">available</a>'
 		+	'<a id="plug-btn-skip" title="skips current DJ" style="color:#E90E82">skip</a>'
-		+	'</div><div class="mods">'
 		+	'<a id="plug-btn-lock" title="locks booth" style="color:#E90E82">lock</a>'
 		+	'<a id="plug-btn-unlock" title="unlocks booth" style="color:#E90E82">unlock</a>'
 		+	'<a id="plug-btn-lockskip" title="locks booth, skips DJ, then unlocks booth" style="color:#E90E82">lockskip</a>'
-		+	'</div>'
     );
 }
 
 function initUIListeners() {
-	$('.s/htoggles').on("click", function() {
-		$('.toggles').slideToggle('medium');
-	});
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
@@ -550,5 +540,4 @@ delay();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
-//$('body').append('<script type="text/javascript" id="jquery" src="http://code.jquery.com/jquery-1.9.1.js"></script>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
