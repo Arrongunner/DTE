@@ -199,7 +199,7 @@ function displayUI() {
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<div class="toggles">'
-			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
+		+	'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
