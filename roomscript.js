@@ -147,7 +147,7 @@ var styles = [
             '.chat-from-featureddj {color: rgb(255, 0, 135); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-bouncer {color: rgb(199, 0, 199); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-manager {color: rgb(255, 199, 148); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
-            '.chat-from-cohost {color: rgb(255, 82, 0); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
+            '.chat-from-cohost {color: rgb(255, 92, 0); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-host {color: #32CD32;font-weight: bold;margin-top: 0px; padding-top: 0px;}',
             '#user-points-title {color: #FFFFFF; position: absolute; left: 36px; font-size: 10px;}',
             '#user-fans-title {color: #FFFFFF; position: absolute; left: 29px; font-size: 10px;}',
