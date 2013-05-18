@@ -168,6 +168,7 @@ var styles = [
             '::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); -webkit-border-radius: 6px;border-radius: 6px;}',
             '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 6px;background: rgba(232,37,236,0.8); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);}',
             '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
+            '.toggles {display: none;}',
 ];
 
 var scripts = [
@@ -225,6 +226,9 @@ function displayUI() {
 }
 
 function initUIListeners() {
+	$('.s/htoggles').on("click", function() {
+		$('.toggles').slideToggle('medium');
+	});
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
