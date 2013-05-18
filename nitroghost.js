@@ -426,7 +426,6 @@ function populateUserlist() {
     	var totalWOOTs = 0;
     	var totalUNDECIDEDs = 0;
     	var str = '';
-	var users = API.getUsers();
 	var myid = API.getSelf().id;
 	for (i in a) {
 		if (a[i].admin) {
