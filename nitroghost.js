@@ -103,6 +103,7 @@ var COOKIE_HIDE_VIDEO = 'hidevideo';
 var stream = true;
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
+var emotes = true;
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
 var rulesMsg = "Rules: 1) for all ages so no porn 2) no songs over 8 mins 3) spamming can lead to an instant ban 4) please keep songs to EDM 5) have fun!";
@@ -197,6 +198,7 @@ function displayUI() {
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
+    	var colorEmotes = emotes ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
