@@ -97,16 +97,12 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 
 var mentioned = false;
 var clicked = false;
-var skipped = false;
 var timeToWait = 600000;
 var clickWait = 5000;
-var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
-var skipPassed = 0;
 var timer = null;
 var clickTimer = null;
-var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
@@ -198,7 +194,7 @@ function initAPIListeners() {
     	});
 }
 
-tion displayUI() {
+function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = stream ? '#3FFF00' : '#ED1C24';
