@@ -202,6 +202,7 @@ function displayUI() {
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
+		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
 		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
 		+	'<a id="plug-btn-fans" title="sends fan message" style="color:#FF8C00">no fans</a>'
@@ -252,6 +253,18 @@ function initUIListeners() {
 		$("#yt-frame").animate({"height": (hideVideo ? "0px" : "271px")}, {duration: "fast"});
 		$("#playback .frame-background").animate({"opacity": (hideVideo ? "0" : "0.91")}, {duration: "medium"});
 		jaaulde.utils.cookies.set(COOKIE_HIDE_VIDEO, hideVideo);
+	});
+	$("#plug-btn-emotes").on("click", function() {
+		emotes = !emotes;
+		$(this).css("color", emotes ? "#3FFF00" : "#ED1C24");
+		if (emotes) {
+			Emoji.emotify = function(a) {
+				var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a
+			}
+		}
+		else Emoji.emotify = function(data) {
+			return data;
+		}
 	});
 	$("#plug-btn-face").on("click", function() {
 		if (clicked == false) {
