@@ -45,7 +45,7 @@ function onCookiesLoaded() {
 	if (left) {
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
 	}
-	if (!emotes) {
+	if (emotes) {
 		Emoji.emojify = function(data) {
 				return data;
 		}		
@@ -108,8 +108,8 @@ var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var COOKIE_HIDE_EMOTES = 'emotes';
-var stream = true;
 var COOKIE_LEFT = 'left';
+var stream = true;
 var MAX_USERS_WAITLIST = 50;
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
