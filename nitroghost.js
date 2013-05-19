@@ -106,8 +106,8 @@ var COOKIE_HIDE_EMOTES = 'emotes';
 var stream = true;
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
-var emotesOn = "Emoji.emojify = function(a) {var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a}";
-var emotesOff = "Emoji.emojify = function(data) {return data;}";
+var emotesOn = Emoji.emojify = function(a) {var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a};
+var emotesOff = Emoji.emojify = function(data) {return data;};
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
 var rulesMsg = "Rules: 1) for all ages so no porn 2) no songs over 8 mins 3) spamming can lead to an instant ban 4) please keep songs to EDM 5) have fun!";
