@@ -152,7 +152,6 @@ var styles = [
             '.sidebar-content2 span:hover {background-color: rgba(97, 146, 199, 0.65);text-decoration: none;}',
             '.sidebar-content2 a:hover {text-decoration: none;}',
             'html{background: url(http://i.imgur.com/VFDhHkL.gif) no-repeat scroll center top #000000;}',
-            '#audience-canvas {background-image: ;)',
             '#map-canvas {background-image: url("") ;}',
             '#audience {background-image: url("") ;}',
             '#room-wheel {z-index: 2;position: absolute;top: 2px;left: 0;width: 1044px;height: 394px;background: url(http://) no-repeat;display: none;}',
