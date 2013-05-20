@@ -1,6 +1,6 @@
 function delay() {
 	setTimeout("load();", 6000);
-	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();}, 2000);
+	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();}, 5000);
 }
 
 function load() {
