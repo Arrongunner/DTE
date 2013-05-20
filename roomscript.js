@@ -1,5 +1,6 @@
 function delay() {
 	setTimeout("load();", 6000);
+	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();}, 4000);
 }
 
 function load() {
@@ -147,7 +148,7 @@ var styles = [
             '.chat-manager {background: url(http://i.imgur.com/hqqhTcp.png) no-repeat 0 5px;padding-left: 17px;width: 292px;}',
             '.chat-cohost {background: url(http://i.imgur.com/njajqVG.png) no-repeat 0 5px;padding-left: 17px;width:292px;}',
             '.chat-host {background: url(http://i.imgur.com/njajqVG.png) no-repeat 0 5px;padding-left: 17px;width: 292px;}',
-            '#dj-console, #dj-console {background-image: url("http://i.imgur.com/eXDrQaX.png");min-height:33px;min-width:131px;}',
+            '#dj-console, #dj-console {background-image: url(http://i.imgur.com/gqdMdaz.gif);min-height:33px;min-width:131px;}',
             '.chat-from-you {color: #0099FF;font-weight: bold;margin-top: 0px; padding-top: 0px;}',
             '.chat-from-featureddj {color: rgb(255, 0, 135); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
             '.chat-from-bouncer {color: rgb(199, 0, 199); font-weight: bold; margin-top: 0px; padding-top: 0px;}',
