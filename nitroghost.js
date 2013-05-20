@@ -170,7 +170,6 @@ var styles = [
             '.meta-header span {color: rgba(255, 255, 255, 0.79); position: absolute; left: 15px; font-size: 10px;}',
             '#button-lobby {background-image: url(http://i.imgur.com/brpRaSY.png);}',
             '#volume-bar-value {background-image: url(http://i.imgur.com/xmyonON.png) ;}',
-            '#bggif {background-image: url(http://i.imgur.com/4nLfGKF.gif);}',
             '.chat-message:nth-child(2n), .chat-mention:nth-child(2n), .chat-skip:nth-child(2n), .chat-moderation:nth-child(2n), .chat-emote:nth-child(2n), .chat-update:nth-child(2n) {background-color: rgba(26, 26, 26, 0.65);}',
             '.frame-background {background-color: rgba(0, 0, 0, 0.8);}',
             '#hr-div {height: 100%; width: 100%;margin: 0;padding-left: 12px;}',
@@ -575,4 +574,3 @@ $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Als
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
-$('body').prepend('<div id="bggif"></div>');
