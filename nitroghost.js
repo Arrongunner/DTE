@@ -170,6 +170,7 @@ var styles = [
             '.meta-header span {color: rgba(255, 255, 255, 0.79); position: absolute; left: 15px; font-size: 10px;}',
             '#button-lobby {background-image: url(http://i.imgur.com/brpRaSY.png);}',
             '#volume-bar-value {background-image: url(http://i.imgur.com/xmyonON.png) ;}',
+            '#bggif {background-image: url(http://i.imgur.com/4nLfGKF.gif);}',
             '.chat-message:nth-child(2n), .chat-mention:nth-child(2n), .chat-skip:nth-child(2n), .chat-moderation:nth-child(2n), .chat-emote:nth-child(2n), .chat-update:nth-child(2n) {background-color: rgba(26, 26, 26, 0.65);}',
             '.frame-background {background-color: rgba(0, 0, 0, 0.8);}',
             '#hr-div {height: 100%; width: 100%;margin: 0;padding-left: 12px;}',
