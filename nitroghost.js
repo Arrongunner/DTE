@@ -1,5 +1,6 @@
 function delay() {
 	setTimeout("load();", 6000);
+	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();},1000);
 }
 
 function load() {
@@ -57,7 +58,6 @@ function onCookiesLoaded() {
     	displayUI();
     	initUIListeners();
     	populateUserlist();
-    	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();},500);
 }
 
 var words = {
