@@ -96,15 +96,18 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 var mentioned = false;
 var clicked = false;
 var skipped = false;
+var predictor = false;
 var timeToWait = 600000;
 var clickWait = 5000;
 var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
 var skipPassed = 0;
+var predictPassed = 0;
 var timer = null;
 var clickTimer = null;
 var skipTimer = null;
+var predictTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAMING = 'streaming';
@@ -424,6 +427,15 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
+	if (predictor == false) {
+		predictor = true;
+		predictTimer = setInterval("checkPredict()", 1000);
+	}
+	else (predictor == true) {
+		clearInterval(predictTimer);
+		predictor = false;
+		predictPassed = 0;
+	}
 	setTimeout("overPlayedSongs();", 6000);
 }
 
@@ -520,7 +532,7 @@ function populateUserlist() {
         var waitlistDiv = $('<h3 title="waitlist posisition"></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
         var waitpostime = Models.room.getWaitListPosition() * 240;
         var offset = API.getMedia().duration - 240;
-        var approxtime = waitpostime + offset;
+        var approxtime = waitpostime + offset - predictPassed;
         var timeDiv = $('<h3 title="approx. wait time until on the booth"</h3>').addClass('timewait').text('wait: ' + (spot !== null ? sts(decodeURIComponent(approxtime)) + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append(spot !== null ? timeDiv : '');
@@ -582,6 +594,17 @@ function checkSkipped() {
 	}
 	else {
 		skipPassed = skipPassed + 500;
+	}
+}
+
+function checkPredict() {
+	if (predictPassed >= API.getMedia().duration) {
+		clearInterval(predictTimer);
+		predictor = false;
+		predictPassed = 0;
+	}
+	else {
+		predictPassed = predictPassed + 1;
 	}
 }
 
