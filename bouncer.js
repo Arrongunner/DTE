@@ -23,6 +23,8 @@ function readCookies() {
     	autowoot = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
+    	value = jaaulde.utils.cookies.get(COOKIE_STREAMING);
+    	streaming = value != null ? value: true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_EMOTES);
@@ -45,11 +47,6 @@ function onCookiesLoaded() {
 	}
 	if (left) {
 		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
-	}
-	if (emotes) {
-		Emoji.emojify = function(a) {
-			var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a
-		}
 	}
 	if (!emotes) Emoji.emojify = function(data) {
 		return data;
@@ -110,10 +107,10 @@ var clickTimer = null;
 var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
+var COOKIE_STREAMING = 'streaming';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var COOKIE_EMOTES = 'emotes';
 var COOKIE_LEFT = 'left';
-var stream = true;
 var MAX_USERS_WAITLIST = 50;
 
 var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
@@ -205,13 +202,13 @@ function initAPIListeners() {
 function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
-    	var colorStream = stream ? '#3FFF00' : '#ED1C24';
+    	var colorStream = streaming ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
     	var colorEmotes = emotes ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
-		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
+		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">streaming</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
@@ -250,15 +247,10 @@ function initUIListeners() {
         	jaaulde.utils.cookies.set(COOKIE_QUEUE, autoqueue);
 	});
 	$("#plug-btn-stream").on("click", function() {
-		stream = !stream;
-		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream) {
-			API.sendChat("/stream on");
-		}
-		if (!stream) {
-			API.sendChat("/stream off")
-		}		
-		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
+		streaming = !streaming;
+		$(this).css("color", streaming ? "#3FFF00" : "#ED1C24");
+		API.sendChat(DB.settings.streamDisabled ? '/stream on' : '/stream off');
+		jaaulde.utils.cookies.set(COOKIE_STREAMING, streaming);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
