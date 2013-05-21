@@ -531,18 +531,18 @@ function populateUserlist() {
         );
 }
 
-function sts(seconds) {
-	var numhours = Math.floor((seconds % 86400) / 3600);
-	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
-	if (numhours > 0) {
-		if (numminutes >4) {
-			return numhours + ":" + numminutes
+function sts(secs) {
+	var nohrs = Math.floor((secs % 86400) / 3600);
+	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
+	if (nohrs > 0) {
+		if (nomins >4) {
+			return nohrs + ":" + nomins
 		} else {
-			return numhours + " hrs"
+			return nohrs + " hrs"
 		}
 	} else {
-		if (numminutes > 1) {
-			return numminutes + " mins"
+		if (nomins > 1) {
+			return nomins + " mins"
 		}
 	}
 }
