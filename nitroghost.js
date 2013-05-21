@@ -54,6 +54,7 @@ function onCookiesLoaded() {
 	if (!emotes) Emoji.emojify = function(data) {
 		return data;
 	}
+	Main.onWindowResize = function (a){this.LEFT=Math.max(0,($(window).width()-this.WIDTH)/2);$("body").css("background-position",($(window).width()-1920)/2+"px 0");var b=$("#meta-frame");b.css("left",this.LEFT);b=$("#playback");b.css("left",this.LEFT+353);b=$("#footer-container");b.css("left",this.LEFT+this.WIDTH-b.width());var b=$("#chat"),c=this.LEFT+this.WIDTH-b.width();b.css("left",c);b=$("#chat-mention-suggestion");b.css("left",c);b=$("#room-wheel");b.css("left",this.LEFT-46);b=$("#audience");b.css("left",this.LEFT);b=b.offset();b.left-=15;RoomUser.audience.offset=b;if(b=$("#dj-booth"))b.css("left",this.LEFT),RoomUser.djBooth.offset=b.offset();b=$("#user-container");b.css("left",this.LEFT+this.WIDTH-b.width());b=$("#media-overlay");b.css("left",this.LEFT+(this.WIDTH-b.width())/2);b.css("top",(687-b.height())/2);b=$("#avatar-overlay");b.css("left",this.LEFT+(this.WIDTH-b.width())/2);b.css("top",(687-b.height())/2);b=$("#lobby-overlay");b.css("left",this.LEFT+(this.WIDTH-b.width())/2);b.css;
     	initAPIListeners();
     	displayUI();
     	initUIListeners();
