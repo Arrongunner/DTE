@@ -521,7 +521,7 @@ function populateUserlist() {
         var approxtime = Models.room.getWaitListPosition()*4;
         var timeDiv = $('<h3 title="time to wait"></h3>').addClass('timewait').text('time: ' + (spot !== null ? approxtime + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
-        $('#side-left .sidebar-content2').append(timeDiv);
+        $('#side-left .sidebar-content2').append(spot !== null ? timeDiv);
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
         $(".meanlist").append( 
         		'<div id="currentdj_div" style="border: 1px solid rgb(0, 112, 255);"><a title="current dj">current dj:</a>' +   currentdj + '</div>'
