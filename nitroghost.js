@@ -532,28 +532,27 @@ function populateUserlist() {
 }
 
 function secondsToString(seconds) {
-	var numdays = Math.floor(seconds / 86400);
 	var numhours = Math.floor((seconds % 86400) / 3600);
 	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
 	var numseconds = ((seconds % 86400) % 3600) % 60;
-	if(numdays > 0) {
-		return ">1 day"
-	} else {
-		if(numhours > 0) {
-			return ">" + numhours + " hours"
+	if(numhours > 9) {
+		if(numminutes > 9) {
+			return "hours: " + numhours + " mintues: " + nummintues
 		} else {
-			if(numminutes > 9) {
-				if(numseconds > 9) {
-					return numminutes + ":" + numseconds
-				} else {
-					return numminutes + ":0" + numseconds
-				}
+			return "hours: " + numhours + " minutes : 0" + numminutes 
+		}
+	} else {
+		if(numminutes > 9) {
+			if(numseconds > 9) {
+				return numminutes + ":" + numseconds
 			} else {
-				if(numseconds > 9) {
-					return "0" + numminutes + ":" + numseconds
-				} else {
-					return "0" + numminutes + ":0" + numseconds
-				}
+				return numminutes + ":0" + numseconds
+			}
+		} else {
+			if(numseconds > 9) {
+				return "0" + numminutes + ":" + numseconds
+			} else {
+				return "0" + numminutes + ":0" + numseconds
 			}
 		}
 	}
