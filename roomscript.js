@@ -23,10 +23,12 @@ function readCookies() {
     	autowoot = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
-    	value = jaaulde.utils.cookies.set(COOKIE_STREAM);
-    	stream = value != null ? value : true;
+    	value = jaaulde.utils.cookies.get(COOKIE_STREAMING);
+    	streaming = value != null ? value: true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
+    	var value = jaaulde.utils.cookies.get(COOKIE_EMOTES);
+    	emotes = value != null ? value : true;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
     	left = value != null ? value : false;
 	onCookiesLoaded();
@@ -34,7 +36,7 @@ function readCookies() {
 
 function onCookiesLoaded() {
 	if (autowoot) {
-		setTimeout("$('#button-vote-positive').click();", 5000);
+		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
 	if (autoqueue && !isInQueue()) {
 		joinQueue();
@@ -44,7 +46,15 @@ function onCookiesLoaded() {
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
 	if (left) {
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 500, "easeOutCirc");
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
+	}
+	if (emotes) {
+		Emoji.emojify = function(a) {
+			var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a
+		}
+	}
+	if (!emotes) Emoji.emojify = function(data) {
+		return data;
 	}
     	initAPIListeners();
     	displayUI();
@@ -102,8 +112,9 @@ var clickTimer = null;
 var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
-var COOKIE_STREAM = 'stream';
+var COOKIE_STREAMING = 'streaming';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
+var COOKIE_EMOTES = 'emotes';
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
@@ -190,16 +201,18 @@ function initAPIListeners() {
     	});
 }
 
-function displayUI() {
+unction displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
-    	var colorStream = stream ? '#3FFF00' : '#ED1C24';
+    	var colorStream = streaming ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
-  	$('#side-right .sidebar-content').append(
+    	var colorEmotes = emotes ? '#3FFF00' : '#ED1C24';
+	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
-		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
+		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">streaming</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
+		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
 		+	'<a  onclick="rules()" title="displays rules" style="color:#0000FF">rules</a>'
 		+	'<a id="plug-btn-lovesong" title="sends love song message" style="color:#FF8C00">loves this song</a>'
 		+	'<a id="plug-btn-mehsong" title="sends not fan of song message" style="color:#FF8C00">not fan of song</a>'
@@ -218,14 +231,14 @@ function rules() {
 function initUIListeners() {
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 500, "easeOutCirc");
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
 		jaaulde.utils.cookies.set(COOKIE_LEFT, left);
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
 		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
 		if (autowoot) {
-			setTimeout("$('#button-vote-positive').click();", 5000);
+			setTimeout("$('#button-vote-positive').click();", 7000);
 		}
 		jaaulde.utils.cookies.set(COOKIE_WOOT, autowoot);
 	});
@@ -238,14 +251,10 @@ function initUIListeners() {
         	jaaulde.utils.cookies.set(COOKIE_QUEUE, autoqueue);
 	});
 	$("#plug-btn-stream").on("click", function() {
-		stream = !stream;
-		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream == true) {
-			API.sendChat("/stream on");
-		} else { 
-			API.sendChat("/stream off");
-		}
-		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
+		streaming = !streaming;
+		$(this).css("color", streaming ? "#3FFF00" : "#ED1C24");
+		API.sendChat(DB.settings.streamDisabled ? '/stream on' : '/stream off');
+		jaaulde.utils.cookies.set(COOKIE_STREAMING, streaming);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
@@ -253,6 +262,19 @@ function initUIListeners() {
 		$("#yt-frame").animate({"height": (hideVideo ? "0px" : "271px")}, {duration: "fast"});
 		$("#playback .frame-background").animate({"opacity": (hideVideo ? "0" : "0.91")}, {duration: "medium"});
 		jaaulde.utils.cookies.set(COOKIE_HIDE_VIDEO, hideVideo);
+	});
+	$("#plug-btn-emotes").on("click", function() {
+		emotes = !emotes;
+		$(this).css("color", emotes ? "#3FFF00" : "#ED1C24");
+		if (emotes) {
+			Emoji.emojify = function(a) {
+				var b=!1;": "==a.substr(0,2)&&(b=!0,a=a.substr(2));for(var c in Emoji._cons)var d=c,e=Emoji._cons[c],d=d.replace("<","&lt;").replace(">","&gt;"),d=RegExp("(\\s|^)("+Emoji._regexEscape(d)+")(?=\\s|$)","g"),a=a.replace(d,"$1:"+e+":");for(c=Emoji._matchStr.exec(a);c;)e=c[1].toLowerCase(),d="&colon;"+e+"&colon;",Emoji._map[e]&&(d='<span class="emoji-glow"><span class="emoji emoji-'+Emoji._map[e]+'"></span></span>'),a=a.substr(0,c.index)+d+a.substr(c.index+c[0].length),c=Emoji._matchStr.exec(a);return(b?": ":"")+a
+			}
+		}
+		if (!emotes) Emoji.emojify = function(data) {
+			return data;
+		}
+		jaaulde.utils.cookies.set(COOKIE_EMOTES, emotes);
 	});
 	$("#plug-btn-lovesong").on("click", function() {
   	if (clicked == false) {
