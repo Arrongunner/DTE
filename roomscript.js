@@ -201,7 +201,7 @@ function initAPIListeners() {
     	});
 }
 
-unction displayUI() {
+function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
     	var colorStream = streaming ? '#3FFF00' : '#ED1C24';
