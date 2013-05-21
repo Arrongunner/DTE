@@ -536,13 +536,13 @@ function secondsToString(seconds) {
 	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
 	if (numhours > 0) {
 		if (numminutes >4) {
-			return numhours + "hrs " + numminutes + "mins"
+			return numhours + ":" + numminutes
 		} else {
-			return numhours + "hrs"
+			return numhours + " hrs"
 		}
 	} else {
 		if (numminutes > 1) {
-			return numminutes + "mins"
+			return numminutes + " mins"
 		}
 	}
 }
