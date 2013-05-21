@@ -23,6 +23,8 @@ function readCookies() {
     	autowoot = value != null ? value : false;
     	value = jaaulde.utils.cookies.get(COOKIE_QUEUE);
     	autoqueue = value != null ? value : false;
+    	value = jaaulde.utils.cookies.get(COOKIE_STREAMING);
+    	streaming = value != null ? value: true;
     	value = jaaulde.utils.cookies.get(COOKIE_HIDE_VIDEO);
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_EMOTES);
@@ -110,10 +112,10 @@ var clickTimer = null;
 var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
+var COOKIE_STREAMING = 'streaming';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var COOKIE_EMOTES = 'emotes';
 var COOKIE_LEFT = 'left';
-var stream = true;
 var MAX_USERS_WAITLIST = 50;
 
 
@@ -208,7 +210,7 @@ function initAPIListeners() {
 function displayUI() {
 	var colorWoot = autowoot ? '#3FFF00' : '#ED1C24';
     	var colorQueue = autoqueue ? '#3FFF00' : '#ED1C24';
-    	var colorStream = stream ? '#3FFF00' : '#ED1C24';
+    	var colorStream = streaming ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
     	var colorEmotes = emotes ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
@@ -256,10 +258,10 @@ function initUIListeners() {
         	jaaulde.utils.cookies.set(COOKIE_QUEUE, autoqueue);
 	});
 	$("#plug-btn-stream").on("click", function() {
-		stream = !stream;
+		streaming = !streaming;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
 		API.sendChat(DB.settings.streamDisabled ? '/stream on' : '/stream off');
-		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
+		jaaulde.utils.cookies.set(COOKIE_STREAMING, streaming);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
 		hideVideo = !hideVideo;
