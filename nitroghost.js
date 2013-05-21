@@ -214,7 +214,7 @@ function displayUI() {
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
-		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
+		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream off</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
