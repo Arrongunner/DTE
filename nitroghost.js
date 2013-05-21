@@ -535,7 +535,7 @@ function secondsToString(seconds) {
 	var numhours = Math.floor((seconds % 86400) / 3600);
 	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
 	var numseconds = ((seconds % 86400) % 3600) % 60;
-	if(numhours > 9) {
+	if(numhours > 0) {
 		if(numminutes > 9) {
 			return "hours: " + numhours + " mintues: " + nummintues
 		} else {
