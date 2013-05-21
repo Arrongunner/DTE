@@ -518,8 +518,8 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').html('<h3 class="users" title="number of users in the room">users: ' + API.getUsers().length + '</h3>');
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3 title="waitlist posisition"></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
-        var waitpostime = Models.room.getWaitListPosition()*240;
-        var offset = API.getMedia().duration-240;
+        var waitpostime = Models.room.getWaitListPosition() * 240;
+        var offset = API.getMedia().duration - 240;
         var approxtime = waitpostime + offset;
         var timeDiv = $('<h3 title="approx. wait time until on the booth"</h3>').addClass('timewait').text('wait: ' + (spot !== null ? sts(decodeURIComponent(approxtime)) + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
