@@ -537,10 +537,10 @@ function sts(secs) {
 	var nohrs = Math.floor((secs % 86400) / 3600);
 	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
 	if (nohrs > 0) {
-		if (nomins >4) {
+		if (nomins >9) {
 			return nohrs + ":" + nomins
 		} else {
-			return nohrs + " hrs"
+			return nohrs + ":0" + nomins
 		}
 	} else {
 		if (nomins > 1) {
