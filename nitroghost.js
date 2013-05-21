@@ -431,10 +431,10 @@ function djAdvanced(obj) {
 		predictor = true;
 		predictTimer = setInterval("checkPredict()", 1000);
 	}
-	else (predictor == true) {
-		clearInterval(predictTimer);
-		predictor = false;
-		predictPassed = 0;
+	else if (predictor == true) {
+			clearInterval(predictTimer);
+			predictor = false;
+			predictPassed = 0;
 	}
 	setTimeout("overPlayedSongs();", 6000);
 }
