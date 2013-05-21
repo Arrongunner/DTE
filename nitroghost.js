@@ -540,7 +540,7 @@ function secondsToString(seconds) {
 		return ">1 day"
 	} else {
 		if(numhours > 0) {
-			if(nummintes >9) {
+			if(numminutes >9) {
 				return "hours: " + numhours + " minutes: " + numminutes
 			} else {
 				return "hours: " + numhours
