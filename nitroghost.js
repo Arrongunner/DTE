@@ -152,9 +152,8 @@ var styles = [
             '#side-right a:hover {background-color: rgba(97, 146, 199, 0.65);text-decoration: none;}',
             '.sidebar-content2 span:hover {background-color: rgba(97, 146, 199, 0.65);text-decoration: none;}',
             '.sidebar-content2 a:hover {text-decoration: none;}',
-            'html{background: url(http://i.imgur.com/1QtNL4r.jpg) no-repeat scroll center top #000000;}',
-            '#room-wheel {z-index: 2; position: absolute; top: 2px ;left: 0; width: 1415px; height: 392px; background: url(http://i.imgur.com/eq4qOAO.jpg) no-repeat; display: none;}',
-            '#room-wheel2 {z-index: 2; position: absolute; top: 0px; width: 1618px; height: 387px; background: url() no-repeat;}',
+            'html{background: url(http://i.imgur.com/VFDhHkL.gif) no-repeat scroll center top #000000;}',
+            '#room-wheel {z-index: 2;position: absolute;top: 2px;left: 0;width: 1044px;height: 394px;background: url(http://) no-repeat;display: none;}',
             '.chat-bouncer {background: url(http://i.imgur.com/9qWWO4L.png) no-repeat 0 5px;padding-left: 17px;width: 292px;}',
             '.chat-manager {background: url(http://i.imgur.com/hqqhTcp.png) no-repeat 0 5px;padding-left: 17px;width: 292px;}',
             '.chat-cohost {background: url(http://i.imgur.com/njajqVG.png) no-repeat 0 5px;padding-left: 17px;width:292px;}',
@@ -183,52 +182,6 @@ var styles = [
             '::-webkit-scrollbar-thumb {-webkit-border-radius: 2px;border-radius: 6px;background: rgba(232,37,236,0.8); -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.5);}',
             '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
 ];
-
-onWindowResize: function(a) {
-	this.LEFT = 
-      	Math.max(0, ($(window).width() - this.WIDTH) / 2);
-        $("body").css("background-position", ($(window).width() - 1920) / 2 + "px 0");
-        var b = $("#meta-frame");
-        b.css("left", this.LEFT);
-        b = $("#playback");
-        b.css("left", this.LEFT + 353);
-        b = $("#footer-container");
-        b.css("left", this.LEFT + this.WIDTH - b.width());
-        var b = $("#chat"), c = this.LEFT + this.WIDTH - b.width();
-        b.css("left", c);
-        b = $("#chat-mention-suggestion");
-        b.css("left", c);
-        b = $("#room-wheel");
-        b.css("left", this.LEFT - 0);
-        b = $("#audience");
-        b.css("left", this.LEFT);
-        b = b.offset();
-        b.left -= 15;
-        RoomUser.audience.offset = b;
-        if (b = $("#dj-booth"))
-            b.css("left", this.LEFT), RoomUser.djBooth.offset = b.offset();
-        b = $("#user-container");
-        b.css("left", this.LEFT + this.WIDTH - b.width());
-        b = $("#media-overlay");
-        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
-        b.css("top", (687 - b.height()) / 2);
-        b = $("#avatar-overlay");
-        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
-        b.css("top", (687 - b.height()) / 2);
-        b = $("#lobby-overlay");
-        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
-        b.css("top", (687 - b.height()) / 2);
-        b = $("#user-list-overlay");
-        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
-        b = $(".modal-background");
-        b.css("width", Math.max(1200, $(window).width()));
-        b.css("height", Math.max(746, $(window).height()));
-        b = $(".dialog");
-        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
-        b.css("top", (687 - b.height()) / 2);
-        if (EXT && EXT.onWindowResize)
-            EXT.onWindowResize(a)
-}
 
 var scripts = [
             '(function(e){e.fn.hoverIntent=function(t,n,r){var i={interval:100,sensitivity:7,timeout:0};if(typeof t==="object"){i=e.extend(i,t)}else if(e.isFunction(n)){i=e.extend(i,{over:t,out:n,selector:r})}else{i=e.extend(i,{over:t,out:t,selector:n})}var s,o,u,a;var f=function(e){s=e.pageX;o=e.pageY};var l=function(t,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);if(Math.abs(u-s)+Math.abs(a-o)<i.sensitivity){e(n).off("mousemove.hoverIntent",f);n.hoverIntent_s=1;return i.over.apply(n,[t])}else{u=s;a=o;n.hoverIntent_t=setTimeout(function(){l(t,n)},i.interval)}};var c=function(e,t){t.hoverIntent_t=clearTimeout(t.hoverIntent_t);t.hoverIntent_s=0;return i.out.apply(t,[e])};var h=function(t){var n=jQuery.extend({},t);var r=this;if(r.hoverIntent_t){r.hoverIntent_t=clearTimeout(r.hoverIntent_t)}if(t.type=="mouseenter"){u=n.pageX;a=n.pageY;e(r).on("mousemove.hoverIntent",f);if(r.hoverIntent_s!=1){r.hoverIntent_t=setTimeout(function(){l(n,r)},i.interval)}}else{e(r).off("mousemove.hoverIntent",f);if(r.hoverIntent_s==1){r.hoverIntent_t=setTimeout(function(){c(n,r)},i.timeout)}}};return this.on({"mouseenter.hoverIntent":h,"mouseleave.hoverIntent":h},i.selector)}})(jQuery)',
@@ -619,5 +572,5 @@ function checkSkipped() {
 delay();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
-$('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>' + '<div id="room-wheel2" style="display: block; left: 10px;"></div>');
+$('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
