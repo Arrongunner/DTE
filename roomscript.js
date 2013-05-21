@@ -4,8 +4,8 @@ function delay() {
 }
 
 function load() {
-  var head = document.getElementsByTagName('head')[0];
-  var script = document.createElement('script');
+	var head = document.getElementsByTagName('head')[0];
+	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = 'http://cookies.googlecode.com/svn/trunk/jaaulde.cookies.js';
 	script.onload = readCookies;
@@ -98,12 +98,16 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 
 var mentioned = false;
 var clicked = false;
+var skipped = false;
 var timeToWait = 600000;
 var clickWait = 5000;
+var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
+var skipPassed = 0;
 var timer = null;
 var clickTimer = null;
+var skipTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
@@ -112,9 +116,13 @@ var COOKIE_LEFT = 'left';
 var stream = true;
 var MAX_USERS_WAITLIST = 50;
 
-var loveMsg = ["I love this song! makes me want to jizz in my pants", "this... song... is... AWESOME!!", "this song is a BEAST!", "me likes this song me does"];
-var mehMsg = ["I'm not really a fan of this song, but it's okay I guess", "this song isn't as good as others, but it could be worse"];
-var hateMsg = ["I hate this song! makes me want to vomit all over myself. just kidding, but I still don't like it", "what is this god awful noise? D:", "this song... just... eww"];
+
+var fbMsg = ["like our facebook page! http://bit.ly/DTandE-FB", "check out our facebook page at http://bit.ly/DTandE-FB", "drop us a like on our facebook page http://bit.ly/DTandE-FB", "like our fb page or die! just kidding http://bit.ly/DTandE-FB"];
+var rulesMsg = "Rules: 1) for all ages so no porn 2) no songs over 8 mins 3) spamming can lead to an instant ban 4) please keep songs to EDM 5) have fun!";
+var skipMsg = ["please do not ask to skip songs", "asking to skip songs can lead to being kicked", "please please PLEASE don't ask to skip songs D:"];
+var fansMsg = ["please do not ask for fans", "earn your fans!!!", "earn your fans like the rest of us", "the number of fans you have means nothing anyway, so don't ask for them!"];
+var wafflesMsg = ["WAFFLES FOR EVERYONE!! #-(>_<)-#", "did somebody say WAFFLES? #-(>_<)-#", "cheese ca- I mean WAFFLES TIME! #-(>_<)-#", "do you know what it is time for? WAFFLES #-(>_<)-#"];
+var bhvMsg = ["please be appropriate in the chat", "please do not talk like that, control yourself!",  "please be mature in the chat guys"];
 var sleepMsg = ["Sleepy time!!!", "going to sleep now", "time to hit the sack", "so tired, sleep is needed me thinks", "tiredness... taking... over... must sleep"];
 var workMsg = ["I'm working so mention me if I'm needed", "I'm going to do work related stuffs, mention if needed", "I'm gonna be busy, mention if needed"];
 var afkMsg = ["I'm going away on a merry merry quest, be back soon!", "going AFK for a while, be back soon!", "going away, be back soon!", "going to hunt the galaxy, be back soon!"];
@@ -123,6 +131,8 @@ var backMsg = ["I'm back from my adventures!", "I'm baaacckkk", "guess who's bac
 var autoAwayMsg = ["I'm currently AFK", "I'm AFK", "I'm on an adventure (afk)", "gone away for a moment", "not present at keyboard"];
 var autoSlpMsg = ["I'm currently sleeping", "I'm counting sheep in my dreams", "I've hit the sack", "I'm asleep", "I've gone to sleep"];
 var autoWrkMsg = ["I'm currently working", "I'm busy", "doing work related stuffs"];
+
+overPlayed = ["1:LQtZ0ZsTW8c", "1:8cOt9UcYGOU", "1:LXO-jKksQkM", "1:4wTLjEqj5Xk", "1:sf6LD2B_kDQ", "1:F2FMDV8yW9M", "1:4q-jv4OBCa0", "1:-0oZNWif_jk", "1:vZyenjZseXA", "1:ZT4yoZNy90s", "1:Bparw9Jo3dk", "1:KrVC5dm5fFc","1:Ys9sIqv42lo", "1:1y6smkh6c-0", "1:jZL-RUZUoGY", "1:CrdoD9T1Heg", "1:6R_Rn1iP82I", "1:ea9tluQ_QtE", "1:f9EM8T5K6d8", "1:aHjpOzsQ9YI", "1:3vC5TsSyNjU", "1:yXLL46xkdlY", "1:_t2TzJOyops", "1:BGpzGu9Yp6Y", "1:YJVmu6yttiw", "1:WSeNSzJ2-Jw", "1:2cXDgFwE13g", "1:PR_u9rvFKzE", "1:i1BDGqIfm8U"];
 
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 200px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
@@ -176,7 +186,7 @@ var styles = [
 var scripts = [
             '(function(e){e.fn.hoverIntent=function(t,n,r){var i={interval:100,sensitivity:7,timeout:0};if(typeof t==="object"){i=e.extend(i,t)}else if(e.isFunction(n)){i=e.extend(i,{over:t,out:n,selector:r})}else{i=e.extend(i,{over:t,out:t,selector:n})}var s,o,u,a;var f=function(e){s=e.pageX;o=e.pageY};var l=function(t,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);if(Math.abs(u-s)+Math.abs(a-o)<i.sensitivity){e(n).off("mousemove.hoverIntent",f);n.hoverIntent_s=1;return i.over.apply(n,[t])}else{u=s;a=o;n.hoverIntent_t=setTimeout(function(){l(t,n)},i.interval)}};var c=function(e,t){t.hoverIntent_t=clearTimeout(t.hoverIntent_t);t.hoverIntent_s=0;return i.out.apply(t,[e])};var h=function(t){var n=jQuery.extend({},t);var r=this;if(r.hoverIntent_t){r.hoverIntent_t=clearTimeout(r.hoverIntent_t)}if(t.type=="mouseenter"){u=n.pageX;a=n.pageY;e(r).on("mousemove.hoverIntent",f);if(r.hoverIntent_s!=1){r.hoverIntent_t=setTimeout(function(){l(n,r)},i.interval)}}else{e(r).off("mousemove.hoverIntent",f);if(r.hoverIntent_s==1){r.hoverIntent_t=setTimeout(function(){c(n,r)},i.timeout)}}};return this.on({"mouseenter.hoverIntent":h,"mouseleave.hoverIntent":h},i.selector)}})(jQuery)',
             'if (jQuery.easing.easeOutCirc === undefined) jQuery.easing.easeOutCirc = function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a}',
-            '$("#side-right").hoverIntent(function() {var timeout_r = $(this).data("timeout_r");if (timeout_r) {clearTimeout(timeout_r);}$(this).animate({"right": "0px"}, 500, "easeOutCirc");}, function() {$(this).data("timeout_r", setTimeout($.proxy(function() {$(this).animate({"right": "-190px"}, 500, "easeOutCirc");}, this), 500));});',
+            '$("#side-right").hoverIntent(function() {var timeout_r = $(this).data("timeout_r");if (timeout_r) {clearTimeout(timeout_r);}$(this).animate({"right": "0px"}, 300, "easeOutCirc");}, function() {$(this).data("timeout_r", setTimeout($.proxy(function() {$(this).animate({"right": "-190px"}, 300, "easeOutCirc");}, this), 500));});',
 ];
 
 function initAPIListeners() {
@@ -207,32 +217,33 @@ function displayUI() {
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">stream</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
-		+	'<a  onclick="rules()" title="displays rules" style="color:#0000FF">rules</a>'
-		+	'<a id="plug-btn-lovesong" title="sends love song message" style="color:#FF8C00">loves this song</a>'
-		+	'<a id="plug-btn-mehsong" title="sends not fan of song message" style="color:#FF8C00">not fan of song</a>'
-		+	'<a id="plug-btn-hatesong" title="sends hate song message" style="color:#FF8C00">hates this song</a>'
+		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
+		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">like our fb</a>'
+		+	'<a id="plug-btn-fans" title="sends fan message" style="color:#FF8C00">no fans</a>'
+		+	'<a id="plug-btn-noskip" title="send no skip message" style="color:#FF8C00">no skip</a>'
+		+	'<a id="plug-btn-waffles" title="sends waffle message" style="color:#FF8C00">waffles</a>'
 		+	'<a id="plug-btn-sleeping" title="sends sleep message and sets status to sleeping" style="color:#FF8C00">sleeping</a>'
 		+	'<a id="plug-btn-working" title="sends work message and sets status to working" style="color:#FF8C00">working</a>'
 		+	'<a id="plug-btn-afk" title="sends afk message and sets status to afk" style="color:#FF8C00">afk</a>'
 		+	'<a id="plug-btn-back" title="sends available message and sets status to available" style="color:#FF8C00">available</a>'
+		+	'<a id="plug-btn-skip" title="skips current DJ" style="color:#E90E82">skip</a>'
+		+	'<a id="plug-btn-lock" title="locks booth" style="color:#E90E82">lock</a>'
+		+	'<a id="plug-btn-unlock" title="unlocks booth" style="color:#E90E82">unlock</a>'
+		+	'<a id="plug-btn-lockskip" title="locks booth, skips DJ, then unlocks booth" style="color:#E90E82">lockskip</a>'
     );
-}
-
-function rules() {
-	alert("Rules: \n1) for all ages so no porn \n2) no songs over 8 mins \n3) spamming can lead to an instant ban \n4) please keep songs to EDM \n5) have fun!");
 }
 
 function initUIListeners() {
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 500, "easeOutCirc");
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
 		jaaulde.utils.cookies.set(COOKIE_LEFT, left);
 	});
 	$("#plug-btn-woot").on("click", function() {
 		autowoot = !autowoot;
 		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
 		if (autowoot) {
-			setTimeout("$('#button-vote-positive').click();", 5000);
+			setTimeout("$('#button-vote-positive').click();", 7000);
 		}
 		jaaulde.utils.cookies.set(COOKIE_WOOT, autowoot);
 	});
@@ -247,11 +258,12 @@ function initUIListeners() {
 	$("#plug-btn-stream").on("click", function() {
 		stream = !stream;
 		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
-		if (stream == true) {
+		if (stream) {
 			API.sendChat("/stream on");
-		} else { 
-			API.sendChat("/stream off");
 		}
+		if (!stream) {
+			API.sendChat("/stream off")
+		}		
 		jaaulde.utils.cookies.set(COOKIE_STREAM, stream);
 	});
 	$("#plug-btn-hidevideo").on("click", function() {
@@ -274,31 +286,45 @@ function initUIListeners() {
 		}
 		jaaulde.utils.cookies.set(COOKIE_EMOTES, emotes);
 	});
-	$("#plug-btn-lovesong").on("click", function() {
-  	if (clicked == false) {
-			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
-			API.sendChat(loveMsg[Math.floor(Math.random() * loveMsg.length)]);
-		}
-	});
-	$("#plug-btn-mehsong").on("click", function() {
+	$("#plug-btn-face").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
-			API.sendChat(mehMsg[Math.floor(Math.random() * mehMsg.length)]);
+			clickTimer = setInterval("checkClicked();", 1000);
+		API.sendChat(fbMsg[Math.floor(Math.random() * fbMsg.length)]);
 		}
 	});
-	$("#plug-btn-hatesong").on("click", function() {
+	$("#plug-btn-rules").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
-			API.sendChat(hateMsg[Math.floor(Math.random() * hateMsg.length)]);
+			clickTimer = setInterval("checkClicked();", 1000);
+			API.sendChat(rulesMsg);
+		}
+	});
+	$("#plug-btn-fans").on("click", function() {
+		if (clicked == false) {
+			clicked = true;
+			clickTimer = setInterval("checkClicked();", 1000);
+			API.sendChat(fansMsg[Math.floor(Math.random() * fansMsg.length)]);
+		}
+	});
+	$("#plug-btn-noskip").on("click", function() {
+		if (clicked == false) {
+			clicked = true;
+			clickTimer = setInterval("checkClicked();", 1000);
+			API.sendChat(skipMsg[Math.floor(Math.random() * skipMsg.length)]);
+		}
+	});
+	$("#plug-btn-waffles").on("click", function() {
+		if (clicked == false) {
+			clicked = true;
+			clickTimer = setInterval("checkClicked();", 1000);
+			API.sendChat(wafflesMsg[Math.floor(Math.random() * wafflesMsg.length)]);
 		}
 	});
 	$("#plug-btn-sleeping").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
+			clickTimer = setInterval("checkClicked();", 1000);
 			if (Models.user.data.status != 3) {
 				API.sendChat(sleepMsg[Math.floor(Math.random() * sleepMsg.length)]);
 				Models.user.changeStatus(3);
@@ -308,7 +334,7 @@ function initUIListeners() {
 	$("#plug-btn-working").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
+			clickTimer = setInterval("checkClicked();", 1000);
 			if (Models.user.data.status != 2) {
 				API.sendChat(workMsg[Math.floor(Math.random() * workMsg.length)]);
 				Models.user.changeStatus(2);
@@ -318,7 +344,7 @@ function initUIListeners() {
 	$("#plug-btn-afk").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
+			clickTimer = setInterval("checkClicked();", 1000);
 			if (Models.user.data.status != 1) {
 				API.sendChat(afkMsg[Math.floor(Math.random() * afkMsg.length)]);
 				Models.user.changeStatus(1);
@@ -328,11 +354,33 @@ function initUIListeners() {
 	$("#plug-btn-back").on("click", function() {
 		if (clicked == false) {
 			clicked = true;
-			clickTimer = setInterval(function() {checkClicked()}, 1000);
+			clickTimer = setInterval("checkClicked();", 1000);
 			if (Models.user.data.status != 0) {
 				API.sendChat(backMsg[Math.floor(Math.random() * backMsg.length)]);
 				Models.user.changeStatus(0);
 			}
+		}
+	});
+	$("#plug-btn-skip").on("click", function() {
+		if (skipped == false) {
+			skipped = true;
+			skipTimer = setInterval("checkSkipped();", 500);
+			new ModerationForceSkipService;
+		}
+	});
+	$("#plug-btn-lock").on("click", function() {
+		new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);
+	});
+	$("#plug-btn-unlock").on("click", function() {
+		new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);
+	});
+	$("#plug-btn-lockskip").on("click", function() {
+		if (skipped == false) {
+			skipped = true;
+			skipTimer = setInterval("checkSkipped();", 500);
+			new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);
+			new ModerationForceSkipService;
+			new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);
 		}
 	});
 }
@@ -382,7 +430,23 @@ function djAdvanced(obj) {
 		$("#playback .frame-background").css("opacity", "0.0");
 	}
 	if (autowoot) {
-		setTimeout("$('#button-vote-positive').click();", 5000);
+		setTimeout("$('#button-vote-positive').click();", 7000);
+	}
+	setTimeout("overPlayedSongs();", 6000);
+}
+
+function overPlayedSongs(data) {
+	if (overPlayed.indexOf(Models.room.data.media.id) > -1) {
+		API.sendChat("/me auto skip activated! song overplayed");
+		setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
+		setTimeout("new ModerationForceSkipService;", 500);
+		setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
+	}
+	if (Models.room.data.media.duration > 481) {
+		API.sendChat("/me auto skip activated! song exceeds 8 minutes long");
+		setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
+		setTimeout("new ModerationForceSkipService;", 500);
+		setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
 	}
 }
 
@@ -494,8 +558,18 @@ function checkClicked() {
 	}
 }
 
+function checkSkipped() {
+	if (skipPassed >= skipWait) {
+		clearInterval(skipTimer);
+		skipped = false;
+		skipPassed = 0;
+	}
+	else {
+		skipPassed = skipPassed + 500;
+	}
+}
+
 delay();
-$('#plugbot-js').remove();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
