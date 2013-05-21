@@ -184,6 +184,52 @@ var styles = [
             '::-webkit-scrollbar-thumb:window-inactive {background: rgba(232,37,236,0.4);}',
 ];
 
+onWindowResize: function(a) {
+	this.LEFT = 
+      	Math.max(0, ($(window).width() - this.WIDTH) / 2);
+        $("body").css("background-position", ($(window).width() - 1920) / 2 + "px 0");
+        var b = $("#meta-frame");
+        b.css("left", this.LEFT);
+        b = $("#playback");
+        b.css("left", this.LEFT + 353);
+        b = $("#footer-container");
+        b.css("left", this.LEFT + this.WIDTH - b.width());
+        var b = $("#chat"), c = this.LEFT + this.WIDTH - b.width();
+        b.css("left", c);
+        b = $("#chat-mention-suggestion");
+        b.css("left", c);
+        b = $("#room-wheel");
+        b.css("left", this.LEFT - 0);
+        b = $("#audience");
+        b.css("left", this.LEFT);
+        b = b.offset();
+        b.left -= 15;
+        RoomUser.audience.offset = b;
+        if (b = $("#dj-booth"))
+            b.css("left", this.LEFT), RoomUser.djBooth.offset = b.offset();
+        b = $("#user-container");
+        b.css("left", this.LEFT + this.WIDTH - b.width());
+        b = $("#media-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#avatar-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#lobby-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#user-list-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b = $(".modal-background");
+        b.css("width", Math.max(1200, $(window).width()));
+        b.css("height", Math.max(746, $(window).height()));
+        b = $(".dialog");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        if (EXT && EXT.onWindowResize)
+            EXT.onWindowResize(a)
+}
+
 var scripts = [
             '(function(e){e.fn.hoverIntent=function(t,n,r){var i={interval:100,sensitivity:7,timeout:0};if(typeof t==="object"){i=e.extend(i,t)}else if(e.isFunction(n)){i=e.extend(i,{over:t,out:n,selector:r})}else{i=e.extend(i,{over:t,out:t,selector:n})}var s,o,u,a;var f=function(e){s=e.pageX;o=e.pageY};var l=function(t,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);if(Math.abs(u-s)+Math.abs(a-o)<i.sensitivity){e(n).off("mousemove.hoverIntent",f);n.hoverIntent_s=1;return i.over.apply(n,[t])}else{u=s;a=o;n.hoverIntent_t=setTimeout(function(){l(t,n)},i.interval)}};var c=function(e,t){t.hoverIntent_t=clearTimeout(t.hoverIntent_t);t.hoverIntent_s=0;return i.out.apply(t,[e])};var h=function(t){var n=jQuery.extend({},t);var r=this;if(r.hoverIntent_t){r.hoverIntent_t=clearTimeout(r.hoverIntent_t)}if(t.type=="mouseenter"){u=n.pageX;a=n.pageY;e(r).on("mousemove.hoverIntent",f);if(r.hoverIntent_s!=1){r.hoverIntent_t=setTimeout(function(){l(n,r)},i.interval)}}else{e(r).off("mousemove.hoverIntent",f);if(r.hoverIntent_s==1){r.hoverIntent_t=setTimeout(function(){c(n,r)},i.timeout)}}};return this.on({"mouseenter.hoverIntent":h,"mouseleave.hoverIntent":h},i.selector)}})(jQuery)',
             'if (jQuery.easing.easeOutCirc === undefined) jQuery.easing.easeOutCirc = function(e,f,a,h,g){return h*Math.sqrt(1-(f=f/g-1)*f)+a}',
