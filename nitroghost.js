@@ -96,15 +96,18 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 var mentioned = false;
 var clicked = false;
 var skipped = false;
+var boothPredictor = false;
 var timeToWait = 600000;
 var clickWait = 5000;
 var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
 var skipPassed = 0;
+var predictTime = 0;
 var timer = null;
 var clickTimer = null;
 var skipTimer = null;
+var predictTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAMING = 'streaming';
@@ -425,6 +428,58 @@ function djAdvanced(obj) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
 	setTimeout("overPlayedSongs();", 6000);
+	if (boothPredictor == false) {
+		boothPredictor = true;
+		predictTimer = setInterval("checkPredictor()", 1000);
+	}
+}
+
+function checkMentioned() {
+	if(timePassed >= timeToWait) {
+		clearInterval(timer);
+		mentioned = false;
+		timePassed = 0;
+	}
+	else {
+		timePassed = timePassed + 1000;
+	}
+}
+
+function checkClicked() {
+	if (clickPassed >= clickWait) {
+		clearInterval(clickTimer);
+		clicked = false;
+		clickPassed = 0;
+	}
+	else {
+		clickPassed = clickPassed + 1000;
+	}
+}
+
+function checkSkipped() {
+	if (skipPassed >= skipWait) {
+		clearInterval(skipTimer);
+		skipped = false;
+		skipPassed = 0;
+	}
+	else {
+		skipPassed = skipPassed + 500;
+	}
+}
+
+function predictor() {
+	var waitpostime = Models.room.getWaitListPosition() * 240;
+        var offset = API.getMedia().duration - 240;
+        var approxtime = waitpostime + offset - predictTime;
+        if (predictTime >= API.getMedia().duration) {
+        	clearInterval(predictTimer);
+        	boothPredict = false;
+        	var predictTime = 0;
+        	
+        }
+        else {
+        	predictTime = predictTime + 1;
+        }
 }
 
 function overPlayedSongs(data) {
@@ -439,6 +494,24 @@ function overPlayedSongs(data) {
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
 		setTimeout("new ModerationForceSkipService;", 500);
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
+	}
+}
+
+function sts(secs) {
+	var nohrs = Math.floor((secs % 86400) / 3600);
+	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
+	if (nohrs > 0) {
+		if (nomins > 9) {
+			return nohrs + ":" + nomins
+		} else {
+			return nohrs + ":0" + nomins
+		}
+	} else {
+		if (nomins > 9) {
+			return nomins + " mins"
+		} else {
+			return "0" + nomins + " mins"
+		}
 	}
 }
 
@@ -518,9 +591,6 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').html('<h3 class="users" title="number of users in the room">users: ' + API.getUsers().length + '</h3>');
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3 title="waitlist posisition"></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
-        var waitpostime = Models.room.getWaitListPosition() * 240;
-        var offset = API.getMedia().duration - 240;
-        var approxtime = waitpostime + offset;
         var timeDiv = $('<h3 title="approx. wait time until on the booth"</h3>').addClass('timewait').text('wait: ' + (spot !== null ? sts(decodeURIComponent(approxtime)) + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append(spot !== null ? timeDiv : '');
@@ -531,58 +601,6 @@ function populateUserlist() {
         	+ 	'<div id="wootlist_div" style="border: 1px solid rgb(2, 140, 7);"><a title="woot list">woot list:</a>' + wootlist + '</div>'
         	+	'<div id="spacer_div"></br></br></div>'
         );
-}
-
-function sts(secs) {
-	var nohrs = Math.floor((secs % 86400) / 3600);
-	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
-	if (nohrs > 0) {
-		if (nomins > 9) {
-			return nohrs + ":" + nomins
-		} else {
-			return nohrs + ":0" + nomins
-		}
-	} else {
-		if (nomins > 9) {
-			return nomins + " mins"
-		} else {
-			return "0" + nomins + " mins"
-		}
-	}
-}
-
-
-function checkMentioned() {
-	if(timePassed >= timeToWait) {
-		clearInterval(timer);
-		mentioned = false;
-		timePassed = 0;
-	}
-	else {
-		timePassed = timePassed + 1000;
-	}
-}
-
-function checkClicked() {
-	if (clickPassed >= clickWait) {
-		clearInterval(clickTimer);
-		clicked = false;
-		clickPassed = 0;
-	}
-	else {
-		clickPassed = clickPassed + 1000;
-	}
-}
-
-function checkSkipped() {
-	if (skipPassed >= skipWait) {
-		clearInterval(skipTimer);
-		skipped = false;
-		skipPassed = 0;
-	}
-	else {
-		skipPassed = skipPassed + 500;
-	}
 }
 
 delay();
