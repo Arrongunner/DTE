@@ -574,3 +574,48 @@ $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Als
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
+main.onWindowResize = function(a) {
+        this.LEFT = 
+        Math.max(0, ($(window).width() - this.WIDTH) / 2);
+        $("body").css("background-position", ($(window).width() - 1920) / 2 + "px 0");
+        var b = $("#meta-frame");
+        b.css("left", this.LEFT);
+        b = $("#playback");
+        b.css("left", this.LEFT + 353);
+        b = $("#footer-container");
+        b.css("left", this.LEFT + this.WIDTH - b.width());
+        var b = $("#chat"), c = this.LEFT + this.WIDTH - b.width();
+        b.css("left", c);
+        b = $("#chat-mention-suggestion");
+        b.css("left", c);
+        b = $("#room-wheel");
+        b.css("left", this.LEFT);
+        b = $("#audience");
+        b.css("left", this.LEFT);
+        b = b.offset();
+        b.left -= 15;
+        RoomUser.audience.offset = b;
+        if (b = $("#dj-booth"))
+            b.css("left", this.LEFT), RoomUser.djBooth.offset = b.offset();
+        b = $("#user-container");
+        b.css("left", this.LEFT + this.WIDTH - b.width());
+        b = $("#media-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#avatar-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#lobby-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        b = $("#user-list-overlay");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b = $(".modal-background");
+        b.css("width", Math.max(1200, $(window).width()));
+        b.css("height", Math.max(746, $(window).height()));
+        b = $(".dialog");
+        b.css("left", this.LEFT + (this.WIDTH - b.width()) / 2);
+        b.css("top", (687 - b.height()) / 2);
+        if (EXT && EXT.onWindowResize)
+            EXT.onWindowResize(a)
+}
