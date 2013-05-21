@@ -477,9 +477,9 @@ function populateUserlist() {
         );
 }
 
-function sts(seconds) {
-	var nohrs = Math.floor((seconds % 86400) / 3600);
-	var nomins = Math.floor(((seconds % 86400) % 3600) / 60);
+function sts(secs) {
+	var nohrs = Math.floor((secs % 86400) / 3600);
+	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
 	if (nohrs > 0) {
 		if (nomins >4) {
 			return nohrs + ":" + nomins
