@@ -428,15 +428,9 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 7000);
 	}
-	if (predictor == true) {
-			clearInterval(predictTimer);
-			predictor = false;
-			predictPassed = 0;
-	}
 	if (predictor == false) {
 		predictor = true;
 		predictTimer = setInterval("checkPredict()", 1000);
-		break;
 	}
 }
 
