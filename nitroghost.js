@@ -259,7 +259,7 @@ function initUIListeners() {
 	});
 	$("#plug-btn-stream").on("click", function() {
 		streaming = !streaming;
-		$(this).css("color", stream ? "#3FFF00" : "#ED1C24");
+		$(this).css("color", streaming ? "#3FFF00" : "#ED1C24");
 		API.sendChat(DB.settings.streamDisabled ? '/stream on' : '/stream off');
 		jaaulde.utils.cookies.set(COOKIE_STREAMING, streaming);
 	});
