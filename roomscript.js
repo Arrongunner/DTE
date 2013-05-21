@@ -100,16 +100,15 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 
 var mentioned = false;
 var clicked = false;
-var skipped = false;
+var predictor = false;
 var timeToWait = 600000;
 var clickWait = 5000;
-var skipWait = 2000;
 var timePassed = 0;
 var clickPassed = 0;
-var skipPassed = 0;
+var predictPassed = 0;
 var timer = null;
 var clickTimer = null;
-var skipTimer = null;
+var predictTimer = null;
 var COOKIE_WOOT = 'autowoot';
 var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAMING = 'streaming';
@@ -386,6 +385,10 @@ function djAdvanced(obj) {
 	if (autowoot) {
 		setTimeout("$('#button-vote-positive').click();", 5000);
 	}
+	if (predictor == false) {
+		predictor = true;
+		predictTimer = setInterval("checkPredict()", 1000);
+	}
 }
 
 function populateUserlist() {
@@ -514,6 +517,17 @@ function checkClicked() {
 	}
 	else {
 		clickPassed = clickPassed + 1000;
+	}
+}
+
+function checkPredict() {
+	if (predictPassed >= API.getMedia().duration) {
+		clearInterval(predictTimer);
+		predictor = false;
+		predictPassed = 0;
+	}
+	else {
+		predictPassed = predictPassed + 1;
 	}
 }
 
