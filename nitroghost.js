@@ -420,6 +420,7 @@ function autoRespond(data) {
 }
 
 function djAdvanced(obj) {
+	setTimeout("overPlayedSongs();", 6000);
 	if (hideVideo) {
 		$("#yt-frame").css("height", "0px");
 		$("#playback .frame-background").css("opacity", "0.0");
@@ -430,13 +431,14 @@ function djAdvanced(obj) {
 	if (predictor == false) {
 		predictor = true;
 		predictTimer = setInterval("checkPredict()", 1000);
+		break;
 	}
 	else if (predictor == true) {
 			clearInterval(predictTimer);
 			predictor = false;
 			predictPassed = 0;
+			break;
 	}
-	setTimeout("overPlayedSongs();", 6000);
 }
 
 function overPlayedSongs(data) {
