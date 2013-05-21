@@ -518,8 +518,8 @@ function populateUserlist() {
         $('#side-left .sidebar-content2').html('<h3 class="users" title="number of users in the room">users: ' + API.getUsers().length + '</h3>');
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3 title="waitlist posisition"></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
-        var approxtime = Models.room.getWaitListPosition()*4;
-        var timeDiv = $('<h3 title="time to wait"></h3>').addClass('timewait').text('time: ' + (spot !== null ? approxtime + ' ' : ''));
+        var approxtime = Models.room.getWaitListPosition()*240;
+        var timeDiv = $('<h3 title="time to wait"></h3>').addClass('timewait').text('time: ' + (spot !== null ? secondsToString(decodeURIComponent(approxtime)) + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append(spot !== null ? timeDiv : '');
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
@@ -529,6 +529,34 @@ function populateUserlist() {
         	+ 	'<div id="wootlist_div" style="border: 1px solid rgb(2, 140, 7);"><a title="woot list">woot list:</a>' + wootlist + '</div>'
         	+	'<div id="spacer_div"></br></br></div>'
         );
+}
+
+function secondsToString(seconds) {
+	var numdays = Math.floor(seconds / 86400);
+	var numhours = Math.floor((seconds % 86400) / 3600);
+	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
+	var numseconds = ((seconds % 86400) % 3600) % 60;
+	if(numdays > 0) {
+		return ">1 day"
+	} else {
+		if(numhours > 0) {
+			return ">" + numhours + " hours"
+		} else {
+			if(numminutes > 9) {
+				if(numseconds > 9) {
+					return numminutes + ":" + numseconds
+				} else {
+					return numminutes + ":0" + numseconds
+				}
+			} else {
+				if(numseconds > 9) {
+					return "0" + numminutes + ":" + numseconds
+				} else {
+					return "0" + numminutes + ":0" + numseconds
+				}
+			}
+		}
+	}
 }
 
 function checkMentioned() {
