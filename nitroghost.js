@@ -519,7 +519,7 @@ function populateUserlist() {
         var spot = Models.room.getWaitListPosition();
         var waitlistDiv = $('<h3 title="waitlist posisition"></h3>').addClass('waitlistspot').text('waitlist: ' + (spot !== null ? spot + ' / ' : '') + Models.room.data.waitList.length);
         var approxtime = Models.room.getWaitListPosition()*240;
-        var timeDiv = $('<h3 title="time to wait"></h3>').addClass('timewait').text('wait time:' + (spot !== null ? secondsToString(decodeURIComponent(approxtime)) + ' ' : ''));
+        var timeDiv = $('<h3 title="time to wait"></h3>').addClass('timewait').text('wait: ' + (spot !== null ? sts(decodeURIComponent(approxtime)) + ' ' : ''));
         $('#side-left .sidebar-content2').append(waitlistDiv);
         $('#side-left .sidebar-content2').append(spot !== null ? timeDiv : '');
         $('#side-left .sidebar-content2').append('<div class="meanlist"></div>');
@@ -531,7 +531,7 @@ function populateUserlist() {
         );
 }
 
-function secondsToString(seconds) {
+function sts(seconds) {
 	var numhours = Math.floor((seconds % 86400) / 3600);
 	var numminutes = Math.floor(((seconds % 86400) % 3600) / 60);
 	if (numhours > 0) {
