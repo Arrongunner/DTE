@@ -536,22 +536,13 @@ function populateUserlist() {
 function sts(secs) {
 	var nohrs = Math.floor((secs % 86400) / 3600);
 	var nomins = Math.floor(((secs % 86400) % 3600) / 60);
-	var nosecs = ((seconds % 86400) % 3600) % 60;
 	if (nohrs > 0) {
-		if (nomins > 9 && nosecs > 9) {
-			return nohrs + ":" + nomins + ":" + nosecs
-		} 
-		else (nomins < 9 && nosecs < 9) {
-			return nohrs + ":0" + nomins + ":0" + nosecs
+		if (nomins >9) {
+			return nohrs + ":" + nomins
+		} else {
+			return nohrs + ":0" + nomins
 		}
-		else (nomins < 9 && nosecs > 9) {
-			return nohrs + ":0" + nomins + ":" + nosecs			
-		}
-		else (nomins > 9 && nosecs < 9) {
-			return nohrs + ":" + nomins + ":0" + nosecs
-		}
-	} 
-	else {
+	} else {
 		if (nomins > 1) {
 			return nomins + " mins"
 		}
