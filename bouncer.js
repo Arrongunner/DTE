@@ -951,7 +951,7 @@ function strobeListener() {
     strobeOnCommand.prototype.init = function() {
         this.command = '/strobe on';
         this.parseType = 'exact';
-        return this.rankPrivelege = 'manager';
+        return this.rankPrivelege = 'cohost';
     };
 
     strobeOnCommand.prototype.functionality = function() {
