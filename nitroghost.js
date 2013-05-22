@@ -610,7 +610,7 @@ $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="si
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
 
 (function() {
-  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+  var strobeOnCommand, Command, RoomHelper, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -921,6 +921,45 @@ $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + s
     };
 
     return User;
+
+  })();
+
+  RoomHelper = (function() {
+
+    function RoomHelper() {}
+
+    RoomHelper.prototype.lookupUser = function(username) {
+      var id, u, _ref;
+      _ref = data.users;
+      for (id in _ref) {
+        u = _ref[id];
+        if (u.getUser().username === username) {
+          return u.getUser();
+        }
+      }
+      return false;
+    };
+
+    RoomHelper.prototype.userVoteRatio = function(user) {
+      var songId, songVotes, vote, votes;
+      songVotes = data.voteLog[user.id];
+      votes = {
+        'woot': 0,
+        'meh': 0
+      };
+      for (songId in songVotes) {
+        vote = songVotes[songId];
+        if (vote === 1) {
+          votes['woot']++;
+        } else if (vote === -1) {
+          votes['meh']++;
+        }
+      }
+      votes['positiveRatio'] = (votes['woot'] / (votes['woot'] + votes['meh'])).toFixed(2);
+      return votes;
+    };
+
+    return RoomHelper;
 
   })();
 
