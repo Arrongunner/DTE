@@ -62,7 +62,7 @@ var meshkaEnhancedModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/strobe on" == a) {API.sendChat("/strobe on"); log(Models.user.data.username + ' hit the strobe light!'); return RoomUser.audience.strobeMode(true), !0;};
+            if ("/strobe on" == a) {log(Models.user.data.username + ' hit the strobe light!'); return RoomUser.audience.strobeMode(true), !0;};
             if ("/strobe off" == a) return RoomUser.audience.strobeMode(false), !0;
             if ("/rave on" == a) {log(Models.user.data.username + ' turned the lights down!'); return RoomUser.audience.lightsOut(true), !0;};
             if ("/rave off" == a) return RoomUser.audience.lightsOut(false), !0;
