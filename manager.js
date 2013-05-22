@@ -1,6 +1,7 @@
 function delay() {
 	setTimeout("load();", 6000);
 	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();}, 4000);
+	setTimeout("strobeListener();", 10000);
 }
 
 function load() {
@@ -576,3 +577,457 @@ $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Als
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
+
+function strobeListener() {
+  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  settings = (function() {
+
+    function settings() {
+      this.implode = __bind(this.implode, this);
+
+      this.intervalMessages = __bind(this.intervalMessages, this);
+
+      this.setInternalWaitlist = __bind(this.setInternalWaitlist, this);
+
+      this.userJoin = __bind(this.userJoin, this);
+
+      this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
+
+      this.startup = __bind(this.startup, this);
+
+    }
+
+    settings.prototype.currentsong = {};
+
+    settings.prototype.users = {};
+
+    settings.prototype.djs = [];
+
+    settings.prototype.mods = [];
+
+    settings.prototype.host = [];
+
+    settings.prototype.hasWarned = false;
+
+    settings.prototype.currentwoots = 0;
+
+    settings.prototype.currentmehs = 0;
+
+    settings.prototype.currentcurates = 0;
+
+    settings.prototype.roomUrlPath = null;
+
+    settings.prototype.internalWaitlist = [];
+
+    settings.prototype.userDisconnectLog = [];
+
+    settings.prototype.voteLog = {};
+
+    settings.prototype.seshOn = false;
+
+    settings.prototype.forceSkip = false;
+
+    settings.prototype.seshMembers = [];
+
+    settings.prototype.launchTime = null;
+
+    settings.prototype.totalVotingData = {
+      woots: 0,
+      mehs: 0,
+      curates: 0
+    };
+
+    settings.prototype.pupScriptUrl = '';
+
+    settings.prototype.afkTime = 12 * 60 * 1000;
+
+    settings.prototype.songCount = 0;
+
+    settings.prototype.startup = function() {
+      this.launchTime = new Date();
+      return this.roomUrlPath = this.getRoomUrlPath();
+    };
+
+    settings.prototype.getRoomUrlPath = function() {
+      return window.location.pathname.replace(/\//g, '');
+    };
+
+    settings.prototype.newSong = function() {
+      this.totalVotingData.woots += this.currentwoots;
+      this.totalVotingData.mehs += this.currentmehs;
+      this.totalVotingData.curates += this.currentcurates;
+      this.setInternalWaitlist();
+      this.currentsong = API.getMedia();
+      if (this.currentsong !== null) {
+        return this.currentsong;
+      } else {
+        return false;
+      }
+    };
+
+    settings.prototype.userJoin = function(u) {
+      var userIds, _ref;
+      userIds = Object.keys(this.users);
+      if (_ref = u.id, __indexOf.call(userIds, _ref) >= 0) {
+        return this.users[u.id].inRoom(true);
+      } else {
+        this.users[u.id] = new User(u);
+        return this.voteLog[u.id] = {};
+      }
+    };
+
+    settings.prototype.setInternalWaitlist = function() {
+      var boothWaitlist, fullWaitList, lineWaitList;
+      boothWaitlist = API.getDJs().slice(1);
+      lineWaitList = API.getWaitList();
+      fullWaitList = boothWaitlist.concat(lineWaitList);
+      return this.internalWaitlist = fullWaitList;
+    };
+
+    settings.prototype.activity = function(obj) {
+      if (obj.type === 'message') {
+        return this.users[obj.fromID].updateActivity();
+      }
+    };
+
+    settings.prototype.intervalMessages = function() {
+      var msg, _i, _len, _ref, _results;
+      this.songCount++;
+      _ref = this.songIntervalMessages;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        msg = _ref[_i];
+        if (((this.songCount + msg['offset']) % msg['interval']) === 0) {
+          _results.push(API.sendChat(msg['msg']));
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    settings.prototype.implode = function() {
+      var item, val;
+      for (item in this) {
+        val = this[item];
+        if (typeof this[item] === 'object') {
+          delete this[item];
+        }
+      }
+      return clearInterval(this.afkInterval);
+    };
+
+    return settings;
+
+  })();
+
+  data = new settings();
+
+  User = (function() {
+
+    User.prototype.afkWarningCount = 0;
+
+    User.prototype.lastWarning = null;
+
+    User.prototype["protected"] = false;
+
+    User.prototype.isInRoom = true;
+
+    function User(user) {
+      this.user = user;
+      this.updateVote = __bind(this.updateVote, this);
+
+      this.inRoom = __bind(this.inRoom, this);
+
+      this.notDj = __bind(this.notDj, this);
+
+      this.warn = __bind(this.warn, this);
+
+      this.getIsDj = __bind(this.getIsDj, this);
+
+      this.getWarningCount = __bind(this.getWarningCount, this);
+
+      this.getUser = __bind(this.getUser, this);
+
+      this.getLastWarning = __bind(this.getLastWarning, this);
+
+      this.getLastActivity = __bind(this.getLastActivity, this);
+
+      this.updateActivity = __bind(this.updateActivity, this);
+
+      this.init = __bind(this.init, this);
+
+      this.init();
+    }
+
+    User.prototype.init = function() {
+      return this.lastActivity = new Date();
+    };
+
+    User.prototype.updateActivity = function() {
+      this.lastActivity = new Date();
+      this.afkWarningCount = 0;
+      return this.lastWarning = null;
+    };
+
+    User.prototype.getLastActivity = function() {
+      return this.lastActivity;
+    };
+
+    User.prototype.getLastWarning = function() {
+      if (this.lastWarning === null) {
+        return false;
+      } else {
+        return this.lastWarning;
+      }
+    };
+
+    User.prototype.getUser = function() {
+      return this.user;
+    };
+
+    User.prototype.getWarningCount = function() {
+      return this.afkWarningCount;
+    };
+
+    User.prototype.getIsDj = function() {
+      var DJs, dj, _i, _len;
+      DJs = API.getDJs();
+      for (_i = 0, _len = DJs.length; _i < _len; _i++) {
+        dj = DJs[_i];
+        if (this.user.id === dj.id) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    User.prototype.warn = function() {
+      this.afkWarningCount++;
+      return this.lastWarning = new Date();
+    };
+
+    User.prototype.notDj = function() {
+      this.afkWarningCount = 0;
+      return this.lastWarning = null;
+    };
+
+    User.prototype.inRoom = function(online) {
+      return this.isInRoom = online;
+    };
+
+    User.prototype.updateVote = function(v) {
+      if (this.isInRoom) {
+        return data.voteLog[this.user.id][data.currentsong.id] = v;
+      }
+    };
+
+    return User;
+
+  })();
+
+  populateUserData = function() {
+    var u, users, _i, _len;
+    users = API.getUsers();
+    for (_i = 0, _len = users.length; _i < _len; _i++) {
+      u = users[_i];
+      data.users[u.id] = new User(u);
+      data.voteLog[u.id] = {};
+    }
+  };
+
+  initEnvironment = function() {
+    document.getElementById("button-vote-positive").click();
+    document.getElementById("button-sound").click();
+    Playback.streamDisabled = true;
+    return Playback.stop();
+  };
+
+  initialize = function() {
+    populateUserData();
+    initEnvironment();
+    initHooks();
+    data.startup();
+    data.newSong();
+  };
+
+  Command = (function() {
+
+    function Command(msgData) {
+      this.msgData = msgData;
+      this.init();
+    }
+
+    Command.prototype.init = function() {
+      this.parseType = null;
+      this.command = null;
+      return this.rankPrivelege = null;
+    };
+
+    Command.prototype.functionality = function(data) {};
+
+    Command.prototype.hasPrivelege = function() {
+      var user;
+      user = data.users[this.msgData.fromID].getUser();
+      switch (this.rankPrivelege) {
+        case 'host':
+          return user.permission === 5;
+        case 'cohost':
+          return user.permission >= 4;
+        case 'mod':
+          return user.permission >= 3;
+        case 'manager':
+          return user.permission >= 3;
+        case 'bouncer':
+          return user.permission >= 2;
+        case 'featured':
+          return user.permission >= 1;
+        default:
+          return true;
+      }
+    };
+
+    Command.prototype.commandMatch = function() {
+      var command, msg, _i, _len, _ref;
+      msg = this.msgData.message;
+      if (typeof this.command === 'string') {
+        if (this.parseType === 'exact') {
+          if (msg === this.command) {
+            return true;
+          } else {
+            return false;
+          }
+        } else if (this.parseType === 'startsWith') {
+          if (msg.substr(0, this.command.length) === this.command) {
+            return true;
+          } else {
+            return false;
+          }
+        } else if (this.parseType === 'contains') {
+          if (msg.indexOf(this.command) !== -1) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else if (typeof this.command === 'object') {
+        _ref = this.command;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          command = _ref[_i];
+          if (this.parseType === 'exact') {
+            if (msg === command) {
+              return true;
+            }
+          } else if (this.parseType === 'startsWith') {
+            if (msg.substr(0, command.length) === command) {
+              return true;
+            }
+          } else if (this.parseType === 'contains') {
+            if (msg.indexOf(command) !== -1) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+    };
+
+    Command.prototype.evalMsg = function() {
+      if (this.commandMatch() && this.hasPrivelege()) {
+        this.functionality();
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    return Command;
+
+  })();
+
+  strobeOnCommand = (function(_super) {
+      
+    __extends(strobeOnCommand, _super);
+
+    function strobeOnCommand() {
+        return strobeOnCommand.__super__.constructor.apply(this, arguments);
+    }
+    
+    strobeOnCommand.prototype.init = function() {
+        this.command = '/strobe on';
+        this.parseType = 'exact';
+        return this.rankPrivelege = 'manager';
+    };
+
+    strobeOnCommand.prototype.functionality = function() {
+      return RoomUser.audience.strobeMode(true);
+    }
+  
+    return strobeOnCommand;
+    
+  })(Command);
+
+  cmds = [strobeOnCommand];
+  
+  chatCommandDispatcher = function(chat) {
+    var c, cmd, _i, _len, _results;
+    chatUniversals(chat);
+    _results = [];
+    for (_i = 0, _len = cmds.length; _i < _len; _i++) {
+      cmd = cmds[_i];
+      c = new cmd(chat);
+      if (c.evalMsg()) {
+        break;
+      } else {
+        _results.push(void 0);
+      }
+    }
+    return _results;
+  };
+
+  chatUniversals = function(chat) {
+    data.activity(chat);
+  };
+
+  hook = function(apiEvent, callback) {
+    return API.addEventListener(apiEvent, callback);
+  };
+
+  unhook = function(apiEvent, callback) {
+    return API.removeEventListener(apiEvent, callback);
+  };
+
+  apiHooks = [
+    {
+      'event': API.CHAT,
+      'callback': chatCommandDispatcher
+    }
+  ];
+
+  initHooks = function() {
+    var pair, _i, _len, _results;
+    _results = [];
+    for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
+      pair = apiHooks[_i];
+      _results.push(hook(pair['event'], pair['callback']));
+    }
+    return _results;
+  };
+
+  undoHooks = function() {
+    var pair, _i, _len, _results;
+    _results = [];
+    for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
+      pair = apiHooks[_i];
+      _results.push(unhook(pair['event'], pair['callback']));
+    }
+    return _results;
+  };
+
+  initialize();
+}
