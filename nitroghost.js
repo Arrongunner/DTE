@@ -620,6 +620,9 @@ function strobeListener() {
   settings = (function() {
 
     function settings() {
+      this.implode = __bind(this.implode, this);
+
+      this.intervalMessages = __bind(this.intervalMessages, this);
 
       this.setInternalWaitlist = __bind(this.setInternalWaitlist, this);
 
@@ -673,6 +676,8 @@ function strobeListener() {
 
     settings.prototype.pupScriptUrl = '';
 
+    settings.prototype.afkTime = 12 * 60 * 1000;
+
     settings.prototype.songCount = 0;
 
     settings.prototype.startup = function() {
@@ -721,6 +726,37 @@ function strobeListener() {
         return this.users[obj.fromID].updateActivity();
       }
     };
+
+    settings.prototype.intervalMessages = function() {
+      var msg, _i, _len, _ref, _results;
+      this.songCount++;
+      _ref = this.songIntervalMessages;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        msg = _ref[_i];
+        if (((this.songCount + msg['offset']) % msg['interval']) === 0) {
+          _results.push(API.sendChat(msg['msg']));
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    settings.prototype.implode = function() {
+      var item, val;
+      for (item in this) {
+        val = this[item];
+        if (typeof this[item] === 'object') {
+          delete this[item];
+        }
+      }
+      return clearInterval(this.afkInterval);
+    };
+
+    return settings;
+
+  })();
 
   data = new settings();
 
