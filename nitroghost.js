@@ -624,8 +624,6 @@ function strobeListener() {
 
       this.intervalMessages = __bind(this.intervalMessages, this);
 
-      this.startAfkInterval = __bind(this.startAfkInterval, this);
-
       this.setInternalWaitlist = __bind(this.setInternalWaitlist, this);
 
       this.userJoin = __bind(this.userJoin, this);
@@ -727,10 +725,6 @@ function strobeListener() {
       if (obj.type === 'message') {
         return this.users[obj.fromID].updateActivity();
       }
-    };
-
-    settings.prototype.startAfkInterval = function() {
-      return this.afkInterval = setInterval(afkCheck, 2000);
     };
 
     settings.prototype.intervalMessages = function() {
