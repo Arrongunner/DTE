@@ -1021,8 +1021,8 @@ function strobeListener() {
   if (plugRoomLinkPatt.exec(chat.message)) {
     sender = API.getUser(chat.fromID);
     if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
-       API.sendChat("@" + API.getUser(chat.fromID).username + " please get rid of your autowoot, it spams the chat");
-       return API.moderateDeleteChat(chat.chatID);
+       API.moderateDeleteChat(chat.chatID);
+       return API.sendChat("@" + API.getUser(chat.fromID).username + " please get rid of your autowoot, it spams the chat");
      }
    }
  };
