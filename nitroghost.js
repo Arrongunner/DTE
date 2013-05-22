@@ -876,7 +876,6 @@ function strobeListener() {
 
   initialize = function() {
     populateUserData();
-    initEnvironment();
     initHooks();
     data.startup();
     data.newSong();
