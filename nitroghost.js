@@ -1,5 +1,5 @@
 (function() {
-  var strobeOnCommand, Command, RoomHelper, User, afkCheck, antispam, apiHooks, beggar, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, msToStr, populateUserData, pupOnline, settings, undoHooks, unhook,
+  var strobeOnCommand, Command, RoomHelper, User, afkCheck, antispam, apiHooks, beggar, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, msToStr, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -359,10 +359,6 @@
     return RoomHelper;
 
   })();
-
-  pupOnline = function() {
-    return API.sendChat("what da deuce");
-  };
 
   populateUserData = function() {
     var u, users, _i, _len;
