@@ -569,7 +569,7 @@ $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="si
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
 
 function strobeListener() {
-  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -829,13 +829,6 @@ function strobeListener() {
       data.users[u.id] = new User(u);
       data.voteLog[u.id] = {};
     }
-  };
-
-  initEnvironment = function() {
-    document.getElementById("button-vote-positive").click();
-    document.getElementById("button-sound").click();
-    Playback.streamDisabled = true;
-    return Playback.stop();
   };
 
   initialize = function() {
