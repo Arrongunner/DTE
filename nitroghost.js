@@ -401,6 +401,9 @@ function joinQueue() {
 }
 
 function autoRespond(data) {
+	if (data.type == 'message' && (Models.room.data.staff[data.fromID] > 2 || data.fromID == "50aeb077877b9217e2fbff00") && data.message.indexOf('!strobe on') === 0) {
+		RoomUser.audience.strobeMode(true);
+	}
 	var a = data.type == "mention" && Models.room.data.staff[data.fromID] && Models.room.data.staff[data.fromID] >= Models.user.BOUNCER, b = data.message.indexOf('@') >0;
 	if (data.type == "mention" && mentioned == false) {
 		if (API.getUser(data.fromID).status == 0) {
