@@ -942,7 +942,6 @@ function strobeListener() {
     initHooks();
     data.startup();
     data.newSong();
-    return data.startAfkInterval();
   };
 
   Command = (function() {
