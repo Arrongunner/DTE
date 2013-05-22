@@ -94,6 +94,7 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	}
 }
 
+var Strobe;
 var mentioned = false;
 var clicked = false;
 var skipped = false;
@@ -610,7 +611,7 @@ $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
 
-(function Strobe() {
+Strobe = (function() {
   var strobeOnCommand, Command, RoomHelper, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initEnvironment, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
