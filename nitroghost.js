@@ -55,7 +55,7 @@ function onCookiesLoaded() {
 		return data;
 	}
 	if (!audience) {
-		$('#audience').remove();
+		$('#audience').hide();
 	}
     	initAPIListeners();
     	displayUI();
@@ -297,7 +297,7 @@ function initUIListeners() {
 			$('#audience').show();
 		}
 		if (!audience) {
-			$('#audience').remove();
+			$('#audience').hide();
 		}
 		jaaulde.utils.cookies.set(COOKIE_AUDIENCE, audience);
 	});
