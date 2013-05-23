@@ -1025,6 +1025,7 @@ function strobeListener() {
        return API.sendChat("@" + API.getUser(chat.fromID).username + " please get rid of your autowoot, it spams the chat");
      }
    }
+   return antispam;
  };
 
   chatUniversals = function(chat) {
