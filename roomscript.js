@@ -30,6 +30,8 @@ function readCookies() {
     	hideVideo = value != null ? value : false;
     	var value = jaaulde.utils.cookies.get(COOKIE_EMOTES);
     	emotes = value != null ? value : true;
+    	var value = jaaulde.utils.cookies.get(COOKIE_AUDIENCE);
+    	audience = value != null ? value : true;
     	var value = jaaulde.utils.cookies.get(COOKIE_LEFT);
     	left = value != null ? value : false;
 	onCookiesLoaded();
@@ -56,6 +58,9 @@ function onCookiesLoaded() {
 	}
 	if (!emotes) Emoji.emojify = function(data) {
 		return data;
+	}
+	if (!audience) {
+		$('#audience').hide();
 	}
     	initAPIListeners();
     	displayUI();
@@ -115,6 +120,7 @@ var COOKIE_QUEUE = 'autoqueue';
 var COOKIE_STREAMING = 'streaming';
 var COOKIE_HIDE_VIDEO = 'hidevideo';
 var COOKIE_EMOTES = 'emotes';
+var COOKIE_AUDIENCE = 'audience';
 var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
@@ -207,12 +213,14 @@ function displayUI() {
     	var colorStream = streaming ? '#3FFF00' : '#ED1C24';
     	var colorVideo = hideVideo ? '#3FFF00' : '#ED1C24';
     	var colorEmotes = emotes ? '#3FFF00' : '#ED1C24';
+    	var colorAudience = audience ? '#3FFF00' : '#ED1C24';
 	$('#side-right .sidebar-content').append(
 			'<a id="plug-btn-woot" title="toggles auto woot" style="color:' + colorWoot + '">auto woot</a>'
 		+ 	'<a id="plug-btn-queue" title="toggles auto queue" style="color:' + colorQueue + '">auto queue</a>'
 		+ 	'<a id="plug-btn-stream" title="toggles video stream" style="color:' + colorStream + '">streaming</a>'
 		+ 	'<a id="plug-btn-hidevideo" title="toggles hide video" style="color:' + colorVideo + '">hide video</a>'
 		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
+		+	'<a id="plug-btn-audience" title="toggles audience" style="color:' + colorAudience + '">audience</a>'
 		+	'<a  onclick="rules()" title="displays rules" style="color:#0000FF">rules</a>'
 		+	'<a id="plug-btn-lovesong" title="sends love song message" style="color:#FF8C00">loves this song</a>'
 		+	'<a id="plug-btn-mehsong" title="sends not fan of song message" style="color:#FF8C00">not fan of song</a>'
@@ -275,6 +283,17 @@ function initUIListeners() {
 			return data;
 		}
 		jaaulde.utils.cookies.set(COOKIE_EMOTES, emotes);
+	});
+	$("#plug-btn-audience").on("click", function() {
+		audience = !audience;
+		$(this).css("color", audience ? "#3FFF00" : "#ED1C24");
+		if (audience) {
+			$('#audience').show();
+		}
+		if (!audience) {
+			$('#audience').hide();
+		}
+		jaaulde.utils.cookies.set(COOKIE_AUDIENCE, audience);
 	});
 	$("#plug-btn-lovesong").on("click", function() {
   	if (clicked == false) {
