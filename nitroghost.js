@@ -637,46 +637,6 @@ var meshkaEnhancedModel = Class.extend({
         patch: 2
     },
     init: function(){
-        $('#room-wheel').hide()
-        $('head').append('<style type="text/css" id="meshka-css">'
-            + 'html{background: url("http://i.imgur.com/4L9QVPy.jpg") no-repeat scroll center top #000000;'
-            + '#dj-console, #dj-console {background-image: url("http://www.omfgdogs.com/omfgdogs.gif");min-height:33px;min-width:131px;'
-            + 'body {color:#ff0000;}'
-        + '</style>');
-         setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();},500);
-        var words = {
-            // Syntax: 'Search word' : 'Replace word',
-            "Points" : "Points",
-            "Now Playing" : "Now Playing",
-            "Time Remaining" : "Time Remaining",
-            "Volume" : "Crank it up!",
-            "Current DJ" : "Current DJ",
-            "Crowd Response" : "Crowd's Reaction",
-            "Fans":"Minions"
-        };
-        String.prototype.prepareRegex = function() {
-            return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
-        };
-        function isOkTag(tag) {
-            return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
-        };
-        var regexs=new Array(),
-        replacements=new Array();
-        for(var word in words) {
-            if(word != "") {
-                regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
-                replacements.push(words[word]);
-            }
-        }
-        var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
-        for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
-        if(isOkTag(this_text.parentNode.tagName.toLowerCase()) && (text=this_text.textContent)) {
-            for(var x=0,l=regexs.length; x<l; x++) {
-                text = text.replace(regexs[x], replacements[x]);
-                this_text.textContent = text;
-                }
-            }
-        }
         this.proxy = {
             onChat: $.proxy(this.onChat, this)
         };
@@ -721,14 +681,9 @@ var meshkaEnhancedModel = Class.extend({
             }, a.message = b, this.receive(a), !0) : !1
         }
         Models.chat.chatCommand = ChatModel.chatCommand
-        log('<span style="color:#FF0000"><i>Running Super Enhanced version ' + this.version.major + '.' + this.version.minor + '.' + this.version.patch + '</i></span>');
-        log('<span style="color:#FFFF00">Minecraft:SC.MCDL.EU')
-        if (plugCubed == undefined) $.getScript("http://tatdk.github.io/plugCubed/compiled/plugCubed.min.js")
-
+        
     },
     close: function(){
-        $('#meshka-css').remove();
-        $('#room-wheel').show()
         API.removeEventListener(API.CHAT,this.proxy.onChat)
         RoomUser.audience.roomElements = _roomElements;
         setTimeout(function(){RoomUser.redraw();},500);
