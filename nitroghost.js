@@ -628,8 +628,56 @@ if (meshkaEnhanced !== undefined)
 String.prototype.equalsIgnoreCase = function(other) {
     return this.toLowerCase() === other.toLowerCase();
 };
+var plugCubed,
+_roomElements = RoomUser.audience.roomElements
 var meshkaEnhancedModel = Class.extend({
-	this.proxy = {
+    version: {
+        major: 1,
+        minor: 1,
+        patch: 2
+    },
+    init: function(){
+        $('#room-wheel').hide()
+        $('head').append('<style type="text/css" id="meshka-css">'
+            + 'html{background: url("http://i.imgur.com/4L9QVPy.jpg") no-repeat scroll center top #000000;'
+            + '#dj-console, #dj-console {background-image: url("http://www.omfgdogs.com/omfgdogs.gif");min-height:33px;min-width:131px;'
+            + 'body {color:#ff0000;}'
+        + '</style>');
+         setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();},500);
+        var words = {
+            // Syntax: 'Search word' : 'Replace word',
+            "Points" : "Points",
+            "Now Playing" : "Now Playing",
+            "Time Remaining" : "Time Remaining",
+            "Volume" : "Crank it up!",
+            "Current DJ" : "Current DJ",
+            "Crowd Response" : "Crowd's Reaction",
+            "Fans":"Minions"
+        };
+        String.prototype.prepareRegex = function() {
+            return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
+        };
+        function isOkTag(tag) {
+            return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
+        };
+        var regexs=new Array(),
+        replacements=new Array();
+        for(var word in words) {
+            if(word != "") {
+                regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
+                replacements.push(words[word]);
+            }
+        }
+        var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
+        for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
+        if(isOkTag(this_text.parentNode.tagName.toLowerCase()) && (text=this_text.textContent)) {
+            for(var x=0,l=regexs.length; x<l; x++) {
+                text = text.replace(regexs[x], replacements[x]);
+                this_text.textContent = text;
+                }
+            }
+        }
+        this.proxy = {
             onChat: $.proxy(this.onChat, this)
         };
         API.addEventListener(API.CHAT,this.proxy.onChat)
@@ -737,7 +785,6 @@ var meshkaEnhancedModel = Class.extend({
         }
     }
 });
-
 var meshkaEnhanced = new meshkaEnhancedModel;
 
 delay();
