@@ -636,9 +636,9 @@ var meshkaEnhancedModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/op" == a) {log('<span style="color:#FF0000">song ID: <strong style="color:#FFF>"' + API.getMedia().id + '"</strong></span>'); return API.getMedia ().id};
-            if ("/strobe on" == a) {log('strobes activated!'); return RoomUser.audience.strobeMode(true), !0;};
-            if ("/strobe off" == a) {log('strobes activated!'); return RoomUser.audience.strobeMode(false), !0;};
+            if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
+            if ("/strobe on" == a) {log('<span style="color:#FFF">strobes activated!</span>'); return RoomUser.audience.strobeMode(true), !0;};
+            if ("/strobe off" == a) {log('<span style="color:#FFF">strobes activated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
             if ("/hd on" == a) return Playback.setHD(!0), !0;
             if ("/hd off" == a) return Playback.setHD(!1), !0;
