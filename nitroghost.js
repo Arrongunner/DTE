@@ -628,29 +628,16 @@ if (meshkaEnhanced !== undefined)
 String.prototype.equalsIgnoreCase = function(other) {
     return this.toLowerCase() === other.toLowerCase();
 };
-var plugCubed,
-_roomElements = RoomUser.audience.roomElements
 var meshkaEnhancedModel = Class.extend({
-    version: {
-        major: 1,
-        minor: 1,
-        patch: 2
-    },
     init: function(){
-        this.proxy = {
-            onChat: $.proxy(this.onChat, this)
-        };
-        API.addEventListener(API.CHAT,this.proxy.onChat)
         ChatModel.chatCommand = function (a) {
             var b;
             if ("/help" == a) return a = {
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/strobe on" == a) {log(Models.user.data.username + ' hit the strobe light!'); return RoomUser.audience.strobeMode(true), !0;};
-            if ("/strobe off" == a) return RoomUser.audience.strobeMode(false), !0;
-            if ("/rave on" == a) {log(Models.user.data.username + ' turned the lights down!'); return RoomUser.audience.lightsOut(true), !0;};
-            if ("/rave off" == a) return RoomUser.audience.lightsOut(false), !0;
+            if ("/strobe on" == a) {log('strobes activated!'); return RoomUser.audience.strobeMode(true), !0;};
+            if ("/strobe off" == a) {log('strobes activated!'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
             if ("/hd on" == a) return Playback.setHD(!0), !0;
             if ("/hd off" == a) return Playback.setHD(!1), !0;
@@ -684,11 +671,6 @@ var meshkaEnhancedModel = Class.extend({
         
     },
     close: function(){
-        API.removeEventListener(API.CHAT,this.proxy.onChat)
-        RoomUser.audience.roomElements = _roomElements;
-        setTimeout(function(){RoomUser.redraw();},500);
-        if(plugCubed != undefined) plugCubed.close();
-        plugCubed = undefined
         ChatModel.chatCommand = function (a) {
             var b;
             if ("/help" == a) return a = {
@@ -725,19 +707,6 @@ var meshkaEnhancedModel = Class.extend({
             }, a.message = b, this.receive(a), !0) : !1
         }
         Models.chat.chatCommand = ChatModel.chatCommand
-    },
-    onChat: function(data) {
-        if (data.type == 'message' && (Models.room.data.staff[data.fromID] > 2 || data.fromID == "50aeb077877b9217e2fbff00") && data.message.indexOf('!strobe on') === 0) {
-            log(data.from + ' hit the strobe light!');
-            RoomUser.audience.strobeMode(true);
-        } else if (data.type == 'message' && (Models.room.data.staff[data.fromID] > 2 || data.fromID == "50aeb077877b9217e2fbff00") && data.message.indexOf('!strobe off') === 0) {
-            RoomUser.audience.strobeMode(false);
-        } else if (data.type == 'message' && (Models.room.data.staff[data.fromID] > 2 || data.fromID == "50aeb077877b9217e2fbff00") && data.message.indexOf('!rave on') === 0) {
-            log(data.from + ' turned the lights down!');
-            RoomUser.audience.lightsOut(true)
-        } else if (data.type == 'message' && (Models.room.data.staff[data.fromID] > 2 || data.fromID == "50aeb077877b9217e2fbff00") && data.message.indexOf('!rave off') === 0) {
-            RoomUser.audience.lightsOut(false)
-        }
     }
 });
 var meshkaEnhanced = new meshkaEnhancedModel;
