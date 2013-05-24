@@ -61,7 +61,7 @@ function onCookiesLoaded() {
     	displayUI();
     	initUIListeners();
     	populateUserlist();
-    	Models.room.checkStaffAvatars = function (){var b,a;for(a in Models.room.userHash)b=!1,0<Models.room.data.staff[a]&&99>Models.room.data.staff[a]?"monstercat"!=Models.room.userHash[a].avatarID&&(b=!0,Models.room.userHash[a].oldAvatarID=Models.room.userHash[a].avatarID,Models.room.userHash[a].avatarID="monstercat"):Models.room.userHash[a].oldAvatarID&&(Models.room.userHash[a].avatarID=Models.room.userHash[a].oldAvatarID,Models.room.userHash[a].oldAvatarID=void 0,b=!0),b&&RoomUser.userUpdate(Models.room.userHash[a])}
+    	Models.room.checkStaffAvatars = function (){var b,a;for(a in Models.room.userHash)b=!1,0<Models.room.data.staff[a]&&5>Models.room.data.staff[a]?"monstercat"!=Models.room.userHash[a].avatarID&&(b=!0,Models.room.userHash[a].oldAvatarID=Models.room.userHash[a].avatarID,Models.room.userHash[a].avatarID="monstercat"):Models.room.userHash[a].oldAvatarID&&(Models.room.userHash[a].avatarID=Models.room.userHash[a].oldAvatarID,Models.room.userHash[a].oldAvatarID=void 0,b=!0),b&&RoomUser.userUpdate(Models.room.userHash[a])}
 }
 
 var words = {
