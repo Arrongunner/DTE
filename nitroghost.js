@@ -1122,7 +1122,6 @@ function strobeListener() {
  };
 
   chatUniversals = function(chat) {
-      data.activity(chat);
       antispam(chat);
   };
 
