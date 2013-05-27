@@ -731,8 +731,6 @@ function strobeListener() {
 
       this.intervalMessages = __bind(this.intervalMessages, this);
 
-      this.setInternalWaitlist = __bind(this.setInternalWaitlist, this);
-
       this.userJoin = __bind(this.userJoin, this);
 
       this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
@@ -753,15 +751,7 @@ function strobeListener() {
 
     settings.prototype.hasWarned = false;
 
-    settings.prototype.currentwoots = 0;
-
-    settings.prototype.currentmehs = 0;
-
-    settings.prototype.currentcurates = 0;
-
     settings.prototype.roomUrlPath = null;
-
-    settings.prototype.internalWaitlist = [];
 
     settings.prototype.userDisconnectLog = [];
 
@@ -774,12 +764,6 @@ function strobeListener() {
     settings.prototype.seshMembers = [];
 
     settings.prototype.launchTime = null;
-
-    settings.prototype.totalVotingData = {
-      woots: 0,
-      mehs: 0,
-      curates: 0
-    };
 
     settings.prototype.pupScriptUrl = '';
 
@@ -796,19 +780,6 @@ function strobeListener() {
       return window.location.pathname.replace(/\//g, '');
     };
 
-    settings.prototype.newSong = function() {
-      this.totalVotingData.woots += this.currentwoots;
-      this.totalVotingData.mehs += this.currentmehs;
-      this.totalVotingData.curates += this.currentcurates;
-      this.setInternalWaitlist();
-      this.currentsong = API.getMedia();
-      if (this.currentsong !== null) {
-        return this.currentsong;
-      } else {
-        return false;
-      }
-    };
-
     settings.prototype.userJoin = function(u) {
       var userIds, _ref;
       userIds = Object.keys(this.users);
@@ -818,14 +789,6 @@ function strobeListener() {
         this.users[u.id] = new User(u);
         return this.voteLog[u.id] = {};
       }
-    };
-
-    settings.prototype.setInternalWaitlist = function() {
-      var boothWaitlist, fullWaitList, lineWaitList;
-      boothWaitlist = API.getDJs().slice(1);
-      lineWaitList = API.getWaitList();
-      fullWaitList = boothWaitlist.concat(lineWaitList);
-      return this.internalWaitlist = fullWaitList;
     };
 
     settings.prototype.intervalMessages = function() {
