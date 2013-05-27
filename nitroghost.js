@@ -888,7 +888,6 @@ function strobeListener() {
     populateUserData();
     initHooks();
     data.startup();
-    data.newSong();
   };
 
   Command = (function() {
