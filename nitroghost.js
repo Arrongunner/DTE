@@ -889,9 +889,6 @@ function strobeListener() {
 
       this.getLastWarning = __bind(this.getLastWarning, this);
 
-      this.init = __bind(this.init, this);
-
-      this.init();
     }
 
     User.prototype.getLastWarning = function() {
