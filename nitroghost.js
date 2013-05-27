@@ -828,12 +828,6 @@ function strobeListener() {
       return this.internalWaitlist = fullWaitList;
     };
 
-    settings.prototype.activity = function(obj) {
-      if (obj.type === 'message') {
-        return this.users[obj.fromID].updateActivity();
-      }
-    };
-
     settings.prototype.intervalMessages = function() {
       var msg, _i, _len, _ref, _results;
       this.songCount++;
@@ -897,8 +891,6 @@ function strobeListener() {
 
       this.getLastActivity = __bind(this.getLastActivity, this);
 
-      this.updateActivity = __bind(this.updateActivity, this);
-
       this.init = __bind(this.init, this);
 
       this.init();
@@ -906,12 +898,6 @@ function strobeListener() {
 
     User.prototype.init = function() {
       return this.lastActivity = new Date();
-    };
-
-    User.prototype.updateActivity = function() {
-      this.lastActivity = new Date();
-      this.afkWarningCount = 0;
-      return this.lastWarning = null;
     };
 
     User.prototype.getLastActivity = function() {
