@@ -1101,7 +1101,6 @@ function strobeListener() {
   };
 
   chatUniversals = function(chat) {
-    data.activity(chat);
   };
 
   hook = function(apiEvent, callback) {
