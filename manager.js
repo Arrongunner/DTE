@@ -557,6 +557,17 @@ function sts(secs) {
 	}
 }
 
+function checkMentioned() {
+	if(timePassed >= timeToWait) {
+		clearInterval(timer);
+		mentioned = false;
+		timePassed = 0;
+	}
+	else {
+		timePassed = timePassed + 1000;
+	}
+}
+
 function checkClicked() {
 	if (clickPassed >= clickWait) {
 		clearInterval(clickTimer);
