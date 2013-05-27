@@ -889,20 +889,10 @@ function strobeListener() {
 
       this.getLastWarning = __bind(this.getLastWarning, this);
 
-      this.getLastActivity = __bind(this.getLastActivity, this);
-
       this.init = __bind(this.init, this);
 
       this.init();
     }
-
-    User.prototype.init = function() {
-      return this.lastActivity = new Date();
-    };
-
-    User.prototype.getLastActivity = function() {
-      return this.lastActivity;
-    };
 
     User.prototype.getLastWarning = function() {
       if (this.lastWarning === null) {
