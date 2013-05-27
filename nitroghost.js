@@ -863,48 +863,25 @@ function strobeListener() {
 
   User = (function() {
 
-    User.prototype.afkWarningCount = 0;
-
-    User.prototype.lastWarning = null;
-
     User.prototype["protected"] = false;
 
     User.prototype.isInRoom = true;
 
     function User(user) {
       this.user = user;
+      
       this.updateVote = __bind(this.updateVote, this);
 
       this.inRoom = __bind(this.inRoom, this);
 
-      this.notDj = __bind(this.notDj, this);
-
-      this.warn = __bind(this.warn, this);
-
       this.getIsDj = __bind(this.getIsDj, this);
-
-      this.getWarningCount = __bind(this.getWarningCount, this);
 
       this.getUser = __bind(this.getUser, this);
 
-      this.getLastWarning = __bind(this.getLastWarning, this);
-
     }
-
-    User.prototype.getLastWarning = function() {
-      if (this.lastWarning === null) {
-        return false;
-      } else {
-        return this.lastWarning;
-      }
-    };
 
     User.prototype.getUser = function() {
       return this.user;
-    };
-
-    User.prototype.getWarningCount = function() {
-      return this.afkWarningCount;
     };
 
     User.prototype.getIsDj = function() {
@@ -917,16 +894,6 @@ function strobeListener() {
         }
       }
       return false;
-    };
-
-    User.prototype.warn = function() {
-      this.afkWarningCount++;
-      return this.lastWarning = new Date();
-    };
-
-    User.prototype.notDj = function() {
-      this.afkWarningCount = 0;
-      return this.lastWarning = null;
     };
 
     User.prototype.inRoom = function(online) {
