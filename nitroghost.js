@@ -856,7 +856,6 @@ function strobeListener() {
     for (_i = 0, _len = users.length; _i < _len; _i++) {
       u = users[_i];
       data.users[u.id] = new User(u);
-      data.voteLog[u.id] = {};
     }
   };
 
