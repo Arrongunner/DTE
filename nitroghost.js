@@ -718,7 +718,7 @@ $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="si
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
 
 function strobeListener() {
-  var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+  var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -730,8 +730,6 @@ function strobeListener() {
       this.implode = __bind(this.implode, this);
 
       this.intervalMessages = __bind(this.intervalMessages, this);
-
-      this.userJoin = __bind(this.userJoin, this);
 
       this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
 
@@ -755,8 +753,6 @@ function strobeListener() {
 
     settings.prototype.userDisconnectLog = [];
 
-    settings.prototype.voteLog = {};
-
     settings.prototype.seshOn = false;
 
     settings.prototype.forceSkip = false;
@@ -778,17 +774,6 @@ function strobeListener() {
 
     settings.prototype.getRoomUrlPath = function() {
       return window.location.pathname.replace(/\//g, '');
-    };
-
-    settings.prototype.userJoin = function(u) {
-      var userIds, _ref;
-      userIds = Object.keys(this.users);
-      if (_ref = u.id, __indexOf.call(userIds, _ref) >= 0) {
-        return this.users[u.id].inRoom(true);
-      } else {
-        this.users[u.id] = new User(u);
-        return this.voteLog[u.id] = {};
-      }
     };
 
     settings.prototype.intervalMessages = function() {
@@ -832,8 +817,6 @@ function strobeListener() {
 
     function User(user) {
       this.user = user;
-      
-      this.updateVote = __bind(this.updateVote, this);
 
       this.inRoom = __bind(this.inRoom, this);
 
@@ -863,29 +846,11 @@ function strobeListener() {
       return this.isInRoom = online;
     };
 
-    User.prototype.updateVote = function(v) {
-      if (this.isInRoom) {
-        return data.voteLog[this.user.id][data.currentsong.id] = v;
-      }
-    };
-
     return User;
 
   })();
 
-  populateUserData = function() {
-    var u, users, _i, _len;
-    users = API.getUsers();
-    for (_i = 0, _len = users.length; _i < _len; _i++) {
-      u = users[_i];
-      data.users[u.id] = new User(u);
-      data.voteLog[u.id] = {};
-    }
-  };
-
-
   initialize = function() {
-    populateUserData();
     initHooks();
     data.startup();
   };
