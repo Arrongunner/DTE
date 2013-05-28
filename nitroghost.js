@@ -622,6 +622,15 @@ function checkPredict() {
 		predictPassed = predictPassed + 1;
 	}
 }
+
+if (customisedChatCommands !== undefined) {
+    customisedChatCommands.close();
+};
+
+String.prototype.equalsIgnoreCase = function(other) {
+    return this.toLowerCase() === other.toLowerCase();
+};
+
 var customisedChatCommands = Class.extend({
     init: function(){
         ChatModel.chatCommand = function (a) {
