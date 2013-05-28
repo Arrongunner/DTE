@@ -727,7 +727,6 @@ function strobeListener() {
   settings = (function() {
 
     function settings() {
-      this.implode = __bind(this.implode, this);
 
       this.intervalMessages = __bind(this.intervalMessages, this);
 
@@ -747,23 +746,13 @@ function strobeListener() {
 
     settings.prototype.host = [];
 
-    settings.prototype.hasWarned = false;
-
     settings.prototype.roomUrlPath = null;
 
-    settings.prototype.userDisconnectLog = [];
-
-    settings.prototype.seshOn = false;
-
     settings.prototype.forceSkip = false;
-
-    settings.prototype.seshMembers = [];
 
     settings.prototype.launchTime = null;
 
     settings.prototype.pupScriptUrl = '';
-
-    settings.prototype.afkTime = 12 * 60 * 1000;
 
     settings.prototype.songCount = 0;
 
@@ -790,17 +779,6 @@ function strobeListener() {
         }
       }
       return _results;
-    };
-
-    settings.prototype.implode = function() {
-      var item, val;
-      for (item in this) {
-        val = this[item];
-        if (typeof this[item] === 'object') {
-          delete this[item];
-        }
-      }
-      return clearInterval(this.afkInterval);
     };
 
     return settings;
