@@ -637,7 +637,7 @@ var customisedChatsModel = Class.extend({
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
             if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
-            if ("/ca" == a) return Models.user.changeAvatar(prompt("Enter Avatar Code:\r\rhalloween01 - Male Vampire\rhalloween02 - Female Vampire\rhalloween03 - Male Frankenstein\rhalloween04 - Female Frankenstein\rhalloween05 - Male Skeleton\rhalloween06 - Female Skeleton\rhalloween07 - Male Mummy\rhalloween08 - Female Mummy\rhalloween09 - Male Ghost\rhalloween10 - Male Werewolf\rhalloween11 - Pumpkin Man\rhalloween12 - Female Werewolf\rhalloween13 - Male Zombie", "halloween01")), !0;
+            if ("/ca" == a) return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
             if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
             if ("/strobe off" == a) {log('<span>strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
@@ -948,7 +948,8 @@ function strobeListener() {
 }
 
 delay();
-log("Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3");
+$('#plugbot-js').remove();
+log("Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.4");
 log("type '/commands' to see extra commands");
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
