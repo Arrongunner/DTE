@@ -636,7 +636,7 @@ var customisedChatsModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/commands" == a) return log("/ca = change avatar, /op = overplayed"), !0;
+            if ("/commands" == a) return log("/ca = change avatar" \n "/op = overplayed"), !0;
             if ("/ca" == a) return Models.user.changeAvatar(prompt("enter avatar code")), !0;
             if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
             if ("/strobe off" == a) {log('<span style="color:#FFF">strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
