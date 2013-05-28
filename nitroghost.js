@@ -718,7 +718,7 @@ $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="si
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
 
 function strobeListener() {
-  var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, settings, undoHooks, unhook,
+  var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -849,8 +849,19 @@ function strobeListener() {
     return User;
 
   })();
+  
+  populateUserData = function() {
+    var u, users, _i, _len;
+    users = API.getUsers();
+    for (_i = 0, _len = users.length; _i < _len; _i++) {
+      u = users[_i];
+      data.users[u.id] = new User(u);
+      data.voteLog[u.id] = {};
+    }
+  };
 
   initialize = function() {
+    populateUserData();
     initHooks();
     data.startup();
   };
