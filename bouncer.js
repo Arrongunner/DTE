@@ -580,12 +580,12 @@ function checkPredict() {
 	}
 }
 
-if (meshkaEnhanced !== undefined)
-    meshkaEnhanced.close();
+if (customisedChats !== undefined)
+    customisedChats.close();
 String.prototype.equalsIgnoreCase = function(other) {
     return this.toLowerCase() === other.toLowerCase();
 };
-var meshkaEnhancedModel = Class.extend({
+var customisedChatsModel = Class.extend({
     init: function(){
         ChatModel.chatCommand = function (a) {
             var b;
@@ -624,59 +624,13 @@ var meshkaEnhancedModel = Class.extend({
                 type: "system"
             }, a.message = b, this.receive(a), !0) : !1
         }
-        Models.chat.chatCommand = ChatModel.chatCommand
-        
+        Models.chat.chatCommand = ChatModel.chatCommand  
     },
-    close: function(){
-        ChatModel.chatCommand = function (a) {
-            var b;
-            if ("/help" == a) return a = {
-                    type: "update"
-            }, a.message =
-                Lang.chat.help, this.receive(a), !0;
-            if ("/users" == a) return UserListOverlay.show(), !0;
-            if ("/hd on" == a) return Playback.setHD(!0), !0;
-            if ("/hd off" == a) return Playback.setHD(!1), !0;
-            if ("/chat big" == a) return this.expand(), !0;
-            if ("/chat small" == a) return this.collapse(), !0;
-            if ("/afk" == a) return Models.user.changeStatus(1), !0;
-            if ("/back" == a) return Models.user.changeStatus(0), !0;
-            if (0 == a.indexOf("/ts ")) return b = a.split(" ").pop(), DB.settings.chatTS = "12" == b ? 12 : "24" == b ? 24 : !1, this.dispatchEvent("timestampUpdate", {
-                    value: DB.settings.chatTS
-                }),
-            DB.saveSettings(), !0;
-            if (0 == a.indexOf("/cap ")) {
-                if (a = parseInt(a.split(" ").pop()), 0 < a && 201 > a) return RoomUser.audience.gridData.avatarCap = a, RoomUser.redraw(), DB.settings.avatarcap = a, DB.saveSettings(), log(Lang.messages.cap.split("%COUNT%").join("" + a)), !0
-            } else {
-                if ("/cleanup" == a) return DB.reset(), Dialog.alert(Lang.alerts.updateMessage, $.proxy(Utils.forceRefresh, Utils), Lang.alerts.update, !0), !0;
-                if ("/stream on" == a) DB.settings.streamDisabled = !1, DB.saveSettings(), Playback.media && Playback.play(Playback.media,
-                        Playback.mediaStartTime), b = "Video/audio streaming enabled.";
-                else if ("/stream off" == a) DB.settings.streamDisabled = !0, DB.saveSettings(), Playback.stop(), b = "<strong>Video/audio streaming has been stopped.</strong> Type <em>/stream on</em> to enable again.";
-                else {
-                    if ("/clear" == a) return this.dispatchEvent("chatClear"), _gaq.push(["_trackEvent", "Chat", "Clear", Models.room.data.id]), !0;
-                    Models.room.ambassadors[Models.user.data.id] ? "/fixbooth" == a && (new ModerationBoothCleanupService, b = "Fixing Booth") : Models.room.admins[Models.user.data.id] &&
-                        ("/fixbooth" == a ? (new ModerationBoothCleanupService, b = "Fixing Booth") : 0 == a.indexOf("/audience ") ? (a = parseInt(a.split(" ").pop()), 0 < a ? (RoomUser.testAddAvatar(a), b = "Adding " + a + " fake avatars to audience") : (RoomUser.clear(), RoomUser.setAudience(Models.room.getAudience()), RoomUser.setDJs(Models.room.getDJs()), b = "Cleared fake avatars from audience")) : 0 == a.indexOf("/ping ") ? (DB.settings.showPings = "/ping on" == a ? !0 : !1, DB.saveSettings(), b = "Ping messages are " + (DB.settings.showPings ? "on" : "off")) : 0 == a.indexOf("/speed ") &&
-                        (b = parseInt(a.split(" ").pop()), animSpeed = 0 < b ? b : 83, b = "Setting animation speed to " + animSpeed))
-                }
-            }
-            return b ? (a = {
-                type: "system"
-            }, a.message = b, this.receive(a), !0) : !1
-        }
-        Models.chat.chatCommand = ChatModel.chatCommand
-    }
 });
-var meshkaEnhanced = new meshkaEnhancedModel;
-
-delay();
-$('#plugbot-js').remove();
-$('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
-$('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
-$('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
-$('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
+var customisedChats = new customisedChatsModel;
 
 function strobeListener() {
-  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+  var strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
     __hasProp = {}.hasOwnProperty,
@@ -685,13 +639,6 @@ function strobeListener() {
   settings = (function() {
 
     function settings() {
-      this.implode = __bind(this.implode, this);
-
-      this.intervalMessages = __bind(this.intervalMessages, this);
-
-      this.setInternalWaitlist = __bind(this.setInternalWaitlist, this);
-
-      this.userJoin = __bind(this.userJoin, this);
 
       this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
 
@@ -699,51 +646,11 @@ function strobeListener() {
 
     }
 
-    settings.prototype.currentsong = {};
-
     settings.prototype.users = {};
-
-    settings.prototype.djs = [];
-
-    settings.prototype.mods = [];
-
-    settings.prototype.host = [];
-
-    settings.prototype.hasWarned = false;
-
-    settings.prototype.currentwoots = 0;
-
-    settings.prototype.currentmehs = 0;
-
-    settings.prototype.currentcurates = 0;
 
     settings.prototype.roomUrlPath = null;
 
-    settings.prototype.internalWaitlist = [];
-
-    settings.prototype.userDisconnectLog = [];
-
-    settings.prototype.voteLog = {};
-
-    settings.prototype.seshOn = false;
-
-    settings.prototype.forceSkip = false;
-
-    settings.prototype.seshMembers = [];
-
     settings.prototype.launchTime = null;
-
-    settings.prototype.totalVotingData = {
-      woots: 0,
-      mehs: 0,
-      curates: 0
-    };
-
-    settings.prototype.pupScriptUrl = '';
-
-    settings.prototype.afkTime = 12 * 60 * 1000;
-
-    settings.prototype.songCount = 0;
 
     settings.prototype.startup = function() {
       this.launchTime = new Date();
@@ -754,71 +661,6 @@ function strobeListener() {
       return window.location.pathname.replace(/\//g, '');
     };
 
-    settings.prototype.newSong = function() {
-      this.totalVotingData.woots += this.currentwoots;
-      this.totalVotingData.mehs += this.currentmehs;
-      this.totalVotingData.curates += this.currentcurates;
-      this.setInternalWaitlist();
-      this.currentsong = API.getMedia();
-      if (this.currentsong !== null) {
-        return this.currentsong;
-      } else {
-        return false;
-      }
-    };
-
-    settings.prototype.userJoin = function(u) {
-      var userIds, _ref;
-      userIds = Object.keys(this.users);
-      if (_ref = u.id, __indexOf.call(userIds, _ref) >= 0) {
-        return this.users[u.id].inRoom(true);
-      } else {
-        this.users[u.id] = new User(u);
-        return this.voteLog[u.id] = {};
-      }
-    };
-
-    settings.prototype.setInternalWaitlist = function() {
-      var boothWaitlist, fullWaitList, lineWaitList;
-      boothWaitlist = API.getDJs().slice(1);
-      lineWaitList = API.getWaitList();
-      fullWaitList = boothWaitlist.concat(lineWaitList);
-      return this.internalWaitlist = fullWaitList;
-    };
-
-    settings.prototype.activity = function(obj) {
-      if (obj.type === 'message') {
-        return this.users[obj.fromID].updateActivity();
-      }
-    };
-
-    settings.prototype.intervalMessages = function() {
-      var msg, _i, _len, _ref, _results;
-      this.songCount++;
-      _ref = this.songIntervalMessages;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        msg = _ref[_i];
-        if (((this.songCount + msg['offset']) % msg['interval']) === 0) {
-          _results.push(API.sendChat(msg['msg']));
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
-    };
-
-    settings.prototype.implode = function() {
-      var item, val;
-      for (item in this) {
-        val = this[item];
-        if (typeof this[item] === 'object') {
-          delete this[item];
-        }
-      }
-      return clearInterval(this.afkInterval);
-    };
-
     return settings;
 
   })();
@@ -827,69 +669,17 @@ function strobeListener() {
 
   User = (function() {
 
-    User.prototype.afkWarningCount = 0;
-
-    User.prototype.lastWarning = null;
-
-    User.prototype["protected"] = false;
-
-    User.prototype.isInRoom = true;
-
     function User(user) {
       this.user = user;
-      this.updateVote = __bind(this.updateVote, this);
-
-      this.inRoom = __bind(this.inRoom, this);
-
-      this.notDj = __bind(this.notDj, this);
-
-      this.warn = __bind(this.warn, this);
 
       this.getIsDj = __bind(this.getIsDj, this);
 
-      this.getWarningCount = __bind(this.getWarningCount, this);
-
       this.getUser = __bind(this.getUser, this);
 
-      this.getLastWarning = __bind(this.getLastWarning, this);
-
-      this.getLastActivity = __bind(this.getLastActivity, this);
-
-      this.updateActivity = __bind(this.updateActivity, this);
-
-      this.init = __bind(this.init, this);
-
-      this.init();
     }
-
-    User.prototype.init = function() {
-      return this.lastActivity = new Date();
-    };
-
-    User.prototype.updateActivity = function() {
-      this.lastActivity = new Date();
-      this.afkWarningCount = 0;
-      return this.lastWarning = null;
-    };
-
-    User.prototype.getLastActivity = function() {
-      return this.lastActivity;
-    };
-
-    User.prototype.getLastWarning = function() {
-      if (this.lastWarning === null) {
-        return false;
-      } else {
-        return this.lastWarning;
-      }
-    };
 
     User.prototype.getUser = function() {
       return this.user;
-    };
-
-    User.prototype.getWarningCount = function() {
-      return this.afkWarningCount;
     };
 
     User.prototype.getIsDj = function() {
@@ -904,37 +694,16 @@ function strobeListener() {
       return false;
     };
 
-    User.prototype.warn = function() {
-      this.afkWarningCount++;
-      return this.lastWarning = new Date();
-    };
-
-    User.prototype.notDj = function() {
-      this.afkWarningCount = 0;
-      return this.lastWarning = null;
-    };
-
-    User.prototype.inRoom = function(online) {
-      return this.isInRoom = online;
-    };
-
-    User.prototype.updateVote = function(v) {
-      if (this.isInRoom) {
-        return data.voteLog[this.user.id][data.currentsong.id] = v;
-      }
-    };
-
     return User;
 
   })();
-
+  
   populateUserData = function() {
     var u, users, _i, _len;
     users = API.getUsers();
     for (_i = 0, _len = users.length; _i < _len; _i++) {
       u = users[_i];
       data.users[u.id] = new User(u);
-      data.voteLog[u.id] = {};
     }
   };
 
@@ -942,7 +711,6 @@ function strobeListener() {
     populateUserData();
     initHooks();
     data.startup();
-    data.newSong();
   };
 
   Command = (function() {
@@ -1065,7 +833,6 @@ function strobeListener() {
   
   chatCommandDispatcher = function(chat) {
     var c, cmd, _i, _len, _results;
-    chatUniversals(chat);
     _results = [];
     for (_i = 0, _len = cmds.length; _i < _len; _i++) {
       cmd = cmds[_i];
@@ -1077,10 +844,6 @@ function strobeListener() {
       }
     }
     return _results;
-  };
-
-  chatUniversals = function(chat) {
-    data.activity(chat);
   };
 
   hook = function(apiEvent, callback) {
@@ -1120,3 +883,10 @@ function strobeListener() {
 
   initialize();
 }
+
+delay();
+$('#plugbot-js').remove();
+$('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
+$('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
+$('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
+$('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
