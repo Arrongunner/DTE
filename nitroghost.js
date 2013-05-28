@@ -636,8 +636,8 @@ var customisedChatsModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/commands" == a) return log('<span>/ca &nbsp; &nbsp; change avatar</span></br><span>/op  show track ID</span></br><span>/strobe off  deactivate strobes</span>'), !0;
-            if ("/ca" == a) return Models.user.changeAvatar(prompt("Enter Avatar Code: \n halloween01 - Male Vampire \n halloween02 - Female Vampire \n halloween03 - Male Frankenstein \n halloween04 - Female Frankenstein \n halloween05 - Male Skeleton \n halloween06 - Female Skeleton \n halloween07 - Male Mummy \n halloween08 - Female Mummy \n halloween09 - Male Ghost \n halloween10 - Male Werewolf \n halloween11 - Pumpkin Man \n halloween12 - Female Werewolf \n halloween13 - Male Zombie", "halloween01")), !0;
+            if ("/commands" == a) return log('<span>/ca &nbsp; change avatar</br>/op &nbsp; show track ID</br>/strobe off &nbsp; deactivate strobes</span>'), !0;
+            if ("/ca" == a) return Models.user.changeAvatar(prompt("Enter Avatar Code:\r\rhalloween01 - Male Vampire\rhalloween02 - Female Vampire\rhalloween03 - Male Frankenstein\rhalloween04 - Female Frankenstein\rhalloween05 - Male Skeleton\rhalloween06 - Female Skeleton\rhalloween07 - Male Mummy\rhalloween08 - Female Mummy\rhalloween09 - Male Ghost\rhalloween10 - Male Werewolf\rhalloween11 - Pumpkin Man\rhalloween12 - Female Werewolf\rhalloween13 - Male Zombie", "halloween01")), !0;
             if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
             if ("/strobe off" == a) {log('<span style="color:#FFF">strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
