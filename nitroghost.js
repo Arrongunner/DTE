@@ -636,7 +636,7 @@ var customisedChatsModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/commands" == a) return log('<span><strong>Extra Commands</strong>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
+            if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
             if ("/ca" == a) return Models.user.changeAvatar(prompt("Enter Avatar Code:\r\rhalloween01 - Male Vampire\rhalloween02 - Female Vampire\rhalloween03 - Male Frankenstein\rhalloween04 - Female Frankenstein\rhalloween05 - Male Skeleton\rhalloween06 - Female Skeleton\rhalloween07 - Male Mummy\rhalloween08 - Female Mummy\rhalloween09 - Male Ghost\rhalloween10 - Male Werewolf\rhalloween11 - Pumpkin Man\rhalloween12 - Female Werewolf\rhalloween13 - Male Zombie", "halloween01")), !0;
             if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
             if ("/strobe off" == a) {log('<span style="color:#FFF">strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
