@@ -775,16 +775,6 @@ function strobeListener() {
     settings.prototype.getRoomUrlPath = function() {
       return window.location.pathname.replace(/\//g, '');
     };
-    
-    settings.prototype.userJoin = function(u) {
-      var userIds, _ref;
-      userIds = Object.keys(this.users);
-      if (_ref = u.id, __indexOf.call(userIds, _ref) >= 0) {
-        return this.users[u.id].inRoom(true);
-      } else {
-        this.users[u.id] = new User(u);
-      }
-    };
 
     settings.prototype.intervalMessages = function() {
       var msg, _i, _len, _ref, _results;
