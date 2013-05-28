@@ -757,12 +757,8 @@ function strobeListener() {
 
   User = (function() {
 
-    User.prototype.isInRoom = true;
-
     function User(user) {
       this.user = user;
-
-      this.inRoom = __bind(this.inRoom, this);
 
       this.getIsDj = __bind(this.getIsDj, this);
 
@@ -784,10 +780,6 @@ function strobeListener() {
         }
       }
       return false;
-    };
-
-    User.prototype.inRoom = function(online) {
-      return this.isInRoom = online;
     };
 
     return User;
