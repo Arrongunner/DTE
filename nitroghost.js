@@ -636,8 +636,8 @@ var customisedChatsModel = Class.extend({
                     type: "update"
             }, a.message =
                 Lang.chat.help, this.receive(a), !0;
-            if ("/commands" == a) return log('<span style="color:#FFF">change avatar</span><span style="color:#FFF">/op = overplayed</span><span style="color:#FFF">/strobe off = deactivates strobe</span>'), !0;
-            if ("/ca" == a) return Models.user.changeAvatar(prompt("enter avatar code")), !0;
+            if ("/commands" == a) return log('<span style="color:#FFF">/ca = change avatar \n /op = show track ID \n /strobe off = deactivate strobes</span>'), !0;
+            if ("/ca" == a) return Models.user.changeAvatar(prompt("enter avatar code: \n halloween01 - halloween09")), !0;
             if ("/op" == a) {log('<span style="color:#FFF">song ID: "' + API.getMedia().id + '"</span>'); return API.getMedia ().id};
             if ("/strobe off" == a) {log('<span style="color:#FFF">strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
