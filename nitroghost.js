@@ -734,25 +734,11 @@ function strobeListener() {
 
     }
 
-    settings.prototype.currentsong = {};
-
     settings.prototype.users = {};
-
-    settings.prototype.djs = [];
-
-    settings.prototype.mods = [];
-
-    settings.prototype.host = [];
 
     settings.prototype.roomUrlPath = null;
 
-    settings.prototype.forceSkip = false;
-
     settings.prototype.launchTime = null;
-
-    settings.prototype.pupScriptUrl = '';
-
-    settings.prototype.songCount = 0;
 
     settings.prototype.startup = function() {
       this.launchTime = new Date();
@@ -770,8 +756,6 @@ function strobeListener() {
   data = new settings();
 
   User = (function() {
-
-    User.prototype["protected"] = false;
 
     User.prototype.isInRoom = true;
 
