@@ -623,12 +623,12 @@ function checkPredict() {
 	}
 }
 
-if (meshkaEnhanced !== undefined)
-    meshkaEnhanced.close();
+if (customisedChats !== undefined)
+    customisedChats.close();
 String.prototype.equalsIgnoreCase = function(other) {
     return this.toLowerCase() === other.toLowerCase();
 };
-var meshkaEnhancedModel = Class.extend({
+var customisedChatsModel = Class.extend({
     init: function(){
         ChatModel.chatCommand = function (a) {
             var b;
@@ -670,7 +670,7 @@ var meshkaEnhancedModel = Class.extend({
         Models.chat.chatCommand = ChatModel.chatCommand
     }
 });
-var meshkaEnhanced = new meshkaEnhancedModel;
+var customisedChats = new customisedChatsModel;
 
 delay();
 $('#chat-messages').append('<div class="chat-update"><span class="chat-text">Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.3</span></div>');
