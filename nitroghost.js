@@ -728,8 +728,6 @@ function strobeListener() {
 
     function settings() {
 
-      this.intervalMessages = __bind(this.intervalMessages, this);
-
       this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
 
       this.startup = __bind(this.startup, this);
@@ -763,22 +761,6 @@ function strobeListener() {
 
     settings.prototype.getRoomUrlPath = function() {
       return window.location.pathname.replace(/\//g, '');
-    };
-
-    settings.prototype.intervalMessages = function() {
-      var msg, _i, _len, _ref, _results;
-      this.songCount++;
-      _ref = this.songIntervalMessages;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        msg = _ref[_i];
-        if (((this.songCount + msg['offset']) % msg['interval']) === 0) {
-          _results.push(API.sendChat(msg['msg']));
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
     };
 
     return settings;
