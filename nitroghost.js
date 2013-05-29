@@ -49,7 +49,7 @@ function onCookiesLoaded() {
 		$('#playback .frame-background').animate({'opacity': (hideVideo ? '0' : '0.91')}, {duration: 'medium'});
 	}
 	if (left) {
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-200px"}, 300, "easeOutCirc");
 	}
 	if (!emotes) Emoji.emojify = function(data) {
 		return data;
@@ -143,12 +143,12 @@ overPlayed = ["1:0RiQDCWsk-U", "1:D2tCwgb0Wmw", "1:e-IWRmpefzE", "1:3r7-g5fOF2c"
 
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 220px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
-            '.sidebar#side-right {right: -190px;z-index: 99999;}',
-            '.sidebar#side-left {left: -190px; z-index: 99999; }',
+            '.sidebar#side-right {right: -200px;z-index: 99999;}',
+            '.sidebar#side-left {left: -200px; z-index: 99999; }',
             '.sidebar-handle {width:20px;height: 100%;z-index: 99999;margin: 0;padding: 0;background: rgb(96, 141, 197);box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, .9);cursor: "ne-resize";}',
             '.sidebar-handle span {display: block;position: absolute;width: 10px;top: 50%;text-align: center;letter-spacing: -1px;color: #000;}',
-            '.sidebar-content {position: absolute;width: 200px;height: 100%; padding-left: 15px}',
-            '.sidebar-content2 {position: absolute;width: 200px;height: 100%; overflow: auto}',
+            '.sidebar-content {position: absolute;width: 195px;height: 100%; padding-left: 15px}',
+            '.sidebar-content2 {position: absolute;width: 195px;height: 100%; overflow: auto}',
             '.sidebar-content2 h3 {font-weight: bold; padding-left: 5px; padding-bottom: 5px; margin: 0;}',
             '.sidebar-content2 a {font-weight: bold; font-size: 13px; padding-left: 5px;}',
             '#side-right .sidebar-handle {float: left;}',
@@ -245,7 +245,7 @@ function displayUI() {
 function initUIListeners() {
 	$(".sidebar-handle").on("click", function() {
 		left = !left;
-		$(".sidebar#side-left").animate({"left": left ? "0px" : "-190px"}, 300, "easeOutCirc");
+		$(".sidebar#side-left").animate({"left": left ? "0px" : "-200px"}, 300, "easeOutCirc");
 		jaaulde.utils.cookies.set(COOKIE_LEFT, left);
 	});
 	$("#plug-btn-woot").on("click", function() {
