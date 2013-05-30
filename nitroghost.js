@@ -636,7 +636,7 @@ var customisedChatsModel = Class.extend({
             if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
             if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
             if ("/ca" == a) return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
-            if ("/op" == a) return log('<span style="color:#FFF">song ID: "' + API.getMedia().id + "Song: " + API.getMedia().author + " - " + API.getMedia().title '"</span>'), !0;
+            if ("/op" == a) return log('<span style="color:#FFF">song ID: "' + API.getMedia().id + "Song: " + API.getMedia().author + " - " + API.getMedia().title + '"</span>'), !0;
             if ("/strobe off" == a) {log('<span>strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
             if ("/users" == a) return UserListOverlay.show(), !0;
             if ("/hd on" == a) return Playback.setHD(!0), !0;
