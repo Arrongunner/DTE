@@ -224,7 +224,7 @@ function displayUI() {
 		+	'<a id="plug-btn-emotes" title="toggles emoticons" style="color:' + colorEmotes + '">emoticons</a>'
 		+	'<a id="plug-btn-audience" title="toggles audience" style="color:' + colorAudience + '">audience</a>'
 		+	'<a id="plug-btn-rules" title="sends rules" style="color:#FF8C00">rules</a>'
-		+	'<a id="plug-btn-face" title="sends fb link" style="color:#FF8C00">social links</a>'
+		+	'<a id="plug-btn-face" title="sends fb and forums links" style="color:#FF8C00">social links</a>'
 		+	'<a id="plug-btn-fans" title="sends fan message" style="color:#FF8C00">no fans</a>'
 		+	'<a id="plug-btn-noskip" title="send no skip message" style="color:#FF8C00">no skip</a>'
 		+	'<a id="plug-btn-waffles" title="sends waffle message" style="color:#FF8C00">waffles</a>'
