@@ -134,6 +134,7 @@ var sleepMsg = ["Sleepy time!!!", "going to sleep now", "time to hit the sack", 
 var workMsg = ["I'm working so mention me if I'm needed", "I'm going to do work related stuffs, mention if needed", "I'm gonna be busy, mention if needed"];
 var afkMsg = ["I'm going away on a merry merry quest, be back soon!", "going AFK for a while, be back soon!", "going away, be back soon!", "going to hunt the galaxy, be back soon!"];
 var backMsg = ["I'm back from my adventures!", "I'm baaacckkk", "guess who's back? ME! I'm back :D", "be-ber-ber-b-be-back!"];
+var spamMsg = ["please get rid of your autowoot, it spams the chat", "your autowoot is no good, it spams the chat without you knowing and would be best to remove it", "if you do not remove your spammy autowoot you will be kicked", "your autowoot is no good, remove it or you will leave the room", "Luke! I am your father, and I say remove your autowoot because it is spammy, or perish in the fires of the darkside"],
 
 var autoAwayMsg = ["I'm currently AFK", "I'm AFK", "I'm on an adventure (afk)", "gone away for a moment", "not present at keyboard"];
 var autoSlpMsg = ["I'm currently sleeping", "I'm counting sheep in my dreams", "I've hit the sack", "I'm asleep", "I've gone to sleep"];
@@ -897,7 +898,7 @@ function strobeListener() {
     sender = API.getUser(chat.fromID);
     if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
        API.moderateDeleteChat(chat.chatID);
-       return API.sendChat("@" + API.getUser(chat.fromID).username + " please get rid of your autowoot, it spams the chat");
+       return API.sendChat("@" + API.getUser(chat.fromID).username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
      }
    }
    return antispam;
