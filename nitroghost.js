@@ -64,38 +64,39 @@ function onCookiesLoaded() {
 }
 
 var words = {
-"Points" : "Beats!",
-"Now Playing" : "Now Spinning!",
-"Time Remaining" : "Time Remaining!",
-"Volume" : "Crank the Volume!",
-"Current DJ" : "Disk Jockey",
-"Crowd Response" : "Crowd Reaction!",
-"Fans":"Stalkers!"};
+	"Points" : "Beats!",
+	"Now Playing" : "Now Spinning!",
+	"Time Remaining" : "Time Remaining!",
+	"Volume" : "Crank the Volume!",
+	"Current DJ" : "Disk Jockey",
+	"Crowd Response" : "Crowd Reaction!",
+	"Fans":"Stalkers!"
+};
 
 String.prototype.prepareRegex = function() {
-return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
+	return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
 };
 
 function isOkTag(tag) {
-return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
+	return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
 }
 
-var regexs=new Array(),
-    replacements=new Array();
+var regexs = new Array(),
+replacements = new Array();
 for(var word in words) {
-if(word != "") {
-regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
-replacements.push(words[word]);
-}
+	if(word != "") {
+		regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
+		replacements.push(words[word]);
+	}
 }
 
 var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
 for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	if(isOkTag(this_text.parentNode.tagName.toLowerCase()) && (text=this_text.textContent)) {
-	for(var x=0,l=regexs.length; x<l; x++) {
-	text = text.replace(regexs[x], replacements[x]);
-	this_text.textContent = text;
-	}
+		for(var x=0,l=regexs.length; x<l; x++) {
+		text = text.replace(regexs[x], replacements[x]);
+		this_text.textContent = text;
+		}
 	}
 }
 
@@ -635,325 +636,276 @@ function checkPredict() {
 }
 
 if (customisedChats !== undefined)
-    customisedChats.close();
+    	customisedChats.close();
 String.prototype.equalsIgnoreCase = function(other) {
-    return this.toLowerCase() === other.toLowerCase();
+    	return this.toLowerCase() === other.toLowerCase();
 };
 var customisedChatsModel = Class.extend({
-    init: function(){
-        ChatModel.chatCommand = function (a) {
-            var b;
-            if ("/help" == a) return a = {type: "update"}, a.message =Lang.chat.help, this.receive(a), log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
-            if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
-            if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
-            if ("/ca" == a) return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
-            if ("/op" == a) return log('<span>Song: ' + API.getMedia().author + " - " + API.getMedia().title + '"</span></br><span>song ID: "' + API.getMedia().id + '"</span>'), !0;
-            if ("/strobe off" == a) {log('<span>strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
-            if ("/users" == a) return UserListOverlay.show(), !0;
-            if ("/hd on" == a) return Playback.setHD(!0), !0;
-            if ("/hd off" == a) return Playback.setHD(!1), !0;
-            if ("/chat big" == a) return this.expand(), !0;
-            if ("/chat small" == a) return this.collapse(), !0;
-            if ("/afk" == a) return Models.user.changeStatus(1), !0;
-            if ("/back" == a) return Models.user.changeStatus(0), !0;
-            if (0 == a.indexOf("/ts ")) return b = a.split(" ").pop(), DB.settings.chatTS = "12" == b ? 12 : "24" == b ? 24 : !1, this.dispatchEvent("timestampUpdate", {
-                    value: DB.settings.chatTS
-                }),
-            DB.saveSettings(), !0;
-            if (0 == a.indexOf("/cap ")) {
-                if (a = parseInt(a.split(" ").pop()), 0 < a && 201 > a) return RoomUser.audience.gridData.avatarCap = a, RoomUser.redraw(), DB.settings.avatarcap = a, DB.saveSettings(), log(Lang.messages.cap.split("%COUNT%").join("" + a)), !0
-            } else {
-                if ("/cleanup" == a) return DB.reset(), Dialog.alert(Lang.alerts.updateMessage, $.proxy(Utils.forceRefresh, Utils), Lang.alerts.update, !0), !0;
-                if ("/stream on" == a) DB.settings.streamDisabled = !1, DB.saveSettings(), Playback.media && Playback.play(Playback.media,
-                        Playback.mediaStartTime), b = "Video/audio streaming enabled.";
-                else if ("/stream off" == a) DB.settings.streamDisabled = !0, DB.saveSettings(), Playback.stop(), b = "<strong>Video/audio streaming has been stopped.</strong> Type <em>/stream on</em> to enable again.";
-                else {
-                    if ("/clear" == a) return this.dispatchEvent("chatClear"), _gaq.push(["_trackEvent", "Chat", "Clear", Models.room.data.id]), !0;
-                    Models.room.ambassadors[Models.user.data.id] ? "/fixbooth" == a && (new ModerationBoothCleanupService, b = "Fixing Booth") : Models.room.admins[Models.user.data.id] &&
-                        ("/fixbooth" == a ? (new ModerationBoothCleanupService, b = "Fixing Booth") : 0 == a.indexOf("/audience ") ? (a = parseInt(a.split(" ").pop()), 0 < a ? (RoomUser.testAddAvatar(a), b = "Adding " + a + " fake avatars to audience") : (RoomUser.clear(), RoomUser.setAudience(Models.room.getAudience()), RoomUser.setDJs(Models.room.getDJs()), b = "Cleared fake avatars from audience")) : 0 == a.indexOf("/ping ") ? (DB.settings.showPings = "/ping on" == a ? !0 : !1, DB.saveSettings(), b = "Ping messages are " + (DB.settings.showPings ? "on" : "off")) : 0 == a.indexOf("/speed ") &&
-                        (b = parseInt(a.split(" ").pop()), animSpeed = 0 < b ? b : 83, b = "Setting animation speed to " + animSpeed))
-                }
-            }
-            return b ? (a = {
-                type: "system"
-            }, a.message = b, this.receive(a), !0) : !1
-        }
-        Models.chat.chatCommand = ChatModel.chatCommand
-    }
+    	init: function(){
+        	ChatModel.chatCommand = function (a) {
+            		var b;
+            		if ("/help" == a) return a = {type: "update"}, a.message =Lang.chat.help, this.receive(a), log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
+            		if ("/commands" == a) return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
+            		if ("/ca" == a) return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
+            		if ("/op" == a) return log('<span>Song: ' + API.getMedia().author + " - " + API.getMedia().title + '"</span></br><span>song ID: "' + API.getMedia().id + '"</span>'), !0;
+            		if ("/strobe off" == a) {log('<span>strobes deactivated!</span>'); return RoomUser.audience.strobeMode(false), !0;};
+            		if ("/users" == a) return UserListOverlay.show(), !0;
+            		if ("/hd on" == a) return Playback.setHD(!0), !0;
+            		if ("/hd off" == a) return Playback.setHD(!1), !0;
+            		if ("/chat big" == a) return this.expand(), !0;
+            		if ("/chat small" == a) return this.collapse(), !0;
+            		if ("/afk" == a) return Models.user.changeStatus(1), !0;
+            		if ("/back" == a) return Models.user.changeStatus(0), !0;
+            		if (0 == a.indexOf("/ts ")) return b = a.split(" ").pop(), DB.settings.chatTS = "12" == b ? 12 : "24" == b ? 24 : !1, this.dispatchEvent("timestampUpdate", {
+                    		value: DB.settings.chatTS
+                	}),
+            		DB.saveSettings(), !0;
+            		if (0 == a.indexOf("/cap ")) {
+                		if (a = parseInt(a.split(" ").pop()), 0 < a && 201 > a) return RoomUser.audience.gridData.avatarCap = a, RoomUser.redraw(), DB.settings.avatarcap = a, DB.saveSettings(), log(Lang.messages.cap.split("%COUNT%").join("" + a)), !0
+            		} else {
+                		if ("/cleanup" == a) return DB.reset(), Dialog.alert(Lang.alerts.updateMessage, $.proxy(Utils.forceRefresh, Utils), Lang.alerts.update, !0), !0;
+                		if ("/stream on" == a) DB.settings.streamDisabled = !1, DB.saveSettings(), Playback.media && Playback.play(Playback.media,
+                        		Playback.mediaStartTime), b = "Video/audio streaming enabled.";
+                		else if ("/stream off" == a) DB.settings.streamDisabled = !0, DB.saveSettings(), Playback.stop(), b = "<strong>Video/audio streaming has been stopped.</strong> Type <em>/stream on</em> to enable again.";
+                		else {
+                    			if ("/clear" == a) return this.dispatchEvent("chatClear"), _gaq.push(["_trackEvent", "Chat", "Clear", Models.room.data.id]), !0;
+                    			Models.room.ambassadors[Models.user.data.id] ? "/fixbooth" == a && (new ModerationBoothCleanupService, b = "Fixing Booth") : Models.room.admins[Models.user.data.id] &&
+                        			("/fixbooth" == a ? (new ModerationBoothCleanupService, b = "Fixing Booth") : 0 == a.indexOf("/audience ") ? (a = parseInt(a.split(" ").pop()), 0 < a ? (RoomUser.testAddAvatar(a), b = "Adding " + a + " fake avatars to audience") : (RoomUser.clear(), RoomUser.setAudience(Models.room.getAudience()), RoomUser.setDJs(Models.room.getDJs()), b = "Cleared fake avatars from audience")) : 0 == a.indexOf("/ping ") ? (DB.settings.showPings = "/ping on" == a ? !0 : !1, DB.saveSettings(), b = "Ping messages are " + (DB.settings.showPings ? "on" : "off")) : 0 == a.indexOf("/speed ") &&
+                        			(b = parseInt(a.split(" ").pop()), animSpeed = 0 < b ? b : 83, b = "Setting animation speed to " + animSpeed))
+                		}
+            		}
+            		return b ? (a = {
+                		type: "system"
+            		}, a.message = b, this.receive(a), !0) : !1
+        	}
+        	Models.chat.chatCommand = ChatModel.chatCommand
+    	}
 });
 var customisedChats = new customisedChatsModel;
 
 function chatListener() {
-  var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  	var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
+    	__bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    	__indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+    	__hasProp = {}.hasOwnProperty,
+    	__extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  	settings = (function() {
+    		function settings() {
+      			this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
+      			this.startup = __bind(this.startup, this);
+		}
+    		settings.prototype.users = {};
+    		settings.prototype.roomUrlPath = null;
+    		settings.prototype.launchTime = null;
+    		settings.prototype.startup = function() {
+      		this.launchTime = new Date();
+      		return this.roomUrlPath = this.getRoomUrlPath();
+    		};
+    		settings.prototype.getRoomUrlPath = function() {
+      			return window.location.pathname.replace(/\//g, '');
+    		};
+    		return settings;
+  	})();
+  	data = new settings();
+  	User = (function() {
 
-  settings = (function() {
+    		function User(user) {
+      			this.user = user;
+      			this.getIsDj = __bind(this.getIsDj, this);
+     			this.getUser = __bind(this.getUser, this);
+    		}
+    		User.prototype.getUser = function() {
+      			return this.user;
+    		};
+    		User.prototype.getIsDj = function() {
+      			var DJs, dj, _i, _len;
+      			DJs = API.getDJs();
+      			for (_i = 0, _len = DJs.length; _i < _len; _i++) {
+        			dj = DJs[_i];
+        			if (this.user.id === dj.id) {
+          				return true;
+        			}
+      			}
+      			return false;
+    		};
+    		return User;
+	})(); 
+  	populateUserData = function() {
+    		var u, users, _i, _len;
+    		users = API.getUsers();
+    		for (_i = 0, _len = users.length; _i < _len; _i++) {
+      			u = users[_i];
+      			data.users[u.id] = new User(u);
+    		}
+  	};
+  	initialize = function() {
+    		populateUserData();
+    		initHooks();
+    		data.startup();
+  	};
+  	Command = (function() {
+    		function Command(msgData) {
+      			this.msgData = msgData;
+      			this.init();
+    		}
+    		Command.prototype.init = function() {
+      			this.parseType = null;
+      			this.command = null;
+      			return this.rankPrivelege = null;
+    		};
+    		Command.prototype.functionality = function(data) {};
+    		Command.prototype.hasPrivelege = function() {
+      			var user;
+      			user = data.users[this.msgData.fromID].getUser();
+      			switch (this.rankPrivelege) {
+        			case 'host':
+          				return user.permission === 5;
+        			case 'cohost':
+          				return user.permission >= 4;
+        			case 'mod':
+          				return user.permission >= 3;
+        			case 'manager':
+          				return user.permission >= 3;
+        			case 'bouncer':
+          				return user.permission >= 2;
+        			case 'featured':
+          				return user.permission >= 1;
+        			default:
+          				return true;
+      			}
+    		};
+    		Command.prototype.commandMatch = function() {
+      			var command, msg, _i, _len, _ref;
+      			msg = this.msgData.message;
+      			if (typeof this.command === 'string') {
+        			if (this.parseType === 'exact') {
+          				if (msg === this.command) {
+           		 			return true;
+          				} else {
+            					return false;
+          				}
+        			} else if (this.parseType === 'startsWith') {
+          				if (msg.substr(0, this.command.length) === this.command) {
+            					return true;
+          				} else {
+            					return false;
+          				}
+        			} else if (this.parseType === 'contains') {
+          				if (msg.indexOf(this.command) !== -1) {
+            					return true;
+          				} else {
+            					return false;
+          				}
+        			}
+      			} else if (typeof this.command === 'object') {
+        			_ref = this.command;
+        			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          				command = _ref[_i];
+          				if (this.parseType === 'exact') {
+            					if (msg === command) {
+              							return true;
+            						}
+          					} else if (this.parseType === 'startsWith') {
+            						if (msg.substr(0, command.length) === command) {
+              							return true;
+            						}
+          					} else if (this.parseType === 'contains') {
+            						if (msg.indexOf(command) !== -1) {
+              							return true;
+            						}
+          					}
+        				}
+        				return false;
+      				}
+    			};
+    		Command.prototype.evalMsg = function() {
+      			if (this.commandMatch() && this.hasPrivelege()) {
+        			this.functionality();
+       		 		return true;
+      			} else {
+        			return false;
+      			}
+    		};
+    		return Command;
 
-    function settings() {
-
-      this.getRoomUrlPath = __bind(this.getRoomUrlPath, this);
-
-      this.startup = __bind(this.startup, this);
-
-    }
-
-    settings.prototype.users = {};
-
-    settings.prototype.roomUrlPath = null;
-
-    settings.prototype.launchTime = null;
-
-    settings.prototype.startup = function() {
-      this.launchTime = new Date();
-      return this.roomUrlPath = this.getRoomUrlPath();
-    };
-
-    settings.prototype.getRoomUrlPath = function() {
-      return window.location.pathname.replace(/\//g, '');
-    };
-
-    return settings;
-
-  })();
-
-  data = new settings();
-
-  User = (function() {
-
-    function User(user) {
-      this.user = user;
-
-      this.getIsDj = __bind(this.getIsDj, this);
-
-      this.getUser = __bind(this.getUser, this);
-
-    }
-
-    User.prototype.getUser = function() {
-      return this.user;
-    };
-
-    User.prototype.getIsDj = function() {
-      var DJs, dj, _i, _len;
-      DJs = API.getDJs();
-      for (_i = 0, _len = DJs.length; _i < _len; _i++) {
-        dj = DJs[_i];
-        if (this.user.id === dj.id) {
-          return true;
-        }
-      }
-      return false;
-    };
-
-    return User;
-
-  })();
-  
-  populateUserData = function() {
-    var u, users, _i, _len;
-    users = API.getUsers();
-    for (_i = 0, _len = users.length; _i < _len; _i++) {
-      u = users[_i];
-      data.users[u.id] = new User(u);
-    }
-  };
-
-  initialize = function() {
-    populateUserData();
-    initHooks();
-    data.startup();
-  };
-
-  Command = (function() {
-
-    function Command(msgData) {
-      this.msgData = msgData;
-      this.init();
-    }
-
-    Command.prototype.init = function() {
-      this.parseType = null;
-      this.command = null;
-      return this.rankPrivelege = null;
-    };
-
-    Command.prototype.functionality = function(data) {};
-
-    Command.prototype.hasPrivelege = function() {
-      var user;
-      user = data.users[this.msgData.fromID].getUser();
-      switch (this.rankPrivelege) {
-        case 'host':
-          return user.permission === 5;
-        case 'cohost':
-          return user.permission >= 4;
-        case 'mod':
-          return user.permission >= 3;
-        case 'manager':
-          return user.permission >= 3;
-        case 'bouncer':
-          return user.permission >= 2;
-        case 'featured':
-          return user.permission >= 1;
-        default:
-          return true;
-      }
-    };
-
-    Command.prototype.commandMatch = function() {
-      var command, msg, _i, _len, _ref;
-      msg = this.msgData.message;
-      if (typeof this.command === 'string') {
-        if (this.parseType === 'exact') {
-          if (msg === this.command) {
-            return true;
-          } else {
-            return false;
-          }
-        } else if (this.parseType === 'startsWith') {
-          if (msg.substr(0, this.command.length) === this.command) {
-            return true;
-          } else {
-            return false;
-          }
-        } else if (this.parseType === 'contains') {
-          if (msg.indexOf(this.command) !== -1) {
-            return true;
-          } else {
-            return false;
-          }
-        }
-      } else if (typeof this.command === 'object') {
-        _ref = this.command;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          command = _ref[_i];
-          if (this.parseType === 'exact') {
-            if (msg === command) {
-              return true;
-            }
-          } else if (this.parseType === 'startsWith') {
-            if (msg.substr(0, command.length) === command) {
-              return true;
-            }
-          } else if (this.parseType === 'contains') {
-            if (msg.indexOf(command) !== -1) {
-              return true;
-            }
-          }
-        }
-        return false;
-      }
-    };
-
-    Command.prototype.evalMsg = function() {
-      if (this.commandMatch() && this.hasPrivelege()) {
-        this.functionality();
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    return Command;
-
-  })();
-
-  strobeOnCommand = (function(_super) {
-      
-    __extends(strobeOnCommand, _super);
-
-    function strobeOnCommand() {
-        return strobeOnCommand.__super__.constructor.apply(this, arguments);
-    }
-    
-    strobeOnCommand.prototype.init = function() {
-        this.command = '/strobe on';
-        this.parseType = 'exact';
-        return this.rankPrivelege = 'cohost';
-    };
-
-    strobeOnCommand.prototype.functionality = function() {
-      return RoomUser.audience.strobeMode(true);
-    }
-  
-    return strobeOnCommand;
-    
-  })(Command);
-
-  cmds = [strobeOnCommand];
-  
-  chatCommandDispatcher = function(chat) {
-    var c, cmd, _i, _len, _results;
-    chatUniversals(chat);
-    _results = [];
-    for (_i = 0, _len = cmds.length; _i < _len; _i++) {
-      cmd = cmds[_i];
-      c = new cmd(chat);
-      if (c.evalMsg()) {
-        break;
-      } else {
-        _results.push(void 0);
-      }
-    }
-    return _results;
-  };
-  
-  antispam = function(chat) {
-  var plugRoomLinkPatt, sender;
-  plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?adf\.ly[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  if (plugRoomLinkPatt.exec(chat.message)) {
-    sender = API.getUser(chat.fromID);
-    if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
-       API.moderateDeleteChat(chat.chatID);
-       return API.sendChat("@" + API.getUser(chat.fromID).username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
-     }
-   }
-   return antispam;
- };
-
-  chatUniversals = function(chat) {
-      antispam(chat);
-  };
-
-  hook = function(apiEvent, callback) {
-    return API.addEventListener(apiEvent, callback);
-  };
-
-  unhook = function(apiEvent, callback) {
-    return API.removeEventListener(apiEvent, callback);
-  };
-
-  apiHooks = [
-    {
-      'event': API.CHAT,
-      'callback': chatCommandDispatcher
-    }
-  ];
-
-  initHooks = function() {
-    var pair, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
-      pair = apiHooks[_i];
-      _results.push(hook(pair['event'], pair['callback']));
-    }
-    return _results;
-  };
-
-  undoHooks = function() {
-    var pair, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
-      pair = apiHooks[_i];
-      _results.push(unhook(pair['event'], pair['callback']));
-    }
-    return _results;
-  };
-
-  initialize();
+  	})();
+  	strobeOnCommand = (function(_super) { 
+    		__extends(strobeOnCommand, _super);
+    		function strobeOnCommand() {
+        		return strobeOnCommand.__super__.constructor.apply(this, arguments);
+    		}
+    		strobeOnCommand.prototype.init = function() {
+        		this.command = '/strobe on';
+        		this.parseType = 'exact';
+        		return this.rankPrivelege = 'cohost';
+    		};
+    		strobeOnCommand.prototype.functionality = function() {
+      			return RoomUser.audience.strobeMode(true);
+    		}
+    		return strobeOnCommand;
+  	})(Command);
+  	cmds = [strobeOnCommand];
+  	chatCommandDispatcher = function(chat) {
+    		var c, cmd, _i, _len, _results;
+    		chatUniversals(chat);
+    		_results = [];
+    		for (_i = 0, _len = cmds.length; _i < _len; _i++) {
+      			cmd = cmds[_i];
+      			c = new cmd(chat);
+      			if (c.evalMsg()) {
+        			break;
+      			} else {
+        			_results.push(void 0);
+      			}
+    		}
+    		return _results;
+  	};
+  	antispam = function(chat) {
+  		var plugRoomLinkPatt, sender;
+  		plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?adf\.ly[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  			if (plugRoomLinkPatt.exec(chat.message)) {
+    				sender = API.getUser(chat.fromID);
+    				if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
+       				API.moderateDeleteChat(chat.chatID);
+       				return API.sendChat("@" + API.getUser(chat.fromID).username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
+     			}
+   		}
+   		return antispam;
+ 	};
+  	chatUniversals = function(chat) {
+      		antispam(chat);
+  	};
+  	hook = function(apiEvent, callback) {
+    		return API.addEventListener(apiEvent, callback);
+  	};
+  	unhook = function(apiEvent, callback) {
+    		return API.removeEventListener(apiEvent, callback);
+  	};
+  	apiHooks = [
+    		{
+      			'event': API.CHAT,
+      			'callback': chatCommandDispatcher
+    		}
+  	];
+  	initHooks = function() {
+    		var pair, _i, _len, _results;
+    		_results = [];
+    		for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
+      			pair = apiHooks[_i];
+      			_results.push(hook(pair['event'], pair['callback']));
+    		}
+    		return _results;
+  		};
+  	undoHooks = function() {
+    		var pair, _i, _len, _results;
+   		 _results = [];
+    		for (_i = 0, _len = apiHooks.length; _i < _len; _i++) {
+      			pair = apiHooks[_i];
+      			_results.push(unhook(pair['event'], pair['callback']));
+    		}
+    		return _results;
+  	};
+  	initialize();
 }
 
 delay();
