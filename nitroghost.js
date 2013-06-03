@@ -140,7 +140,7 @@ var autoAwayMsg = ["I'm currently AFK", "I'm AFK", "I'm on an adventure (afk)", 
 var autoSlpMsg = ["I'm currently sleeping", "I'm counting sheep in my dreams", "I've hit the sack", "I'm asleep", "I've gone to sleep"];
 var autoWrkMsg = ["I'm currently working", "I'm busy", "doing work related stuffs"];
 
-overPlayed = ["1:nEt1bKGlCpM", "1:5f-Nqf9M1_U", "1:-qbmhv7INZo", "1:VAYQTA0BDx4", "1:-qbmhv7INZo","1:0RiQDCWsk-U", "1:D2tCwgb0Wmw", "1:e-IWRmpefzE", "1:3r7-g5fOF2c", "1:FjAZHgHhPMI", "1:ouyC28ffPjQ", "1:LQtZ0ZsTW8c", "1:8cOt9UcYGOU", "1:LXO-jKksQkM", "1:4wTLjEqj5Xk", "1:sf6LD2B_kDQ", "1:F2FMDV8yW9M", "1:4q-jv4OBCa0", "1:-0oZNWif_jk", "1:vZyenjZseXA", "1:ZT4yoZNy90s", "1:Bparw9Jo3dk", "1:KrVC5dm5fFc","1:Ys9sIqv42lo", "1:1y6smkh6c-0", "1:jZL-RUZUoGY", "1:CrdoD9T1Heg", "1:6R_Rn1iP82I", "1:ea9tluQ_QtE", "1:f9EM8T5K6d8", "1:aHjpOzsQ9YI", "1:3vC5TsSyNjU", "1:yXLL46xkdlY", "1:_t2TzJOyops", "1:BGpzGu9Yp6Y", "1:YJVmu6yttiw", "1:WSeNSzJ2-Jw", "1:2cXDgFwE13g", "1:PR_u9rvFKzE", "1:i1BDGqIfm8U"];
+overPlayed = ["1:qcvCws2U5EE", "1:nEt1bKGlCpM", "1:5f-Nqf9M1_U", "1:-qbmhv7INZo", "1:VAYQTA0BDx4", "1:-qbmhv7INZo","1:0RiQDCWsk-U", "1:D2tCwgb0Wmw", "1:e-IWRmpefzE", "1:3r7-g5fOF2c", "1:FjAZHgHhPMI", "1:ouyC28ffPjQ", "1:LQtZ0ZsTW8c", "1:8cOt9UcYGOU", "1:LXO-jKksQkM", "1:4wTLjEqj5Xk", "1:sf6LD2B_kDQ", "1:F2FMDV8yW9M", "1:4q-jv4OBCa0", "1:-0oZNWif_jk", "1:vZyenjZseXA", "1:ZT4yoZNy90s", "1:Bparw9Jo3dk", "1:KrVC5dm5fFc","1:Ys9sIqv42lo", "1:1y6smkh6c-0", "1:jZL-RUZUoGY", "1:CrdoD9T1Heg", "1:6R_Rn1iP82I", "1:ea9tluQ_QtE", "1:f9EM8T5K6d8", "1:aHjpOzsQ9YI", "1:3vC5TsSyNjU", "1:yXLL46xkdlY", "1:_t2TzJOyops", "1:BGpzGu9Yp6Y", "1:YJVmu6yttiw", "1:WSeNSzJ2-Jw", "1:2cXDgFwE13g", "1:PR_u9rvFKzE", "1:i1BDGqIfm8U"];
 
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 240px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
@@ -865,7 +865,7 @@ function chatListener() {
     				sender = API.getUser(chat.fromID);
     				if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
        				API.moderateDeleteChat(chat.chatID);
-       				return API.sendChat("@" + API.getUser(chat.fromID).username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
+       				return API.sendChat("@" + sender.username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
      			}
    		}
    		return antispam;
