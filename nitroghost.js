@@ -201,6 +201,7 @@ function initAPIListeners() {
 	API.addEventListener(API.DJ_ADVANCE, djAdvanced);
   	API.addEventListener(API.CHAT, autoRespond);
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
+  	API.addEventListener(API.ROOM_SCORE_UPDATE, roomSkip);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
             	populateUserlist();
 
@@ -441,7 +442,7 @@ function autoRespond(data) {
 }
 
 function djAdvanced(obj) {
-	setTimeout("overPlayedSongs();", 6000);
+	setTimeout("autoSkip();", 6000);
 	if (hideVideo) {
 		$("#yt-frame").css("height", "0px");
 		$("#playback .frame-background").css("opacity", "0.0");
@@ -455,7 +456,7 @@ function djAdvanced(obj) {
 	}
 }
 
-function overPlayedSongs(data) {
+function autoSkip(data) {
 	if (overPlayed.indexOf(Models.room.data.media.id) > -1) {
 		API.sendChat("/me auto skip activated! song overplayed");
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
@@ -467,6 +468,15 @@ function overPlayedSongs(data) {
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
 		setTimeout("new ModerationForceSkipService;", 500);
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
+	}
+}
+
+function roomSkip(obj) {
+	var tv = obj.negative + obj.positive;
+	var tvp = obj.negative / tv;
+	if(tvp >= 20 && tv >= 45) {
+ 		new ModerationForceSkipService;
+ 		API.sendChat("room voted to skip!")
 	}
 }
 
