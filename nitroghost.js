@@ -498,29 +498,29 @@ function populateUserlist() {
 		if (a[i].ambassador) {
 			a[i].permission = 50;
 		}
-        	str = '<span class="';
+        	str = '<span ';
         	if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 99) {
-            		str += 'chat-from-admin ';
+            		str += 'class="chat-from-admin ';
         	} else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 50) {
-            		str += 'chat-from-ambassador ';
+            		str += 'class="chat-from-ambassador ';
         	}
         	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 5) {
-            		str += 'chat-from-host ';
+            		str += 'class="chat-from-host ';
         	}
         	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 4) {
-            		str += 'chat-from-cohost ';
+            		str += 'class="chat-from-cohost ';
         	}
         	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 3) {
-            		str += 'chat-from-manager ';
+            		str += 'class="chat-from-manager ';
         	}
         	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 2) {
-            		str += 'chat-from-bouncer ';
+            		str += 'class="chat-from-bouncer ';
         	}
         	else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 1) {
-            		str += 'chat-from-featureddj ';
+            		str += 'class="chat-from-featureddj ';
         	}
         	if (a[i].id === myid) {
-            		str += 'chat-from-you ';
+            		str += 'class="chat-from-you ';
         	}
         	str += '" onclick="$(\'#chat-input-field\').val($(\'#chat-input-field\').val() + \'@' + a[i].username + ' \').focus();" title="click to mention">' + a[i].username + '</span>';
         	if (typeof (a[i].vote) !== 'undefined' && a[i].vote == -1) {
