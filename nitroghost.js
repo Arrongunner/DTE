@@ -498,7 +498,7 @@ function populateUserlist() {
 		if (a[i].ambassador) {
 			a[i].permission = 50;
 		}
-        	str = '<span ';
+        	str = '<span class="';
         	if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 99) {
             		str += 'chat-from-admin ';
         	} else if (typeof (a[i].permission) !== 'undefined' && a[i].permission == 50) {
