@@ -755,8 +755,8 @@ function chatListener() {
     		Command.prototype.functionality = function(data) {};
     		Command.prototype.hasPrivelege = function() {
       			var user;
-      			user = data.users[this.msgData.fromID].getUser();
-      			switch (this.rankPrivelege) {
+     			user = data.users[this.msgData.fromID].getUser();
+     			switch (this.rankPrivelege) {
         			case 'host':
           				return user.permission === 5;
         			case 'cohost':
@@ -779,7 +779,7 @@ function chatListener() {
       			if (typeof this.command === 'string') {
         			if (this.parseType === 'exact') {
           				if (msg === this.command) {
-           		 			return true;
+            					return true;
           				} else {
             					return false;
           				}
@@ -802,31 +802,30 @@ function chatListener() {
           				command = _ref[_i];
           				if (this.parseType === 'exact') {
             					if (msg === command) {
-              							return true;
-            						}
-          					} else if (this.parseType === 'startsWith') {
-            						if (msg.substr(0, command.length) === command) {
-              							return true;
-            						}
-          					} else if (this.parseType === 'contains') {
-            						if (msg.indexOf(command) !== -1) {
-              							return true;
-            						}
-          					}
-        				}
-        				return false;
-      				}
-    			};
+              						return true;
+            					}
+          				} else if (this.parseType === 'startsWith') {
+            					if (msg.substr(0, command.length) === command) {
+              						return true;
+            					}
+          				} else if (this.parseType === 'contains') {
+            					if (msg.indexOf(command) !== -1) {
+              						return true;
+            					}
+          				}
+        			}
+        			return false;
+      			}
+    		};
     		Command.prototype.evalMsg = function() {
       			if (this.commandMatch() && this.hasPrivelege()) {
         			this.functionality();
-       		 		return true;
+        			return true;
       			} else {
         			return false;
       			}
     		};
     		return Command;
-
   	})();
   	strobeOnCommand = (function(_super) { 
     		__extends(strobeOnCommand, _super);
