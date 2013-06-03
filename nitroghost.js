@@ -1,7 +1,7 @@
 function delay() {
   	setTimeout("load();", 6000);
 	setTimeout(function(){RoomUser.audience.roomElements = []; RoomUser.redraw();}, 4000);
-	setTimeout("strobeListener();", 10000);
+	setTimeout("chatListener();", 10000);
 }
 
 function load() {
@@ -683,7 +683,7 @@ var customisedChatsModel = Class.extend({
 });
 var customisedChats = new customisedChatsModel;
 
-function strobeListener() {
+function chatListener() {
   var antispam, strobeOnCommand, Command, User, apiHooks, chatCommandDispatcher, chatUniversals, cmds, data, hook, initHooks, initialize, populateUserData, settings, undoHooks, unhook,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
