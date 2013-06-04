@@ -908,7 +908,7 @@ delay();
 $('#plugbot-js').remove();
 log("Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.4");
 log("type '/commands' to see extra commands");
-$('body').prepend('<script type="text/javascript" id="overplayedlist-js" src="https://gist.github.com/NitroGhost/471d340c72b1ec3b9c1a/raw/5c6d17c192f2817f7505e881efcefdca50e18a9a/OverPlayedList.js"</script>');
+$('body').prepend('<script type="text/javascript" id="overplayedlist-js" src="https://raw.github.com/NitroGhost/DTE/master/overplayedList.js"</script>');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
 $('body').append('</div><div id="side-right" class="sidebar">' + '<div class="sidebar-handle"><span>|||</span></div>' + '<div class="sidebar-content"></div>' + '<div id="hr-div"><div><div id="hr-style"></div></div></div>' + '</div><div id="side-left" class="sidebar">' + '<div class="sidebar-handle" title="show/hide userlist"><span>|||</span></div>' + '<div class="sidebar-content2"></div>' + '<div id="hr2-div2"><div><div id="hr2-style2"></div></div></div>' + '</div>');
 $('body').append('<script type="text/javascript" id="plug-js-extra">' + "\n" + scripts.join("\n") + "\n" + '</script>');
