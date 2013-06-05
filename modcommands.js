@@ -1,6 +1,17 @@
+var wMsg = [
+	"here's a tasty reward just for you (>_<)-#",
+	"have a waffle (>_<)-#",
+	"puppies aren't just for christmas, they are forever. on the other hand, waffles are for now!! om nom nom nom nom (>_<)-#",
+	"nice to eat you, waffle? (>_<)-#",
+	"if promises are waffles and waffles are promises, does that mean that promises are just for the moment in which they are consumed? #-(>_<)-#",
+	"waffle waffle waffle waffle waffle, yeah! (>_<)-#",
+	"great things come to those who wa-- ooo a waffle! (>_<)-#",
+	"waffley waffle just for waffling on, you waffle! (>_<)-#",
+];
+
 String.prototype.equalsIgnoreCase = function(other) { 
   	return typeof other !== 'string' ? false : this.toLowerCase() === other.toLowerCase();
-}
+};
 
 ccm = Class.extend({
 	init: function() {
@@ -47,6 +58,15 @@ ccm = Class.extend({
                         API.moderateRemoveDJ(user.id);
                 }
         },
+        wUserInfo: function(data) {
+                var user = this.getUser(data);
+                if (user == null) {
+                        log('cannot find user');
+                }
+                else {
+                        API.sendChat('@' + user.id + ' ' + wMsg[Math.floor(Math.random() * wMsg.length)]);
+                }
+        },
 	customChatCommand: function(a) {
 		var b;
 	 	if ("/commands" == a) {
@@ -66,6 +86,9 @@ ccm = Class.extend({
                 }
                 if (0 == a.indexOf('/rm ')) {
                         return cc.rmUserInfo(a.substr(4)), !0
+                }
+                if (0 == a.indexOf('/w ')) {
+                        return cc.wUserInfo(a.substr(3)), !0
                 }
 	        if ("/strobe off" == a) {
 			log('<span>strobes deactivated!</span>'); 
