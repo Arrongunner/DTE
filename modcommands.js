@@ -6,7 +6,7 @@ var wMsg = [
 	"if promises are waffles and waffles are promises, does that mean that promises are just for the moment in which they are consumed? #-(>_<)-#",
 	"waffle waffle waffle waffle waffle, yeah! (>_<)-#",
 	"great things come to those who wa-- ooo a waffle! (>_<)-#",
-	"waffley waffle just for waffling on, you waffle! (>_<)-#",
+	"a waffley waffle just for waffling on, you waffle! (>_<)-#",
 ];
 
 String.prototype.equalsIgnoreCase = function(other) { 
