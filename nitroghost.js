@@ -648,7 +648,7 @@ ccm = Class.extend({
     	getUserInfo: function(data) {
 	        var user = this.getUser(data);
 	        if (user === null) log('cannot find user');
-	        else log('user ID: "' + user.id + "'");
+	        else log('<span>username: "' + user.username + '"</br>ID: "' + user.id + '"</span>');
 	},
 	customCommands: function(a) {
 		if ("/commands" == a) {
