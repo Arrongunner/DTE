@@ -64,7 +64,7 @@ ccm = Class.extend({
                         log('cannot find user');
                 }
                 else {
-                        API.sendChat('@' + user.id + ' ' + wMsg[Math.floor(Math.random() * wMsg.length)]);
+                        API.sendChat('@' + user.username + ' ' + wMsg[Math.floor(Math.random() * wMsg.length)]);
                 }
         },
 	customChatCommand: function(a) {
