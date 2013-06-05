@@ -11,6 +11,9 @@ function checkBlacklist(user) {
         }
 }
 
+
+//I sowwy Midi!!
+/*
 API.addEventListener(API.CHAT, getID);
 function getID(data)
 {
@@ -36,3 +39,4 @@ function getID(data)
     }
   }
 }
+*/
