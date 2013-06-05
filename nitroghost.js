@@ -621,7 +621,7 @@ String.prototype.equalsIgnoreCase = function(other) {
 	return typeof other !== 'string' ? false : this.toLowerCase() === other.toLowerCase(); 
 }
 
-ccm = Class.extend({
+var ccm = Class.extend({
 	init: function() {
         	if (Models.chat._chatCommand === undefined)
 			Models.chat._chatCommand = Models.chat.chatCommand;
