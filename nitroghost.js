@@ -623,10 +623,10 @@ String.prototype.equalsIgnoreCase = function(other) {
 
 ccm = Class.extend({
 	init: function() {
-        	if (Models.chat._chatCommand === undefined) {
+        	if (Models.chat._chatCommand == undefined) {
 			Models.chat._chatCommand = Models.chat.chatCommand;
         	}
-        	if (ChatModel._chatCommand   === undefined) {
+        	if (ChatModel._chatCommand   == undefined) {
             		ChatModel._chatCommand   = ChatModel.chatCommand;
         	}
        		Models.chat.chatCommand = this.customCommands;
@@ -652,7 +652,7 @@ ccm = Class.extend({
 	},
 	customCommands: function(a) {
 		if ("/commands" == a) {
-			return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/id username &nbsp; Displays User ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
+			return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/id username &nbsp; Show User ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
 		}        
 		if ("/ca" == a) {
 			return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
