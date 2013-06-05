@@ -589,21 +589,42 @@ ccm = Class.extend({
         	Models.chat.chatCommand = this.customChatCommand;
         	ChatModel.chatCommand   = this.customChatCommand;
      	},
-	customChatCommand: function(a) {
+     	getUser: function(data) {
+         	data = data.trim();
+         	if (data.substr(0,1) == '@') {
+              		data = data.substr(1);
+         	}
+         	var users = API.getUsers();
+         	for (var i in users) {
+              		if (users[i].username.equalsIgnoreCase(data) || users[i].id.equalsIgnoreCase(data)) {
+                  		return users[i];
+              		}
+         	}
+         	return null;
+     	},
+     	getUserInfo: function(data) {
+        	var user = this.getUser(data);
+         	if (user === null) log('cannot find user');
+         	else log('user ID: "' + user.id + "'");
+	 },
+	 customChatCommand: function(a) {
 		var b;
 	 	if ("/commands" == a) {
-			return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
-		}        
-		if ("/ca" == a) {
-			return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
-	        }
-		if ("/strobe off" == a) {
+	   		return log('<span><strong>Extra Commands:</strong></br>/ca &nbsp; Change Avatar</br>/op &nbsp; Show Track ID</br>/id username &nbsp; Show User ID</br>/strobe off &nbsp; Deactivate Strobes</span>'), !0;
+	 	}        
+	 	if ("/ca" == a) {
+	   		return Models.user.changeAvatar("halloween" + prompt("Enter Avatar Number:\r\r01 - Male Vampire\r02 - Female Vampire\r03 - Male Frankenstein\r04 - Female Frankenstein\r05 - Male Skeleton\r06 - Female Skeleton\r07 - Male Mummy\r08 - Female Mummy\r09 - Male Ghost\r10 - Male Werewolf\r11 - Pumpkin Man\r12 - Female Werewolf\r13 - Male Zombie", "01")), !0;
+		}
+	  	if ("/op" == a) {
+	   		return log('<span>Song: ' + API.getMedia().author + " - " + API.getMedia().title + '"</span></br><span>song ID: "' + API.getMedia().id + '"</span>'), !0;
+		 }
+	  	if (0 == a.indexOf('/id ')) {
+	   		return cc.getUserInfo(a.substr(4)), !0;
+		 }
+	  	if ("/strobe off" == a) {
 			log('<span>strobes deactivated!</span>'); 
 			return RoomUser.audience.strobeMode(false), !0;
-		}
-		if ("strobe on" == a) {
-			return log('<span>command invalid!</span>');
-		}
+	  	};
 		if ("/help" == a) return a = {type: "update"}, a.message =Lang.chat.help, this.receive(a), !0;
 		if ("/users" == a) return UserListOverlay.show(), !0;
             	if ("/hd on" == a) return Playback.setHD(!0), !0;
