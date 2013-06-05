@@ -1,5 +1,4 @@
 blacklist = [ 
-        //user IDs
         "513f041c96fba55099acdc44" //Sadsleeper
 ];
 
