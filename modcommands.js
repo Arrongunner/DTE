@@ -1,5 +1,5 @@
 String.prototype.equalsIgnoreCase = function(other) { 
-  return typeof other !== 'string' ? false : this.toLowerCase() === other.toLowerCase();
+  	return typeof other !== 'string' ? false : this.toLowerCase() === other.toLowerCase();
 }
 
 ccm = Class.extend({
