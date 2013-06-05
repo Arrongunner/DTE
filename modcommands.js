@@ -1,5 +1,3 @@
-//commands for the moderators
-
 String.prototype.equalsIgnoreCase = function(other) { 
   return typeof other !== 'string' ? false : this.toLowerCase() === other.toLowerCase();
 }
@@ -31,7 +29,7 @@ ccm = Class.extend({
                         log('user ID: "' + user.id + '"');
                 }
 	 },
-         AddUserInfo: function(data) {
+         addUserInfo: function(data) {
                 var user = this.getUser(data);
                 if (user == null) {
                         log('cannot find user');
