@@ -642,7 +642,7 @@ ccm = Class.extend({
      	getUserInfo: function(data) {
         	var user = this.getUser(data);
          	if (user === null) log('cannot find user');
-         	else log('user ID: "' + user.id + "'");
+         	else log('user ID: "' + user.id + '"');
 	 },
 	 customChatCommand: function(a) {
 		var b;
