@@ -120,7 +120,7 @@ var COOKIE_LEFT = 'left';
 var MAX_USERS_WAITLIST = 50;
 
 var fbMsg = ["/me like our facebook page! http://bit.ly/DTandE-FB and/or join us on our forums at http://bit.ly/dteforms", "/me check out our facebook page at http://bit.ly/DTandE-FB and/or join us on our forums at http://bit.ly/dteforms", "/me drop us a like on our facebook page http://bit.ly/DTandE-FB and/or join us on our forums at http://bit.ly/dteforms", "/me like our fb page or die! just kidding http://bit.ly/DTandE-FB and/or join us on our forums at http://bit.ly/dteforms"];
-var rulesMsg = "Rules: 1) for all ages so no porn 2) no songs over 8 mins 3) spamming can lead to an instant ban 4) please keep songs to EDM 5) have fun!";
+var rulesMsg = "Rules: 1) No NSFW content: porn,gore, etc. 2) no songs over 8 mins 3) spamming can lead to an instant ban 4) please keep songs to EDM 5) have fun!";
 var skipMsg = ["please do not ask to skip songs", "asking to skip songs can lead to being kicked", "please please PLEASE don't ask to skip songs D:"];
 var fansMsg = ["please do not ask for fans", "earn your fans!!!", "earn your fans like the rest of us", "the number of fans you have means nothing anyway, so don't ask for them!"];
 var wafflesMsg = ["WAFFLES FOR EVERYONE!! #-(>_<)-#", "did somebody say WAFFLES? #-(>_<)-#", "cheese ca- I mean WAFFLES TIME! #-(>_<)-#", "do you know what it is time for? WAFFLES #-(>_<)-#"];
