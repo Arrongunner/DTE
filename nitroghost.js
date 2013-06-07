@@ -454,15 +454,6 @@ function djAdvanced(obj) {
 	}
 }
 
-function roomSkip(obj) {
-	var tv = obj.negative + obj.positive;
-	var tvp = obj.negative / tv;
-	if(tvp >= 20 && tv >= 45) {
- 		new ModerationForceSkipService;
- 		API.sendChat("room voted to skip!")
-	}
-}
-
 function populateUserlist() {
 	var currentdj = '';
 	var mehlist = '';
@@ -845,7 +836,7 @@ delay();
 $('#plugbot-js').remove();
 log("Also, welcome to Dubstep, Techno, and Electro custom script, coded by Nitro Ghost. Version: 4.1.4");
 log("type '/commands' to see extra commands");
-$('body').prepend('<script type="text/javascript" id="overplayedlist-js" src="https://raw.github.com/NitroGhost/DTE/master/overplayedList.js" />');
+$('body').prepend('<script type="text/javascript" id="overplayedlist-js" src="https://raw.github.com/NitroGhost/DTE/master/autoskip.js" />');
 $('body').prepend('<script type="text/javascript" id="blacklist-js" src="https://raw.github.com/NitroGhost/DTE/master/blacklist.js" />');
 $('body').prepend('<script type="text/javascript" id="modcommands-js" src="https://raw.github.com/NitroGhost/DTE/master/modcommands.js" />');
 $('body').prepend('<style type="text/css" id="plug-css">' + "\n" + styles.join("\n") + "\n" + '</style>');
