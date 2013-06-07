@@ -104,6 +104,7 @@ var mentioned = false;
 var clicked = false;
 var skipped = false;
 var predictor = false;
+var hostlingInRoom = false;
 var timeToWait = 600000;
 var clickWait = 5000;
 var skipWait = 2000;
@@ -139,6 +140,12 @@ var spamMsg = ["please get rid of your autowoot, it spams the chat", "your autow
 var autoAwayMsg = ["I'm currently AFK", "I'm AFK", "I'm on an adventure (afk)", "gone away for a moment", "not present at keyboard"];
 var autoSlpMsg = ["I'm currently sleeping", "I'm counting sheep in my dreams", "I've hit the sack", "I'm asleep", "I've gone to sleep"];
 var autoWrkMsg = ["I'm currently working", "I'm busy", "doing work related stuffs"];
+
+hostling = [
+
+	"50aeb4eb96fba52c3ca0efbe"
+
+]
 
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 240px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
@@ -441,6 +448,7 @@ function autoRespond(data) {
 
 function djAdvanced(obj) {
 	setTimeout("autoSkip();", 6000);
+	setTimeout("checkModding();", 2000);
 	if (hideVideo) {
 		$("#yt-frame").css("height", "0px");
 		$("#playback .frame-background").css("opacity", "0.0");
@@ -605,6 +613,26 @@ function checkPredict() {
 	}
 	else {
 		predictPassed = predictPassed + 1;
+	}
+}
+
+function checkModding() {
+	if (hostling.indexOf(Models.room.getUserByID("50aeb4eb96fba52c3ca0efbe").id) > -1) {
+		hostlingInRoom = true;
+		modding();
+	}
+	else {
+		hostlingInRoom = false;
+		modding();
+	}
+}
+
+function modding() {
+	if (hostlingInRoom == true) {
+		log("target is in the room");
+	}
+	if (hostlingInRoom == false) {
+		log("target not in the room");
 	}
 }
 
