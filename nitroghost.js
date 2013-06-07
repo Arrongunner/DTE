@@ -796,11 +796,11 @@ function chatListener() {
   	antispam = function(chat) {
   		var plugRoomLinkPatt, sender;
   		plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?adf\.ly[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-  			if (plugRoomLinkPatt.exec(chat.message)) {
-    				sender = API.getUser(chat.fromID);
-    				if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
-       				API.moderateDeleteChat(chat.chatID);
-       				return API.sendChat("@" + sender.username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
+  		if (plugRoomLinkPatt.exec(chat.message)) {
+    			sender = API.getUser(chat.fromID);
+    			if (!sender.ambassador && !sender.moderator && !sender.owner && !sender.superuser) {
+    				API.sendChat("@" + sender.username + " " + spamMsg[Math.floor(Math.random() * spamMsg.length)]);
+       				return API.moderateDeleteChat(chat.chatID);
      			}
    		}
    		return antispam;
