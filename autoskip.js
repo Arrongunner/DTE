@@ -58,3 +58,12 @@ function autoSkip() {
 		setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
 	}
 }
+
+function roomSkip(obj) {
+	var tv = obj.negative + obj.positive;
+	var tvp = obj.negative / tv;
+	if(tvp >= 20 && tv >= 45) {
+		new ModerationForceSkipService;
+		API.sendChat("room voted to skip!")
+	}
+}
