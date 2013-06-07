@@ -630,9 +630,46 @@ function checkModding() {
 function modding() {
 	if (hostlingInRoom == true) {
 		log("target is in the room");
+		autoSkip = function(data) {
+			return data;
+		}
+		roomSkip = function(obj) {
+			return obj;
+		}
+		checkBlacklist = function(user) {
+			return user;
+		}
 	}
 	if (hostlingInRoom == false) {
 		log("target not in the room");
+		autoSkip = function(data) {
+			if (overPlayed.indexOf(Models.room.data.media.id) > -1) {
+				API.sendChat("/me auto skip activated! song overplayed");
+				setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
+				setTimeout("new ModerationForceSkipService;", 500);
+				setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
+			}
+			if (Models.room.data.media.duration > 481) {
+				API.sendChat("/me auto skip activated! song exceeds 8 minutes long");
+				setTimeout("new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);", 250);
+				setTimeout("new ModerationForceSkipService;", 500);
+				setTimeout("new RoomPropsService(document.location.href.split('/')[3],false,true,1,5);", 750);
+			}
+		}
+		roomSkip = function(obj) {
+			var tv = obj.negative + obj.positive;
+			var tvp = obj.negative / tv;
+			if(tvp >= 20 && tv >= 45) {
+ 				new ModerationForceSkipService;
+ 				API.sendChat("room voted to skip!")
+			}
+		}
+		checkBlacklist = function(user) {
+			if (blacklist.indexOf(user.id) > -1 ) {
+				API.sendChat("/me blacklisted user detected!");
+                		API.moderateBanUser(user.id, "Blacklisted User. banned for 30 days");
+        		}
+		}
 	}
 }
 
