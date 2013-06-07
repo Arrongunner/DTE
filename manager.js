@@ -790,7 +790,7 @@ function strobeListener() {
     strobeOnCommand.prototype.init = function() {
         this.command = '/strobe on';
         this.parseType = 'exact';
-        return this.rankPrivelege = 'cohost';
+        return this.rankPrivelege = 'bouncer';
     };
 
     strobeOnCommand.prototype.functionality = function() {
