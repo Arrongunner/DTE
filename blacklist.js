@@ -1,6 +1,6 @@
-blacklist = [ 
+blacklist = [
+        "51866a83877b924554910cb1", //Renatoo 07/06/2013
         "513f041c96fba55099acdc44" //Sadsleeper 05/06/2013
-        "51866a83877b924554910cb1" //Renatoo 07/06/2013
 ];
 
 API.addEventListener(API.USER_JOIN, checkBlacklist);
