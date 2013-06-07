@@ -94,6 +94,12 @@ ccm = Class.extend({
 			log('<span>strobes deactivated!</span>'); 
 			return RoomUser.audience.strobeMode(false), !0;
 	  	};
+	  	if ("/skip" == a) {
+			lock = new RoomPropsService(document.location.href.split('/')[3],true,true,1,5);
+			API.moderateForceSkip();
+			unlock = new RoomPropsService(document.location.href.split('/')[3],false,true,1,5); 
+			return log('User skipped!'), !0;
+	  	};
 		if ("/help" == a) return a = {type: "update"}, a.message =Lang.chat.help, this.receive(a), !0;
 		if ("/users" == a) return UserListOverlay.show(), !0;
             	if ("/hd on" == a) return Playback.setHD(!0), !0;
