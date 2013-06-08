@@ -641,7 +641,6 @@ function checkNMod(user) {
 
 function modding() {
 	if (hostlingInRoom == true) {
-		log("target is in the room");
 		autoSkip = function(data) {
 			return data;
 		}
@@ -860,7 +859,6 @@ function modding() {
 		}
 	}
 	if (hostlingInRoom == false) {
-		log("target not in the room");
 		autoSkip = function(data) {
 			if (overPlayed.indexOf(Models.room.data.media.id) > -1) {
 				API.sendChat("/me auto skip activated! song overplayed");
