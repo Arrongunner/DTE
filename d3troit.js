@@ -208,6 +208,7 @@ function initAPIListeners() {
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.ROOM_SCORE_UPDATE, roomSkip);
   	API.addEventListener(API.USER_LEAVE, checkModding);
+  	API.addEventListener(API.USER_JOIN, checkNotModding);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
             	populateUserlist();
 
