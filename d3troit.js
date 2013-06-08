@@ -208,7 +208,7 @@ function initAPIListeners() {
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.ROOM_SCORE_UPDATE, roomSkip);
   	API.addEventListener(API.USER_LEAVE, checkModding);
-  	API.addEventListener(API.USER_JOIN, checkNotModding2);
+  	API.addEventListener(API.USER_JOIN, checkNMod);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
             	populateUserlist();
 
@@ -632,7 +632,7 @@ function checkNotModding() {
 	}
 }
 
-function checkModding2(user) {
+function checkNMod(user) {
 	if (hostling.indexOf(user.id) > -1) {
 		hostlingInRoom = true;
 		modding();
