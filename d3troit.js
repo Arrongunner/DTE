@@ -207,6 +207,7 @@ function initAPIListeners() {
   	API.addEventListener(API.CHAT, autoRespond);
   	API.addEventListener(API.DJ_UPDATE, queueUpdate);
   	API.addEventListener(API.ROOM_SCORE_UPDATE, roomSkip);
+  	API.addEventListener(API.USER_LEAVE, checkModding);
   	API.addEventListener(API.VOTE_UPDATE, function (obj) {
             	populateUserlist();
 
@@ -448,7 +449,7 @@ function autoRespond(data) {
 
 function djAdvanced(obj) {
 	setTimeout("autoSkip();", 6000);
-	setTimeout("checkModding();", 2000);
+	setTimeout("checkNotModding();", 2000);
 	if (hideVideo) {
 		$("#yt-frame").css("height", "0px");
 		$("#playback .frame-background").css("opacity", "0.0");
@@ -616,13 +617,16 @@ function checkPredict() {
 	}
 }
 
-function checkModding() {
-	if (hostling.indexOf(Models.room.getUserByID("50db6911d6e4a967879bd307").id) > -1) {
-		hostlingInRoom = true;
+function checkModding(user) {
+	if (hostling.indexOf(user.id) {
+		hostlingInRoom = false;
 		modding();
 	}
-	else {
-		hostlingInRoom = false;
+}
+
+function checkNotModding() {
+	if (hostling.indexOf(Models.room.getUserByID("50db6911d6e4a967879bd307")) > -1) {
+		hostlingInRoom == true;
 		modding();
 	}
 }
