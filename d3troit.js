@@ -143,7 +143,7 @@ var autoWrkMsg = ["I'm currently working", "I'm busy", "doing work related stuff
 
 hostling = [
 
-	"50aeb4eb96fba52c3ca0efbe"
+	"50db6911d6e4a967879bd307"
 
 ]
 
@@ -617,7 +617,7 @@ function checkPredict() {
 }
 
 function checkModding() {
-	if (hostling.indexOf(Models.room.getUserByID("50aeb4eb96fba52c3ca0efbe").id) > -1) {
+	if (hostling.indexOf(Models.room.getUserByID("50db6911d6e4a967879bd307").id) > -1) {
 		hostlingInRoom = true;
 		modding();
 	}
