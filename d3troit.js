@@ -141,11 +141,7 @@ var autoAwayMsg = ["I'm currently AFK", "I'm AFK", "I'm on an adventure (afk)", 
 var autoSlpMsg = ["I'm currently sleeping", "I'm counting sheep in my dreams", "I've hit the sack", "I'm asleep", "I've gone to sleep"];
 var autoWrkMsg = ["I'm currently working", "I'm busy", "doing work related stuffs"];
 
-hostling = [
-
-	"50db6911d6e4a967879bd307"
-
-]
+hostling = ["50e4f10ec3b97a3ce3aa6579"];
 
 var styles = [
             '.sidebar {position: fixed; top: 0; height: 100%; width: 240px; z-index: 99999; background-image: linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -o-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -moz-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -ms-linear-gradient(bottom, #000000 0%, #3B5678 100%);background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0, #000000),color-stop(1, #3B5678));}',
@@ -626,7 +622,7 @@ function checkModding(user) {
 }
 
 function checkNotModding() {
-	if (hostling.indexOf(Models.room.getUserByID("50db6911d6e4a967879bd307").id) > -1) {
+	if (hostling.indexOf(Models.room.getUserByID("50e4f10ec3b97a3ce3aa6579").id) > -1) {
 		hostlingInRoom = true;
 		modding();
 	}
