@@ -4,6 +4,7 @@ blacklist = [
 ];
 
 API.addEventListener(API.USER_JOIN, checkBlacklist);
+API.addEventListener(API.DJ_ADVANCE, checkBlacklist);
 
 function checkBlacklist(user) {
         if (blacklist.indexOf(user.id) > -1 ) {
