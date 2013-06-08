@@ -626,7 +626,7 @@ function checkModding(user) {
 
 function checkNotModding() {
 	if (hostling.indexOf(Models.room.getUserByID("50db6911d6e4a967879bd307")) > -1) {
-		hostlingInRoom == true;
+		hostlingInRoom = true;
 		modding();
 	}
 }
