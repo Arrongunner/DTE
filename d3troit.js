@@ -618,7 +618,7 @@ function checkPredict() {
 }
 
 function checkModding(user) {
-	if (hostling.indexOf(user.id) {
+	if (hostling.indexOf(user.id) > -1) {
 		hostlingInRoom = false;
 		modding();
 	}
